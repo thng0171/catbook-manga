@@ -7,12 +7,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catbook</title>
   <link href="assets/vendor/tailwind/output.css" rel="stylesheet">
-</head>
+
+</head> 
 
 <body class="bg-gray-100">
   <!-- ===Header=== -->
-  <header>
-    <nav class="bg-white w-full">
+  <header class="">
+    <nav class="bg-white w-screen">
       <div class="h-16 flex md:mx-20 justify-between items-center">
         <!-- Logo  -->
         <div class="py-2">
@@ -29,7 +30,8 @@
             </li>
             <li class="group menu-link relative">
               <a href="#" class="">THỂ LOẠI </a>
-              <div class="hidden group-hover:grid grid-rows-5 grid-flow-col gap-5 absolute top-10 left-0 bg-white shadow-lg rounded-md p-5 ">
+              <div
+                class="hidden z-20 group-hover:grid grid-rows-5 grid-flow-col gap-5 absolute top-10 left-0 backdrop-blur-xl bg-white/60 shadow-lg rounded-md p-5 ">
                 <div><a href="#" class="sub-menu">Action</a></div>
                 <div><a href="#" class="sub-menu">Comedy</a></div>
                 <div><a href="#" class="sub-menu">Taihen</a></div>
@@ -70,7 +72,7 @@
           </button>
         </div>
         <!-- darkmode toggle -->
-        
+
         <!-- Sign-in/ Sign-up  -->
         <div class="relative group">
           <!-- user icon -->
@@ -82,11 +84,13 @@
             </svg>
           </div>
           <!-- dropdown -->
-          <div id="user-drop" class="invisible absolute flex flex-col justify-items-center gap-3 right-0 px-7 py-5 w-40 h-auto bg-white drop-shadow-md rounded-md  ">
+          <div id="user-drop"
+            class="invisible absolute flex flex-col justify-items-center gap-3 right-0 px-7 py-5 w-40 h-auto bg-white drop-shadow-md rounded-md  ">
             <div class="bg-primary text-white px-3 py-2 rounded-md font-semibold  transition duration-300"><a href="#"
                 class="">Đăng nhập</a></div>
-              
-            <div class="bg-slate-200 text-secondary px-5 py-2 rounded-md font-semibold  transition duration-300"><a href="#"class="">Đăng ký</a></div>
+
+            <div class="bg-slate-200 text-secondary px-5 py-2 rounded-md font-semibold  transition duration-300"><a
+                href="#" class="">Đăng ký</a></div>
           </div>
         </div>
         <!-- menu button -->
@@ -99,12 +103,236 @@
       </div>
     </nav>
   </header>
-  <!-- ===Center=== -->
-  <section class=" h-screen mx-20 mt-0 ">
+  <!-- ===CENTER=== -->
+  <section class="h-screen mx-20 mt-0 ">
+    <!-- ===truyện phổ biến=== -->
+    <div class="">
+      <!-- title  -->
+      <div class="text-2xl py-2 font-semibold text-secondary text-left"><a href="#">TRUYỆN PHỔ BIẾN</a></div>
+      <!-- container -->
+      <div class="flex my-slider gap-6">
+        <!-- item 1-->
+        <div href="" class=" flex h-64 w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
+          <!-- img left -->
+          <div class="w-40 flex-none relative">
+            <a href=""><img class="absolute w-full h-full object-cover inset-0" src="/assets/img/ddb13225.jpg"
+                alt=""></a>
+          </div>
+          <!-- text right  -->
+          <div class="p-3 relative flex-rows tracking-wide">
+            <!-- manga title -->
+            <a href="" class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Kawaii
+              dake ja Nai Shikimori-san</a>
+            <!-- desc -->
+            <div class="h-fit"></div>
+            <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">Daily life of a herbivore, unlucky
+              boyfriend and his amazing and sometimes intimidating girlfriend.</p>
+            <!-- tag  -->
+            <div class="absolute bottom-0 py-1">
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#comedy</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#school life</a>
+            </div>
+          </div>
+        </div>
+        <!-- item 2-->
+        <div href="" class=" flex h-64 w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
+          <!-- img left -->
+          <div class="w-40 flex-none relative">
+            <a href=""><img class="absolute w-full h-full object-cover inset-0" src="/assets/img/truyen2.jpg"
+                alt=""></a>
+          </div>
+          <!-- text right  -->
+          <div class="p-3 relative flex-rows tracking-wide">
+            <!-- manga title -->
+            <a href=""
+              class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Villainess Level
+              99 ~I May Be the Hidden Boss but I'm Not the Demon Lord~</a>
+            <!-- desc -->
+            <div class="h-fit"></div>
+            <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
+              I reincarnated as the "Villainess Eumiella" from an RPG Otome game. In the main story, Eumiella is merely
+              a side character, but after the ending, she re-enters the story as the Hidden Boss, a character boasting
+              high stats on par with the heroes!
+
+              Lighting a fire in my gamer's soul, and taking advantage of being left on my own in my parent's territory,
+              I trained, trained, and trained! As a result of my training… by the time I enrolled in the academy, I
+              managed to reach level 99.</p>
+            <!-- tag  -->
+            <div class="absolute bottom-0 py-1">
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#fantasy</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+            </div>
+          </div>
+        </div>
+        <!-- item 3-->
+        <div href="" class=" flex h-64 w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
+          <!-- img left -->
+          <div class="w-40 flex-none relative">
+            <a href=""><img class="absolute w-full h-full object-cover inset-0" src="/assets/img/opm2.jpg" alt=""></a>
+          </div>
+          <!-- text right  -->
+          <div class="p-3 relative flex-rows tracking-wide">
+            <!-- manga title -->
+            <a href="" class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">One
+              Punch-Man</a>
+            <!-- desc -->
+            <div class="h-fit"></div>
+            <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
+              After rigorously training for three years, the ordinary Saitama has gained im
+              mense strength which allows
+              him to take out anyone and anything with just one punch. He decides to put his new skill to good use by
+              becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone to
+              give him a challenge to bring back the spark of being a hero.</p>
+            <!-- tag  -->
+            <div class="absolute bottom-0 py-1">
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#sci-fi</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#thriller</a>
+            </div>
+          </div>
+        </div>
+        <!-- item 1-->
+        <div href="" class=" flex h-64 w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
+          <!-- img left -->
+          <div class="w-40 flex-none relative">
+            <a href=""><img class="absolute w-full h-full object-cover inset-0" src="/assets/img/ddb13225.jpg"
+                alt=""></a>
+          </div>
+          <!-- text right  -->
+          <div class="p-3 relative flex-rows tracking-wide">
+            <!-- manga title -->
+            <a href="" class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Kawaii
+              dake ja Nai Shikimori-san</a>
+            <!-- desc -->
+            <div class="h-fit"></div>
+            <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">Daily life of a herbivore, unlucky
+              boyfriend and his amazing and sometimes intimidating girlfriend.</p>
+            <!-- tag  -->
+            <div class="absolute bottom-0 py-1">
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#comedy</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#school life</a>
+            </div>
+          </div>
+        </div>
+        <!-- item 2-->
+        <div href="" class=" flex h-64 w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
+          <!-- img left -->
+          <div class="w-40 flex-none relative">
+            <a href=""><img class="absolute w-full h-full object-cover inset-0" src="/assets/img/truyen2.jpg"
+                alt=""></a>
+          </div>
+          <!-- text right  -->
+          <div class="p-3 relative flex-rows tracking-wide">
+            <!-- manga title -->
+            <a href=""
+              class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Villainess Level
+              99 ~I May Be the Hidden Boss but I'm Not the Demon Lord~</a>
+            <!-- desc -->
+            <div class="h-fit"></div>
+            <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
+              I reincarnated as the "Villainess Eumiella" from an RPG Otome game. In the main story, Eumiella is merely
+              a side character, but after the ending, she re-enters the story as the Hidden Boss, a character boasting
+              high stats on par with the heroes!
+
+              Lighting a fire in my gamer's soul, and taking advantage of being left on my own in my parent's territory,
+              I trained, trained, and trained! As a result of my training… by the time I enrolled in the academy, I
+              managed to reach level 99.</p>
+            <!-- tag  -->
+            <div class="absolute bottom-0 py-1">
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#fantasy</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+            </div>
+          </div>
+        </div>
+        <!-- item 3-->
+        <div href="" class=" flex h-64 w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
+          <!-- img left -->
+          <div class="w-40 flex-none relative">
+            <a href=""><img class="absolute w-full h-full object-cover inset-0" src="/assets/img/opm2.jpg" alt=""></a>
+          </div>
+          <!-- text right  -->
+          <div class="p-3 relative flex-rows tracking-wide">
+            <!-- manga title -->
+            <a href="" class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">One
+              Punch-Man</a>
+            <!-- desc -->
+            <div class="h-fit"></div>
+            <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
+              After rigorously training for three years, the ordinary Saitama has gained im
+              mense strength which allows
+              him to take out anyone and anything with just one punch. He decides to put his new skill to good use by
+              becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone to
+              give him a challenge to bring back the spark of being a hero.</p>
+            <!-- tag  -->
+            <div class="absolute bottom-0 py-1">
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#sci-fi</a>
+              <a href=""
+                class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#thriller</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav"></div>
+
+      </div>
+
+    </div>
 
 
   </section>
+  <script src="/assets/vendor/jquery/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="/assets/vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+  <script>
+    var slider = tns({
+      container: '.my-slider', 
+      items: 3,
+      responsive: {
+        640: {
+          edgePadding: 0,
+          gutter: 0,
+          items: 1
+        },
+        700: {
+          gutter: 0
+        },
+        900: {
+          items: 3
+        }
+      },
+      "slideBy": "page",
+      "mouseDrag": true,
+      "swipeAngle": false,
+      'control': false,
+      "speed": 400,
+      "loop": false,
+      "nav": true,
+      
+
+    });
+  </script>
 </body>
 
 </html>

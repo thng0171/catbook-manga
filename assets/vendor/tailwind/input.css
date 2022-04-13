@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .menu-link {
-    @apply hover:text-primary text-white hover:bg-slate-100 py-2 px-3 mr-3 rounded md:text-secondary transition duration-200 ease-in font-semibold
+    @apply hover:text-primary  text-white hover:bg-slate-100 py-2 px-3 mr-3 rounded md:text-secondary transition duration-200 ease-in font-semibold
 }
 .sub-menu{
    @apply text-secondary hover:text-primary
