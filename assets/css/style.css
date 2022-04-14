@@ -2,7 +2,18 @@
     
 }
 .swiper-pagination{
-position:relative;
+   position:relative;
    margin-top:20px;
+   color:rgb(42 157 143);
+   
 }
+.swiper-pagination-bullet-active{
 
+   background:rgb(42 157 143);
+}
+.swiper-button-next, .swiper-button-prev{
+    color:#fff;
+    top:42%;
+    border-radius:9999px;
+    
+}
