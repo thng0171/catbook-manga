@@ -439,8 +439,7 @@ html {
   --sf: 219 96% 48%;
   --af: 10 81% 45%;
   --nf: 218 18% 10%;
-  --b2: 220 18% 18%;
-  --b3: 220 18% 16%;
+  --b3: 219 18% 13%;
   --bc: 220 49% 84%;
   --pc: 141 100% 12%;
   --sc: 219 100% 92%;
@@ -464,6 +463,7 @@ html {
   --a: 10 81% 56%;
   --n: 218 18% 12%;
   --b1: 220 18% 20%;
+  --b2: 219 18% 15%;
   --in: 198 93% 60%;
   --su: 158 64% 52%;
   --wa: 43 96% 56%;
@@ -476,8 +476,7 @@ html {
   --sf: 219 96% 48%;
   --af: 10 81% 45%;
   --nf: 218 18% 10%;
-  --b2: 220 18% 18%;
-  --b3: 220 18% 16%;
+  --b3: 219 18% 13%;
   --bc: 220 49% 84%;
   --pc: 141 100% 12%;
   --sc: 219 100% 92%;
@@ -501,6 +500,7 @@ html {
   --a: 10 81% 56%;
   --n: 218 18% 12%;
   --b1: 220 18% 20%;
+  --b2: 219 18% 15%;
   --in: 198 93% 60%;
   --su: 158 64% 52%;
   --wa: 43 96% 56%;
@@ -6297,6 +6297,10 @@ body[dir="rtl"] .checkbox:checked,
   height: fit-content;
 }
 
+.h-3 {
+  height: 0.75rem;
+}
+
 .h-\[calc\(100\%-theme\(\'spacing\.1\'\)\)\] {
   height: calc(100% - 0.25rem);
 }
@@ -6323,6 +6327,10 @@ body[dir="rtl"] .checkbox:checked,
 
 .w-40 {
   width: 10rem;
+}
+
+.w-3 {
+  width: 0.75rem;
 }
 
 .max-w-fit {
@@ -7980,7 +7988,7 @@ body[dir="rtl"] .checkbox:checked,
 
 .menu-item:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+  background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: hsl(var(--p) / var(--tw-text-opacity));
 }

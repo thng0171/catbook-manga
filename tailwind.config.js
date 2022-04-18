@@ -23,6 +23,7 @@ module.exports = {
         "accent": "#ea5234",
         "neutral": "#191d24",
         "base-100": "#2a303c",
+        "base-200": "#1f242d",
         "info": "#3ABFF8",
         "success": "#36D399",
         "warning": "#FBBD23",
@@ -30,6 +31,7 @@ module.exports = {
       },
     },
     'emerald',
+    
   ],
 
   },

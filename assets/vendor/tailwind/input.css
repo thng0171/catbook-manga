@@ -4,7 +4,7 @@
 
 
 .menu-item {
-    @apply hover:text-primary px-3 py-2 hover:bg-slate-100
+    @apply hover:text-primary px-3 py-2
 }
 .sub-menu{
    @apply hover:text-primary text-base text-base-content font-medium hover:bg-transparent 
