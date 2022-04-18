@@ -1,0 +1,26 @@
+{
+  "name": "catbook-manga",
+  "version": "1.0.0",
+  "description": "Demo: https://error171.github.io/catbook-manga/",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/error171/catbook-manga.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/error171/catbook-manga/issues"
+  },
+  "homepage": "https://github.com/error171/catbook-manga#readme",
+  "dependencies": {
+    "daisyui": "^2.14.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.2"
+  }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="true">
+<html lang="en" data-theme="corporate">
 
 <head>
   <meta charset="UTF-8">
@@ -8,47 +8,33 @@
   <title>Catbook</title>
   <link href="assets/vendor/tailwind/output.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-700">
-  <!-- ===Header=== -->
-  <header class="">
-    <nav class="bg-white border-primary border-b sm:px-4 py-3 dark:bg-gray-800">
-      <!-- Container -->
-      <div class="container flex flex-wrap justify-between items-center ">
-        <!-- Logo -->
-        <a href="" class="flex items-center">
-          <img src="" class="mr-3 h-6 sm:h-9" alt="Catbook Logo">
-          <span class="self-center text-xl text-primary font-semibold whitespace-nowrap dark:text-white">Catbook</span>
-        </a>
-        <!-- Search bar -->
-        <div class="flex md:order-2">
-          <form class="hidden relative mr-3 md:mr-0 md:block">
-            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-              <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <input type="text" id="email-adress-icon"
-              class="block p-2 pl-10 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-sm focus:ring-primary focus:border-primary dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
-              placeholder="Search...">
-          </form>
-        </div>
-        <!-- Menu  -->
-        <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="mobile-menu-3">
-          <ul class="flex flex-col mt-4 md:flex-row md:space-x-4 md:mt-0">
-            <li class="menu-item">
-              <a href="#" aria-current="page">Trang Chủ</a>
-            </li>
-            <li class="menu-item group relative">
-              <a href="#" class="">Thể Loại</a>
-              <div
-                class="hidden z-20 md:group-hover:grid grid-rows-5 grid-flow-col gap-5 absolute top-10 left-0 backdrop-blur-xl bg-white/60 shadow-lg border rounded-md p-5 ">
+<body>
+  <div class="drawer">
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle">
+    <div class="drawer-content flex flex-col">
+      <!-- ===HEADER=== -->
+      <div class="navbar bg-base-100 border-b justify-between border-primary lg:px-10">
+        <div class="navbar-start">
+          <!-- Sidebar toogle -->
+          <label for="my-drawer-3" class="btn btn-square btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              class="inline-block w-6 h-6 stroke-current">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </label>
+          
+          <!-- logo -->
+          <a class="btn btn-ghost normal-case text-primary text-2xl">Catbook</a>
+
+          <!-- menu nav -->
+          <ul class="menu lg:ml-10 lg:space-x-2 menu-horizontal hidden text-lg font-semibold lg:flex p-0">
+            <li class=""><a href="" class="menu-item">Trang chủ</a></li>
+            <li tabindex="0" class="relative group hover:text-primary">
+              <a href="" class="menu-item">Thể loại</a>
+              <div class="hidden z-20 md:group-hover:grid grid-rows-5 grid-flow-col gap-6 absolute top-full left-0  bg-base-100 shadow-lg rounded-md p-5 ">
                 <div><a href="#" class="sub-menu">Action</a></div>
                 <div><a href="#" class="sub-menu">Comedy</a></div>
                 <div><a href="#" class="sub-menu">Taihen</a></div>
@@ -69,490 +55,440 @@
                 <div><a href="#" class="sub-menu">Shounen</a></div>
               </div>
             </li>
-            <li class="menu-item">
-              <a href="#" class="">Mới Cập Nhật</a>
-            </li>
-            <li class="menu-item">
-              <a href="#" class="">Phổ Biến</a>
-            </li>
-
+            <li><a href="" class="menu-item">Mới cập nhật</a></li>
           </ul>
-        </div>
-        <!-- user dropdown -->
-        <div class="hidden">
-          <img id="avatar" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start"
-            class="w-10 h-10 rounded-full cursor-pointer" src="https://api.lorem.space/image/face?h=100&hash=n9voulpn"
-            alt="User dropdown">
-
-          <div id="userDropdown"
-            class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
-            style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(265px, 3293px);"
-            data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top-start">
-            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-              <div>Tên người dùng</div>
-              <div class="font-medium truncate">ten@email.com</div>
-            </div>
-            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-              <li>
-                <a href="#"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-              </li>
-              <li>
-                <a href="#"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-              </li>
-            </ul>
-            <div class="py-1">
-              <a href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-                out</a>
-            </div>
-          </div>
-        </div>
-        <!-- Login -->
-        <div class="md:order-4">
-          <!-- Login Button  -->
-          <button
-            class="block text-white bg-primary hover:bg-primary/80 focus:ring-4 focus:outline-none focus:ring-primary/30 font-medium rounded-lg px-3 py-2 text-center dark:bg-primary dark:hover:bg-primary/80 dark:focus:ring-primary/30"
-            type="button" data-modal-toggle="login-modal">
-            Đăng nhập
-          </button>
-          <!-- modal login form -->
-          <div id="login-modal" tabindex="-1" aria-hidden="true"
-           class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
-            <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-              <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- close button -->
-                <div class="flex justify-end p-2">
-                  <button type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                    data-modal-toggle="login-modal">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                    </svg>
-                  </button>
+        </div>       
+        <div class="navbar-end gap-5">
+          <!-- Search -->
+          <div class="hidden md:flex lg:mr-14">
+            <form action="" class="relative">
+              <input type="text" class="input input-bordered focus:outline-primary py-0 h-10 w-full xl:w-72"
+                placeholder="Tìm kiếm truyện..."> 
+                <button type="submit" class="flex absolute right-0 inset-y-0 items-center pr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                  </svg>
+                </button>
+            </form>
+          </div> 
+          <!-- Dark mode toggle  -->
+          <label class="swap swap-rotate">
+            <!-- this hidden checkbox controls the state -->
+            <input type="checkbox"/>
+            
+            <!-- sun icon -->
+            <svg data-toggle-theme="myDark" data-act-class="ACTIVECLASS" class="swap-on fill-current w-8 h-8 stroke-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
+            
+            <!-- moon icon -->
+            <svg data-toggle-theme="emerald" data-act-class="ACTIVECLASS" class="swap-off fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
+            
+          </label>
+          <!-- login -->
+          <div class="">
+            <!-- The button to open modal -->
+          <label for="my-modal-3" class="btn btn-primary py-0 font-bold text-sm">Đăng nhập</label>
+          <input type="checkbox" id="my-modal-3" class="modal-toggle">
+          <!-- login modal  -->
+          <div class="modal">
+            <div class="modal-box max-w-fit flex p-8 relative">
+              <div class="">
+                <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                <h3 class="font-bold text-2xl py-5">Đăng nhập vào Catbook manga</h3>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Tên tài khoản</span>
+                  </label>
+                  <input type="text" placeholder="Nhập tên tài khoản" class="input   focus:border-secondary input-bordered">
                 </div>
-                <!-- form  -->
-                <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="#">
-                  <h3 class="text-xl font-medium text-secondary dark:text-white">Đăng nhập vào Catbook Manga</h3>
-                  <div>
-                    <label for="username" class="block mb-2 text-sm font-medium text-secondary dark:text-gray-300">Tên tài khoản</label>
-                    <input type="text" name="username" id="username"
-                      class="bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                      placeholder="nhập tên tài khoản" required="">
+                <div class="form-control mt-2">
+                  <label class="label">
+                    <span class="label-text">Mật khẩu</span>
+                  </label>
+                  <input type="password" placeholder="••••••••" class="input  focus:border-secondary input-bordered">
+                  <label class="label">
+                    <a href="" class="label-text link-secondary link link-hover">Quên mật khẩu?</a>
+                  </label>
+                </div>
+                <div class="form-control mt-6">
+                  <button class="btn btn-primary">Đăng nhập</button>
+                </div>
+
+                <div class="form-control mt-5">
+                  <button class="btn btn-primary btn-outline">Đăng ký</button>
+                </div>
+                  
+            </div>
+             <div class="ml-10 w-80 hidden lg:block">
+              <img src="assets/img/makise-kurisu-png.png" class="object-contain h-full w-full " alt="">
+            </div>
+            </div>
+         
+          </div>
+          </div>
+        
+          
+        </div>
+      </div>
+
+      <!-- ===CENTER=== -->
+      <div class="h-screen bg-base-200">
+        <div class="md:mx-10 mx-5 mt-5">
+        <!-- ===Truyện phổ biến=== -->
+        <div class="w-full my-5">
+          <!-- title  -->
+          <div
+            class="inline-block text-2xl py-2 font-semibold text-secondary hover:text-secondary-focus">
+            <a href="#" class="">TRUYỆN PHỔ BIẾN</a>
+          </div>
+          <!-- Slider -->
+          <div class="swiper mySwiper relative">
+            <div class="swiper-wrapper w-full h-full">
+              <!-- item 1-->
+              <div class="swiper-slide">
+                <!-- item container  -->
+                <div href="" class="swiper-item">
+                  <!-- img left -->
+                  <div class="w-40 flex-none relative">
+                    <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                        alt=""></a>
                   </div>
-                  <div>
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mật khẩu</label>
-                    <input type="password" name="password" id="password" placeholder="••••••••"
-                      class="bg-gray-50 border border-gray-300 text-secondary text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                      required="">
-                  </div>
-                  <div class="flex justify-between">
-                    <div class="flex items-start">
-                      <div class="flex items-center h-5">
-                        <input id="remember" aria-describedby="remember" type="checkbox"
-                          class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                          required="">
-                      </div>
-                      <div class="ml-3 text-sm">
-                        <label for="remember" class="font-medium text-secondary dark:text-gray-300">Remember me</label>
-                      </div>
+                  <!-- text right  -->
+                  <div class="p-3 relative flex-rows tracking-wide  ">
+
+                    <!-- manga title -->
+                    <a href="" class="swiper-item-title">Kawaii
+                      dake ja Nai Shikimori-san</a>
+                    <!-- desc -->
+                    <div class="h-fit"></div>
+                    <p class="swiper-item-desc">Daily life of a herbivore,
+                      unlucky
+                      boyfriend and his amazing and sometimes intimidating girlfriend.</p>
+                    <!-- tag  -->
+                    <div class="absolute bottom-0 py-1">
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#comedy</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#school
+                        life</a>
                     </div>
-                    <a href="#" class="text-sm text-blue-800 hover:underline dark:text-blue-500">Quên mật khẩu?</a>
                   </div>
-                  <button type="submit"
-                    class="w-full text-white bg-primary hover:bg-primary/90 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Đăng nhập</button>
-                  <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                    Chưa có tài khoản? <a href="#" class="text-primary hover:underline dark:text-primary">Tạo tài khoản</a>
-                  </div>
-                </form>
+                </div>
               </div>
+
+              <!-- item 2-->
+              <div class="swiper-slide">
+                <div href="" class="swiper-item">
+                  <!-- img left -->
+                  <div class="w-40 flex-none relative">
+                    <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/truyen2.jpg"
+                        alt=""></a>
+                  </div>
+                  <!-- text right  -->
+                  <div class="p-3 relative flex-rows tracking-wide ">
+                    <!-- manga title -->
+                    <a href="" class="swiper-item-title">Villainess
+                      Level
+                      99 ~I May Be the Hidden Boss but I'm Not the Demon Lord~</a>
+                    <!-- desc -->
+                    <div class="h-fit"></div>
+                    <p class="swiper-item-desc">
+                      I reincarnated as the "Villainess Eumiella" from an RPG Otome game. In the main story, Eumiella is
+                      merely
+                      a side character, but after the ending, she re-enters the story as the Hidden Boss, a character
+                      boasting
+                      high stats on par with the heroes!
+
+                      Lighting a fire in my gamer's soul, and taking advantage of being left on my own in my parent's
+                      territory,
+                      I trained, trained, and trained! As a result of my training… by the time I enrolled in the
+                      academy,
+                      I
+                      managed to reach level 99.</p>
+                    <!-- tag  -->
+                    <div class="absolute bottom-0 py-1">
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#fantasy</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- item 3-->
+              <div class="swiper-slide">
+                <div href="" class="swiper-item">
+                  <!-- img left -->
+                  <div class="w-40 flex-none relative">
+                    <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
+                        alt=""></a>
+                  </div>
+                  <!-- text right  -->
+                  <div class="p-3 relative flex-rows tracking-wide">
+                    <!-- manga title -->
+                    <a href="" class="swiper-item-title">One
+                      Punch-Man</a>
+                    <!-- desc -->
+                    <div class="h-fit"></div>
+                    <p class="swiper-item-desc">
+                      After rigorously training for three years, the ordinary Saitama has gained im
+                      mense strength which allows
+                      him to take out anyone and anything with just one punch. He decides to put his new skill to good
+                      use
+                      by
+                      becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants
+                      someone
+                      to
+                      give him a challenge to bring back the spark of being a hero.</p>
+                    <!-- tag  -->
+                    <div class="absolute bottom-0 py-1">
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#sci-fi</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#thriller</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- item 1-->
+              <div class="swiper-slide">
+                <!-- item container  -->
+                <div href="" class="swiper-item">
+                  <!-- img left -->
+                  <div class="w-40 flex-none relative">
+                    <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                        alt=""></a>
+                  </div>
+                  <!-- text right  -->
+                  <div class="p-3 relative flex-rows tracking-wide  ">
+
+                    <!-- manga title -->
+                    <a href="" class="swiper-item-title">Kawaii
+                      dake ja Nai Shikimori-san</a>
+                    <!-- desc -->
+                    <div class="h-fit"></div>
+                    <p class="swiper-item-desc">Daily life of a herbivore,
+                      unlucky
+                      boyfriend and his amazing and sometimes intimidating girlfriend.</p>
+                    <!-- tag  -->
+                    <div class="absolute bottom-0 py-1">
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#comedy</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#school
+                        life</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- item 2-->
+              <div class="swiper-slide">
+                <div href="" class="swiper-item">
+                  <!-- img left -->
+                  <div class="w-40 flex-none relative">
+                    <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/truyen2.jpg"
+                        alt=""></a>
+                  </div>
+                  <!-- text right  -->
+                  <div class="p-3 relative flex-rows tracking-wide ">
+                    <!-- manga title -->
+                    <a href="" class="swiper-item-title">Villainess
+                      Level
+                      99 ~I May Be the Hidden Boss but I'm Not the Demon Lord~</a>
+                    <!-- desc -->
+                    <div class="h-fit"></div>
+                    <p class="swiper-item-desc">
+                      I reincarnated as the "Villainess Eumiella" from an RPG Otome game. In the main story, Eumiella is
+                      merely
+                      a side character, but after the ending, she re-enters the story as the Hidden Boss, a character
+                      boasting
+                      high stats on par with the heroes!
+
+                      Lighting a fire in my gamer's soul, and taking advantage of being left on my own in my parent's
+                      territory,
+                      I trained, trained, and trained! As a result of my training… by the time I enrolled in the
+                      academy,
+                      I
+                      managed to reach level 99.</p>
+                    <!-- tag  -->
+                    <div class="absolute bottom-0 py-1">
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#fantasy</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- item 3-->
+              <div class="swiper-slide">
+                <div href="" class="swiper-item">
+                  <!-- img left -->
+                  <div class="w-40 flex-none relative">
+                    <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
+                        alt=""></a>
+                  </div>
+                  <!-- text right  -->
+                  <div class="p-3 relative flex-rows tracking-wide">
+                    <!-- manga title -->
+                    <a href="" class="swiper-item-title">One
+                      Punch-Man</a>
+                    <!-- desc -->
+                    <div class="h-fit"></div>
+                    <p class="swiper-item-desc">
+                      After rigorously training for three years, the ordinary Saitama has gained im
+                      mense strength which allows
+                      him to take out anyone and anything with just one punch. He decides to put his new skill to good
+                      use
+                      by
+                      becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants
+                      someone
+                      to
+                      give him a challenge to bring back the spark of being a hero.</p>
+                    <!-- tag  -->
+                    <div class="absolute bottom-0 py-1">
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#sci-fi</a>
+                      <a href=""
+                        class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#thriller</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
             </div>
+            <div
+              class="swiper-button-next invisible md:visible p-8 rounded-full bg-black/40 scale-90 ">
+            </div>
+            <div class="swiper-button-prev invisible md:visible p-8 rounded-full bg-black/40 scale-90">
+            </div>
+            <div class="swiper-pagination"></div>
           </div>
-
         </div>
-
-      </div>
-    </nav>
-
-
-    <!-- <nav class="bg-white w-screen">
-      <div class="h-16 flex md:mx-20 justify-between items-center">
-        
-        <div class="py-2">
-          <a href="#">
-            <img src="" alt="Catbook-logo" srcset="">
-          </a>
-        </div>
-        
+        <!-- ===Truyện mới cập nhật=== -->
         <div class="">
-          <ul id="menu"
-            class="invisible w-full h-full md:visible fixed z-20 top-9 left-0 flex flex-col justify-center items-center bg-gray-700 bg-opacity-90 md:bg-transparent md:h-auto md:flex-row md:justify-between md:static">
-            <li class="menu-link text-primary ">
-              <a href="#" class="">TRANG CHỦ</a>
-            </li>
-            <li class="group menu-link relative">
-              <a href="#" class="">THỂ LOẠI </a>
-              <div
-                class="hidden z-20 group-hover:grid grid-rows-5 grid-flow-col gap-5 absolute top-10 left-0 backdrop-blur-xl bg-white/60 shadow-lg rounded-md p-5 ">
-                <div><a href="#" class="sub-menu">Action</a></div>
-                <div><a href="#" class="sub-menu">Comedy</a></div>
-                <div><a href="#" class="sub-menu">Taihen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Action</a></div>
-                <div><a href="#" class="sub-menu">Comedy</a></div>
-                <div><a href="#" class="sub-menu">Taihen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Action</a></div>
-                <div><a href="#" class="sub-menu">Comedy</a></div>
-                <div><a href="#" class="sub-menu">Taihen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-                <div><a href="#" class="sub-menu">Shounen</a></div>
-              </div>
-            </li>
-            <li class="menu-link">
-              <a href="#" class=>MỚI CẬP NHẬT</a>
-            </li>
-            <li class="menu-link">
-              <a href="#" class="">PHỔ BIẾN</a>
-            </li>
-          </ul>
-        </div>
-        
-        <div class="relative text-gray-700 flex md:mr-20">
-          <input class="bg-gray-200  w-80 h-9  px-4 pr-10 rounded-md focus:outline-primary outline-offset-1 outline-2"
-            type="search" name="search" placeholder="Tìm kiếm truyện...">
-          <button type="submit" class="absolute right-0 top-1.5 mr-3 text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </button>
-        </div>
-        
-        <div class="relative group">
-         
-          <div id="user-button" class="text-secondary cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                clip-rule="evenodd" />
-            </svg>
+          <!-- title  -->
+          <div
+            class="inline-block text-2xl  py-2 font-semibold text-secondary dark:text-gray-300 dark:hover:text-gray-400 hover:text-secondary/80 text-left">
+            <a href="#">TRUYỆN MỚI CẬP NHẬT</a>
           </div>
-         
-          <div id="user-drop"
-            class="invisible absolute flex flex-col justify-items-center gap-3 right-0 px-7 py-5 w-40 h-auto bg-white drop-shadow-md rounded-md  ">
-            <div class="bg-primary text-white px-3 py-2 rounded-md font-semibold  transition duration-300"><a href="#"
-                class="">Đăng nhập</a></div>
+          <!-- ===container=== -->
+          <div class="w-full grid grid-cols-4">
+            
+          </div>
+        </div>
 
-            <div class="bg-slate-200 text-secondary px-5 py-2 rounded-md font-semibold  transition duration-300"><a
-                href="#" class="">Đăng ký</a></div>
-          </div>
-        </div>
-       
-        <div id="menu-button" class="z-20 md:hidden cursor-pointer w-10 h-10">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </div>
       </div>
-    </nav> 
-  -->
-  </header>
-  <!-- ===CENTER=== -->
-    <section class="h-screen mx-10 mt-0 ">
-      <!-- ===truyện phổ biến=== -->
-      <div class="w-full my-5 ">
-        <!-- title  -->
-        <div class="inline-block text-2xl py-2 font-semibold text-secondary hover:text-secondary/80 text-left"><a href="#">TRUYỆN PHỔ BIẾN</a></div>
-        <!-- Slider -->
-        <div class="swiper mySwiper relative">
-
-          <div class="swiper-wrapper w-full h-full">
-            <!-- item 1-->
-            <div class="swiper-slide">
-              <div href="" class="flex h-64 m-w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
-                <!-- img left -->
-                <div class="w-40 flex-none relative">
-                  <a href=""><img class="absolute w-full hover:scale-105 transition-all h-full object-cover inset-0"
-                      src="assets/img/ddb13225.jpg" alt=""></a>
-                </div>
-                <!-- text right  -->
-                <div class="p-3 relative flex-rows tracking-wide">
-                  <!-- manga title -->
-                  <a href=""
-                    class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Kawaii
-                    dake ja Nai Shikimori-san</a>
-                  <!-- desc -->
-                  <div class="h-fit"></div>
-                  <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">Daily life of a herbivore,
-                    unlucky
-                    boyfriend and his amazing and sometimes intimidating girlfriend.</p>
-                  <!-- tag  -->
-                  <div class="absolute bottom-0 py-1">
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#comedy</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#school
-                      life</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- item 2-->
-            <div class="swiper-slide">
-              <div href="" class="flex h-64 m-w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
-                <!-- img left -->
-                <div class="w-40 flex-none relative">
-                  <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/truyen2.jpg"
-                      alt=""></a>
-                </div>
-                <!-- text right  -->
-                <div class="p-3 relative flex-rows tracking-wide">
-                  <!-- manga title -->
-                  <a href=""
-                    class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Villainess
-                    Level
-                    99 ~I May Be the Hidden Boss but I'm Not the Demon Lord~</a>
-                  <!-- desc -->
-                  <div class="h-fit"></div>
-                  <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
-                    I reincarnated as the "Villainess Eumiella" from an RPG Otome game. In the main story, Eumiella is
-                    merely
-                    a side character, but after the ending, she re-enters the story as the Hidden Boss, a character
-                    boasting
-                    high stats on par with the heroes!
-
-                    Lighting a fire in my gamer's soul, and taking advantage of being left on my own in my parent's
-                    territory,
-                    I trained, trained, and trained! As a result of my training… by the time I enrolled in the academy,
-                    I
-                    managed to reach level 99.</p>
-                  <!-- tag  -->
-                  <div class="absolute bottom-0 py-1">
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#fantasy</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- item 3-->
-            <div class="swiper-slide">
-              <div href="" class="flex h-64 m-w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
-                <!-- img left -->
-                <div class="w-40 flex-none relative">
-                  <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
-                      alt=""></a>
-                </div>
-                <!-- text right  -->
-                <div class="p-3 relative flex-rows tracking-wide">
-                  <!-- manga title -->
-                  <a href=""
-                    class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">One
-                    Punch-Man</a>
-                  <!-- desc -->
-                  <div class="h-fit"></div>
-                  <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
-                    After rigorously training for three years, the ordinary Saitama has gained im
-                    mense strength which allows
-                    him to take out anyone and anything with just one punch. He decides to put his new skill to good use
-                    by
-                    becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone
-                    to
-                    give him a challenge to bring back the spark of being a hero.</p>
-                  <!-- tag  -->
-                  <div class="absolute bottom-0 py-1">
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#sci-fi</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#thriller</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- item 4-->
-            <div class="swiper-slide">
-              <div href="" class="flex h-64 m-w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
-                <!-- img left -->
-                <div class="w-40 flex-none relative">
-                  <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
-                      alt=""></a>
-                </div>
-                <!-- text right  -->
-                <div class="p-3 relative flex-rows tracking-wide">
-                  <!-- manga title -->
-                  <a href=""
-                    class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Kawaii
-                    dake ja Nai Shikimori-san</a>
-                  <!-- desc -->
-                  <div class="h-fit"></div>
-                  <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">Daily life of a herbivore,
-                    unlucky
-                    boyfriend and his amazing and sometimes intimidating girlfriend.</p>
-                  <!-- tag  -->
-                  <div class="absolute bottom-0 py-1">
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#comedy</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#school
-                      life</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- item 5-->
-            <div class="swiper-slide ">
-              <div href="" class="flex h-64 m-w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
-                <!-- img left -->
-                <div class="w-40 flex-none relative">
-                  <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/truyen2.jpg"
-                      alt=""></a>
-                </div>
-                <!-- text right  -->
-                <div class="p-3 relative flex-rows tracking-wide">
-                  <!-- manga title -->
-                  <a href=""
-                    class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">Villainess
-                    Level
-                    99 ~I May Be the Hidden Boss but I'm Not the Demon Lord~</a>
-                  <!-- desc -->
-                  <div class="h-fit"></div>
-                  <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
-                    I reincarnated as the "Villainess Eumiella" from an RPG Otome game. In the main story, Eumiella is
-                    merely
-                    a side character, but after the ending, she re-enters the story as the Hidden Boss, a character
-                    boasting
-                    high stats on par with the heroes!
-
-                    Lighting a fire in my gamer's soul, and taking advantage of being left on my own in my parent's
-                    territory,
-                    I trained, trained, and trained! As a result of my training… by the time I enrolled in the academy,
-                    I
-                    managed to reach level 99.</p>
-                  <!-- tag  -->
-                  <div class="absolute bottom-0 py-1">
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#fantasy</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#romance</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- item 6-->
-            <div class="swiper-slide">
-              <div href="" class="flex h-64 m-w-[450px] overflow-hidden bg-white rounded-lg shadow-lg">
-                <!-- img left -->
-                <div class="w-40 flex-none relative">
-                  <a href=""><img class="absolute w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
-                      alt=""></a>
-                </div>
-                <!-- text right  -->
-                <div class="p-3 relative flex-rows tracking-wide">
-                  <!-- manga title -->
-                  <a href=""
-                    class="text-lg h-14 line-clamp-2 overflow-hidden text-secondary text-ellipsis font-bold">One
-                    Punch-Man</a>
-                  <!-- desc -->
-                  <div class="h-fit"></div>
-                  <p class="line-clamp-4 text-ellipsis overflow-hidden text-slate-600 ">
-                    After rigorously training for three years, the ordinary Saitama has gained im
-                    mense strength which allows
-                    him to take out anyone and anything with just one punch. He decides to put his new skill to good use
-                    by
-                    becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone
-                    to
-                    give him a challenge to bring back the spark of being a hero.</p>
-                  <!-- tag  -->
-                  <div class="absolute bottom-0 py-1">
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#action</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#sci-fi</a>
-                    <a href=""
-                      class="inline-block bg-gray-200 hover:bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#thriller</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="swiper-button-next p-8 rounded-full bg-black/40 backdrop-blur-sm scale-90 "></div>
-          <div class="swiper-button-prev p-8 rounded-full bg-black/40 backdrop-blur-md scale-90"></div>
-          <div class="swiper-pagination"></div>
-        </div>
       </div>
-
-
-    </section>
-    <script src="/assets/vendor/jquery/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
-
-    <script>
-      var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-          0: {
-            slidesPerView: 1,
-
-          },
-          640: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 30,
-          },
-          1024: {
-            slidesPerView: 2.75,
-            spaceBetween: 40,
-          },
-        }
-      });
       
-    </script>
+
+      <!-- ===FOOTER=== -->
+    </div>
+    <!-- Sidebar -->
+    <div class="drawer-side">
+      <label for="my-drawer-3" class="drawer-overlay"></label>
+      <ul class="menu p-4 overflow-y-auto w-80 mt-16 bg-base-100">
+        <!-- Sidebar content here -->
+        <li><a>Trang chủ</a></li>
+        <li><a>Sidebar Item 2</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+
+  <script src="/assets/vendor/jquery/jquery-3.6.0.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+
+        },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 2.75,
+          spaceBetween: 40,
+        },
+      }
+    });
+    //===Dark mode toggle===
+    var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+    // Change the icons inside the button based on previous settings
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
+        '(prefers-color-scheme: dark)').matches)) {
+      themeToggleLightIcon.classList.remove('hidden');
+    } else {
+      themeToggleDarkIcon.classList.remove('hidden');
+    }
+
+
+    var themeToggleBtn = document.getElementById('theme-toggle');
+
+    themeToggleBtn.addEventListener('click', function () {
+
+      // toggle icons inside button
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+
+      // if set via local storage previously
+      if (localStorage.getItem('color-theme')) {
+        if (localStorage.getItem('color-theme') === 'light') {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
+        }
+
+        // if NOT set via local storage previously
+      } else {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
+        }
+      }
+
+    });
+  </script>
 
 </body>
 

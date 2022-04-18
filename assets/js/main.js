@@ -1,4 +1,4 @@
-// Login
+// user dropdowm
 const userDropdown = document.querySelector('#user-drop');
 const userButtom = document.querySelector('#user-button');
 
@@ -15,7 +15,7 @@ menuButton.addEventListener("click", () => {
 
 //===Login Modal===
 //set the modal menu element
-const targetEl = document.getElementById('login-modal');
+const Login = document.getElementById('login-modal');
 
 // options with default values
 const options = {
@@ -26,13 +26,16 @@ const options = {
   },
   onShow: () => {
       console.log('modal is shown');
+      loginModal.hide()
   },
   onToggle: () => {
       console.log('modal has been toggled');
+      
   }
 };
-const modal = new Modal(targetEl, options);
+const loginModal = new Modal(Login, option);
 
+// ====DARK MODE TOGGLE ====
 
 
 
