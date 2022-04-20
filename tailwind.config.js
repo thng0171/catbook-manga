@@ -1,6 +1,6 @@
 module.exports = {
   darkMode: 'class',
-  content: ["./**/*.{html,js}"],
+  content: ["./**/*.{php,js}"],
   theme: {
     extend: {
       aspectRatio: {
