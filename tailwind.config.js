@@ -3,8 +3,8 @@ module.exports = {
   content: ["./**/*.{html,js}"],
   theme: {
     extend: {
-      colors: {
-
+      aspectRatio: {
+        '3/4': '3 / 4',
       },
     },
 
@@ -29,8 +29,11 @@ module.exports = {
         "warning": "#FBBD23",
         "error": "#F87272",
       },
+      'emerald':{
+      ...require('daisyui/src/colors/themes')["[data-theme=emerald]"],
+        'base-200':'#f3f4f6',
     },
-    'emerald',
+    },
     
   ],
 
