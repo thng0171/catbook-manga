@@ -15,4 +15,38 @@
     border-radius:9999px;
     
 }
+.form-control-regis {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   float: left;
+   
+ }
+ .wibu-regis{
+    /* padding:0 25px; */
+ }
+ .modal-box-regis {
+   margin: auto;
+   height: 1/3rem;
+   max-height: max-content;
+   --tw-bg-opacity: 1;
+   background-color: hsl(var(--b1) / var(--tw-bg-opacity));
+   padding: 1.5rem;
+   width: 100%;
+   max-width: 34rem;
+   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+ }
+ .label-cb{
+   display: flex;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+    -ms-user-select: none;
+        user-select: none;
+   align-items: center;
+   padding-left: 0.25rem;
+   padding-right: 0.25rem;
+   padding-top: 0.5rem;
+   padding-bottom: 0.5rem;
+ }
 
