@@ -224,7 +224,7 @@
               </svg>
             </a>
             <!-- container -->
-            <div class="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7">
+            <div class="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5 lg:gap-7">
               <!-- Item 1-->
               <div class="truyen ">
                 <a href="truyen.php">

@@ -18,18 +18,18 @@
       <!-- ===Center=== -->
       <div class="relative my-16 w-full">
         <!-- background -->
-        <div class="absolute -z-20 h-52  md:h-64 w-full overflow-hidden">
-          <div class="h-full w-full inset-0 blur bg-center bg-cover xl:blur-md  brightness-75 bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
+        <div class="absolute -z-10 h-52  md:h-64 w-full overflow-hidden">
+          <div class="-z-20 h-full w-full inset-0 bg-center bg-cover  brightness-75 bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
+            <div class="absolute h-52 backdrop-blur xl:backdrop-blur-md md:h-64 w-full"></div>
           </div>
         </div>
-        <div class="m-6 md:m-12 md:grid auto-cols-auto justify-items-start md:grid-cols-3 gap-x-5 xl:gap-x-8 gap-y-2 xl:grid-cols-4">
+        <div class="m-6 md:mx-12 xl:mx-20 md:grid md:auto-rows-auto justify-items-start md:grid-cols-3 gap-x-4 gap-y-2 xl:gap-x-8 xl:grid-cols-4">
           <!-- manga poster  -->
           <div class="flex justify-center justify-self-end">
             <div class="w-48 md:w-52 rounded overflow-hidden">
               <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/a97eb.jpg" alt="">
             </div>
           </div>
-
           <!-- manga info  -->
           <div class="md:grid md:justify-items-start md:col-span-2 ">
             <!-- stat -->
@@ -68,12 +68,15 @@
               <span class="font-medium md:hidden">Tác giả:</span> <span>Aneko Yusagi, Aiya Kyu</span>
             </div>
           </div>
-          <div class="hidden md:flex justify-self-end justify-center p-3 gap-2 row-start-2">
-              <button class="btn btn-primary">Đọc truyện</button>
-              <button class="btn btn-outline btn-primary border-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg></button>
-            </div>
+          <!-- button desktop -->
+          <div class="hidden md:flex justify-self-end justify-end p-3 gap-2 row-start-2">
+            <button class="btn btn-primary">Đọc truyện</button>
+            <button class="btn btn-outline btn-primary border-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+            </button>
+          </div>
+          <!-- Tag  -->
           <div class="col-start-2 col-end-4">
             <div class="font-medium">Tag:
               <div>
@@ -87,32 +90,35 @@
               </div>
             </div>
           </div>
-
+          <!-- Desc -->
           <div class="md:col-start-2 md:col-end-4">
             <h2 class="font-medium">Giới thiệu:</h2>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate est debitis, eaque dolore explicabo et
               blanditiis nulla? Quaerat, tempore quo aspernatur accusamus a eaque sunt necessitatibus vero, odit quos in?
             </p>
           </div>
-          <div class="md:col-start-1 md:col-end-4 pt-5">
-            <h2 class="text-xl text-secondary font-semibold">Danh sách chương</h2>
+          <!-- Chapters List -->
+          <div class="w-full xl:w-3/4 bg-base-100 p-4 mt-4 rounded-lg shadow-lg  justify-self-center lg:col-start-2 lg:justify-self-start col-span-4">
+            <div class="text-xl flex  border-b items-center text-secondary  font-semibold"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+              </svg><span> Danh sách chương</span></div>
             <div class="divide-y">
-                <div class="flex justify-between py-2">
-                  <span>Chương 1</span>
-                  <span class=""> 1 giờ trước</span>
-                </div>
-                <div class="flex justify-between py-2">
-                  <span>Chương 1</span>
-                  <span class=""> 1 giờ trước</span>
-                </div>
-                <div class="flex justify-between py-2">
-                  <span>Chương 1</span>
-                  <span class=""> 1 giờ trước</span>
-                </div>
-                <div class="flex justify-between py-2">
-                  <span>Chương 1</span>
-                  <span class=""> 1 giờ trước</span>
-                </div>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chương 4</span>
+                <span class=""> 1 giờ trước</span>
+              </a>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chương 3</span>
+                <span class=""> 1 ngày trước</span>
+              </a>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chương 2</span>
+                <span class=""> 20/04/2022</span>
+              </a>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chương 1</span>
+                <span class=""> 12//03/2022</span>
+              </a>
             </div>
           </div>
 
@@ -126,7 +132,7 @@
     <div class="drawer-side">
       <label for="my-drawer-3" class="drawer-overlay"></label>
       <ul class="menu font-semibold p-3 overflow-y-auto w-80 bg-base-100">
-        <label for="my-drawer-3" class="flex justify-end">
+        <label for="my-drawera href=" #" class="flex justify-end">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
