@@ -12,7 +12,7 @@
         <!-- logo -->
         <div class="flex items-center">
             <img class="w-10 h-10 rounded-full" src="" alt="">
-            <a href=""
+            <a href="index.php"
                 class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary px-3 font-bold text-2xl">
                 Catbook</a>
         </div>

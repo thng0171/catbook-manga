@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       aspectRatio: {
-        'truyen': '4 / 5',
+        'truyen': '3 / 4',
       },
       
     },
