@@ -8590,6 +8590,11 @@ body[dir="rtl"] .checkbox:checked,
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .xl\:gap-x-8 {
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+  }
+
   .xl\:text-5xl {
     font-size: 3rem;
     line-height: 1;

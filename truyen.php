@@ -22,9 +22,9 @@
           <div class="h-full w-full inset-0 blur bg-center bg-cover xl:blur-md  brightness-75 bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
           </div>
         </div>
-        <div class="m-6 md:m-12 md:grid auto-cols-auto justify-items-start md:grid-cols-3 gap-x-5 gap-y-2 xl:grid-cols-4">
+        <div class="m-6 md:m-12 md:grid auto-cols-auto justify-items-start md:grid-cols-3 gap-x-5 xl:gap-x-8 gap-y-2 xl:grid-cols-4">
           <!-- manga poster  -->
-          <div class="flex justify-center">
+          <div class="flex justify-center justify-self-end">
             <div class="w-48 md:w-52 rounded overflow-hidden">
               <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/a97eb.jpg" alt="">
             </div>
@@ -68,7 +68,7 @@
               <span class="font-medium md:hidden">Tác giả:</span> <span>Aneko Yusagi, Aiya Kyu</span>
             </div>
           </div>
-          <div class="hidden md:flex justify-center p-3 gap-2 row-start-2">
+          <div class="hidden md:flex justify-self-end justify-center p-3 gap-2 row-start-2">
               <button class="btn btn-primary">Đọc truyện</button>
               <button class="btn btn-outline btn-primary border-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
