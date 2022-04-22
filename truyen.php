@@ -23,7 +23,7 @@
             <div class="absolute h-52 backdrop-blur xl:backdrop-blur-md md:h-64 w-full"></div>
           </div>
         </div>
-        <div class="m-6 md:mx-12 xl:mx-20 md:grid md:auto-rows-auto justify-items-start md:grid-cols-3 gap-x-4 gap-y-2 xl:gap-x-8 xl:grid-cols-4">
+        <div class="m-6 md:m-12 xl:mx-20 md:grid md:auto-rows-auto justify-items-start md:grid-cols-3 gap-x-4 gap-y-2 xl:gap-x-8 xl:grid-cols-4">
           <!-- manga poster  -->
           <div class="flex justify-center justify-self-end">
             <div class="w-48 md:w-52 rounded overflow-hidden">
@@ -99,7 +99,7 @@
           </div>
           <!-- Chapters List -->
           <div class="w-full xl:w-3/4 bg-base-100 p-4 mt-4 rounded-lg shadow-lg  justify-self-center lg:col-start-2 lg:justify-self-start col-span-4">
-            <div class="text-xl flex  border-b items-center text-secondary  font-semibold"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" viewBox="0 0 20 20" fill="currentColor">
+            <div class="text-xl flex pb-4 border-b items-center text-secondary  font-semibold"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
               </svg><span> Danh sách chương</span></div>
             <div class="divide-y">
