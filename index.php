@@ -37,7 +37,7 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href=""><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
@@ -79,7 +79,7 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href=""><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
@@ -121,7 +121,7 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href=""><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
@@ -163,7 +163,7 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href=""><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
@@ -227,7 +227,7 @@
             <div class="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7">
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -241,22 +241,7 @@
                 </a>
               </div>
               <div class="truyen ">
-                <a href="">
-                  <div class="rounded overflow-hidden">
-                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                  </div>
-                  <div class="truyen-title">
-                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <span class="">Chapter 12</span>  
-                    <i class="text-sm text-gray-500">1 giờ trước</i> 
-                  </div>
-                </a>
-              </div>
-              <!-- Item 1-->
-              <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -271,7 +256,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -286,7 +271,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -301,7 +286,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -316,7 +301,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -331,7 +316,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -346,7 +331,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -361,7 +346,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -376,7 +361,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -391,7 +376,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -406,7 +391,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -421,7 +406,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -436,7 +421,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -451,7 +436,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -466,7 +451,7 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
-                <a href="">
+                <a href="truyen.php">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
@@ -481,6 +466,21 @@
               </div>
               <!-- Item 1-->
               <div class="truyen ">
+                <a href="truyen.php">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen truyen.php">
                 <a href="">
                   <div class="rounded overflow-hidden">
                     <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">

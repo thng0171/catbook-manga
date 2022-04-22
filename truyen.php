@@ -18,22 +18,22 @@
       <!-- ===Center=== -->
       <div class="relative my-16 w-full">
         <!-- background -->
-        <div class="absolute -z-20 h-52 md:h-64 w-full overflow-hidden">
-          <div class="h-full w-full  blur bg-center bg-cover lg:blur-md brightness-75 bg-no-repeat bg-fixed"
+        <div class="absolute -z-20 h-52  md:h-64 w-full overflow-hidden">
+          <div class="h-full w-full inset-0 blur bg-center bg-cover xl:blur-md  brightness-75 bg-no-repeat bg-fixed"
             style="background-image: url('assets/img/a97eb.jpg') ;">
           </div>
         </div>
-        <div class="grid auto-cols-max justify-items-center md:justify-items-start	md:grid-cols-2">
+        <div class="m-6 md:m-12 md:grid auto-cols-auto  md:grid-cols-3 gap-x-5 gap-y-2 xl:grid-cols-4">
           <!-- manga poster  -->
-          <div class="flex mt-10 justify-center w-fit">
-            <div class="w-48 lg:w-60 rounded overflow-hidden">
+          <div class="flex justify-center">
+            <div class="w-48 md:w-52 rounded overflow-hidden">
               <img class="object-cover object-center aspect-3/4 w-full h-full" src="assets/img/a97eb.jpg" alt="">
             </div>
           </div>
           <!-- manga info  -->
-          <div class="p-4 pt-0">
+          <div class="grid justify-self-start md:col-span-2 ">
             <!-- stat -->
-            <div class="flex justify-center p-2 gap-4">
+            <div class="py-2 md:p-0  md:order-4 flex justify-center md:justify-start gap-4">
               <div class="inline-flex items-center text-accent">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
@@ -58,33 +58,39 @@
               </div>
             </div>
             <!-- title  -->
-            <h2 class="text-2xl pb-4 text-center font-semibold md:text-5xl md:text-left md:font-bold md:text-white ">
-              Tate no Yuusha no Nariagari</h2>
-            <div>
-              <span class="font-medium">Tác giả:</span> <span>Aneko Yusagi, Aiya Kyu</span>
+            <div class="md:order-first pb-4 md:p-0 text-center md:text-left">
+             <h2 class="text-2xl md:text-4xl xl:text-5xl font-semibold md:font-bold md:text-white">
+             Otomege Sekai wa Mob ni Kibishii Sekai Desu</h2>
+            <h2 class="text-xl md:text-xl xl:text-2xl md:text-gray-100 ">Song of the Night Walkers</h2>
             </div>
-            <div class="">
-              <span class="font-medium">Tag:
-                <div>
-                  <span class="badge badge-accent">#Action</span>
-                  <span class="badge badge-accent">#Adventure</span>
-                  <span class="badge badge-accent">#Isekai</span>
-                  <span class="badge badge-accent">#Fantasy</span>
-                  <span class="badge badge-accent">#Adventure</span>
-                  <span class="badge badge-accent">#Isekai</span>
-                  <span class="badge badge-accent">#Fantasy</span>
-                </div>
-              </span>
-
+            <div class="md:text-white md:text-lg">
+              <span class="font-medium md:hidden">Tác giả:</span> <span>Aneko Yusagi, Aiya Kyu</span>
+            </div>
+          </div>
+          <div class="">
+            
+          </div>
+          <div class="col-start-2 col-end-4">
+            <div class="font-medium">Tag:
+              <div>
+                <span class="badge badge-accent">#Action</span>
+                <span class="badge badge-accent">#Adventure</span>
+                <span class="badge badge-accent">#Isekai</span>
+                <span class="badge badge-accent">#Fantasy</span>
+                <span class="badge badge-accent">#Adventure</span>
+                <span class="badge badge-accent">#Isekai</span>
+                <span class="badge badge-accent">#Fantasy</span>
+              </div>
             </div>
           </div>
 
-          <div class="md:col-span-2">
+          <div class="col-start-2 md:col-end-4">
             <h2 class="font-medium">Giới thiệu:</h2>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate est debitis, eaque dolore explicabo et
               blanditiis nulla? Quaerat, tempore quo aspernatur accusamus a eaque sunt necessitatibus vero, odit quos in?
             </p>
           </div>
+          
         </div>
 
       </div>

@@ -28,7 +28,7 @@
     @apply flex overflow-hidden 
 }
 .truyen-img {
-    @apply object-cover object-center w-full h-full aspect-3/4 hover:scale-105 transition-all ease-in
+    @apply object-cover object-center w-full h-full aspect-truyen hover:scale-105 transition-all ease-in
 }
 .truyen-title{
     @apply line-clamp-2 font-medium
