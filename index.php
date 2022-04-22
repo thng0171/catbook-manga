@@ -15,11 +15,11 @@
       <!-- ===HEADER=== -->
       <?php include 'includes/header.php';?>
       <!-- ===CENTER=== -->
-        <div class="md:mx-16 mx-5 my-20">
+        <div class="lg:mx-16 md:mx-10 mx-5 my-20">
           <!-- Truyện phổ biến -->
           <div class="w-full my-5">
             <!-- title  -->
-            <a href="" class="inline-flex text-xl md:text-2xl py-3 items-center font-semibold text-secondary hover:text-secondary-focus">
+            <a href="" class="inline-flex text-xl md:text-2xl py-4 items-center font-semibold text-secondary hover:text-secondary-focus">
               <span class="border-l-4 border-primary pl-2">
                 TRUYỆN PHỔ BIẾN
               </span>
@@ -203,9 +203,9 @@
 
 
               </div>
-              <div class="swiper-button-next invisible md:visible p-8 rounded-full bg-gray-500 scale-90 ">
+              <div class="swiper-button-next invisible md:visible p-8 rounded-full bg-black/40 scale-90 ">
               </div>
-              <div class="swiper-button-prev invisible md:visible p-8 rounded-full bg-gray-500 scale-90">
+              <div class="swiper-button-prev invisible md:visible p-8 rounded-full bg-black/40 scale-90">
               </div>
               <div class="swiper-pagination"></div>
             </div>
@@ -214,7 +214,7 @@
           <!-- Truyện mới cập nhật -->
           <div class="">
             <!-- title  -->
-            <a href="" class="inline-flex text-xl md:text-2xl py-3 items-center text-secondary font-semibold ">
+            <a href="" class="inline-flex text-xl md:text-2xl py-4 items-center text-secondary font-semibold ">
               <span class="border-l-4 border-primary pl-2">
                 TRUYỆN MỚI CẬP NHẬT
               </span>
@@ -224,288 +224,277 @@
               </svg>
             </a>
             <!-- container -->
-            <div class="grid grid-col-6">
-              <div class="col-span-4">      
-                <div class="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-6">
-                  <!-- Item 1-->
-                  <div class="truyen ">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
+            <div class="w-full grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7">
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
                   </div>
-                  <!-- Item 2-->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
                   </div>
-                  <!-- Item 3-->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
                   </div>
-                  <!-- Item 4-->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item 5-->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item 10-->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item 15-->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-                  <!-- Item -->
-                  <div class="truyen">
-                    <a href="">
-                      <div class="">
-                        <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
-                      </div>
-                      <div class="truyen-title">
-                        Otomege Sekai wa Mow ni Kibishii Sekai Desu
-                      </div>
-                      <div class="flex justify-between items-center">
-                        <span class="">Chapter 12</span>  
-                        <i class="text-sm text-gray-500">1 giờ trước</i> 
-                      </div>
-                    </a>
-                  </div>
-    
-                  
-                </div>
+                </a>
               </div>
-              <div class="col-span-2">
-                <div class="card">
-                  asd
-                </div>
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
               </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              <!-- Item 1-->
+              <div class="truyen ">
+                <a href="">
+                  <div class="rounded overflow-hidden">
+                    <img class="truyen-img" src="assets/img/a97eb.jpg" alt="">
+                  </div>
+                  <div class="truyen-title">
+                    Otomege Sekai wa Mow ni Kibishii Sekai Desu
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="">Chapter 12</span>  
+                    <i class="text-sm text-gray-500">1 giờ trước</i> 
+                  </div>
+                </a>
+              </div>
+              
             </div>
           </div>
           <div class="w-full flex justify-center p-5">

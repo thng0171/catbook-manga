@@ -6,7 +6,7 @@
     @apply hover:text-primary px-3 py-2 w-auto
 }
 .sub-menu{
-   @apply hover:text-primary text-base text-base-content font-normal hover:bg-transparent 
+   @apply hover:text-primary text-base text-base-content font-medium hover:bg-transparent 
 }
 
 .swiper-item{ 
@@ -25,10 +25,10 @@
     @apply line-clamp-5 py-1 text-ellipsis overflow-hidden
 }
 .truyen{
-    @apply flex overflow-hidden hover:scale-95 transition-all ease-in
+    @apply flex overflow-hidden 
 }
-.truyen-img{
-    @apply object-cover  object-center w-full h-auto aspect-3/4 rounded
+.truyen-img {
+    @apply object-cover object-center w-full h-full aspect-3/4 hover:scale-105 transition-all ease-in
 }
 .truyen-title{
     @apply line-clamp-2 font-medium

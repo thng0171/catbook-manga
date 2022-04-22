@@ -1,5 +1,5 @@
 <!-- ===Header=== -->
-<div class="navbar h-16 bg-base-100 fixed z-20 border-b shadow-sm justify-between border-primary lg:px-16">
+<div class="navbar h-16 bg-base-100 fixed z-20 border-b justify-between border-primary lg:px-10">
     <div class="navbar-start sm:w-fit">
         <!-- Sidebar toogle -->
         <label for="my-drawer-3" class="btn btn-square btn-ghost lg:hidden">
@@ -17,8 +17,8 @@
                 Catbook</a>
         </div>
         <!-- menu nav -->
-        <ul class="menu lg:ml-10  lg:space-x-2 menu-horizontal hidden text-lg font-semibold lg:flex p-0">
-            <li class=""><a href="" class="menu-item">Trang chủ</a></li>
+        <ul class="menu lg:ml-5  lg:space-x-2 menu-horizontal hidden text-lg font-semibold lg:flex p-0">
+            <li class=""><a href="index.php" class="menu-item">Trang chủ</a></li>
             <li tabindex="0" class="relative group hover:text-primary">
                 <a href="" class="menu-item">Thể loại</a>
                 <div
@@ -48,7 +48,7 @@
     </div>
     <div class="navbar-end sm:w-fit sm:gap-5 gap-2">
         <!-- Search -->
-        <div class="hidden md:flex lg:mr-14">
+        <div class="hidden md:flex">
             <form action="" class="relative">
                 <input type="text" class="input input-bordered focus:outline-primary py-0 h-10 w-full xl:w-72"
                     placeholder="Tìm kiếm truyện...">
