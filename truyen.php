@@ -18,20 +18,19 @@
       <!-- ===Center=== -->
       <div class="relative my-16 w-full">
         <!-- banner -->
-        <div class="block banner-container h-52 md:h-64" >
+        <div class="block banner-container h-52 sm:h-64" >
           <div class=" -z-10 h-full w-full bg-center bg-cover  bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
-            <!-- <div class="absolute h-52 backdrop-blur backdrop-brightness-75 xl:backdrop-blur-md md:h-64 w-full"></div> -->
           </div>
         </div> 
-        <div class="m-5 mt-10 md:mx-10 xl:mx-20 md:grid auto-cols-min 	md:justify-items-start md:grid-cols-3 gap-x-4 gap-y-2 xl:grid-cols-5">
+        <div class="m-5 mt-10 sm:mx-10 xl:mx-20 sm:grid auto-cols-min 	sm:justify-items-start sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 xl:grid-cols-5">
           <!-- manga poster  -->
-          <div class="row-span-2 flex justify-center md:justify-self-end">
+          <div class="row-span-2 flex justify-center sm:justify-self-end">
             <div class="w-48 lg:w-52 rounded overflow-hidden">
               <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/a97eb.jpg" alt="">
             </div>
           </div>
           <!-- stat -->
-          <div class=" lg:w-52 my-2 row-start-3 self-start md:justify-self-end flex justify-center gap-4">
+          <div class=" lg:w-52 my-2 row-start-3 self-start sm:justify-self-end flex justify-center gap-4">
             <div class="inline-flex items-center text-accent">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
@@ -50,22 +49,22 @@
             </div>
           </div>
           <!-- manga info  -->
-          <div class="md:h-52 md:grid md:justify-items-start col-span-3 ">
+          <div class="sm:h-52 sm:grid sm:justify-items-start col-span-2 xl:col-span-3 ">
             <!-- title  -->
-            <div class="md:p-0 text-left md:text-left">
-              <h2 class="text-2xl md:text-4xl xl:text-5xl font-semibold md:font-bold md:text-white">
+            <div class="sm:p-0 text-left sm:text-left">
+              <h2 class="text-2xl sm:text-4xl xl:text-5xl font-semibold sm:font-bold sm:text-white">
                 Otomege Sekai wa Mob ni Kibishii Sekai Desu</h2>
-              <h2 class="text-xl md:text-xl xl:text-2xl md:text-gray-100 ">
+              <h2 class="text-xl sm:text-xl xl:text-2xl sm:text-gray-100 ">
                 Song of the Night Walkers</h2>
             </div>
-            <div class="self-center md:text-white md:text-lg">
-              <!-- <span class="font-medium md:hidden">Tác giả:</span>  -->
+            <div class="self-center sm:text-white sm:text-lg">
+              <!-- <span class="font-medium sm:hidden">Tác giả:</span>  -->
               <span>Aneko Yusagi, Aiya Kyu</span>
             </div>
           </div>
         
           <!-- read button -->
-          <div class="row-start-2 col-start-2 flex  pt-3 gap-2">
+          <div class="row-start-2 col-start-2 flex pt-3 gap-2">
             <button class="btn btn-primary shadow-lg shadow-primary/50">Đọc truyện</button>
             <button class="btn btn-outline btn-primary border-2  btn-square "><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
@@ -90,7 +89,7 @@
             </p>
           </div>
           <!-- Chapters List -->
-          <div class="w-full xl:w-3/4 bg-base-100 p-4 mt-4 rounded-lg shadow-lg shadow-secondary/50  justify-self-center  lg:justify-self-start col-span-4">
+          <div class="w-full lg:col-span-3 bg-base-100 p-4 mt-4 rounded-lg shadow-lg shadow-secondary/50  justify-self-center  lg:justify-self-start col-span-4">
             <div class="text-xl flex pb-4 border-b items-center text-secondary  font-semibold"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
               </svg><span> Danh sách chương</span></div>
