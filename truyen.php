@@ -17,88 +17,80 @@
       <?php include 'includes/header.php'; ?>
       <!-- ===Center=== -->
       <div class="relative my-16 w-full">
-        <!-- background -->
-        <div class="absolute -z-10 h-52  md:h-64 w-full overflow-hidden">
-          <div class="-z-20 h-full w-full inset-0 bg-center bg-cover  brightness-75 bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
-            <div class="absolute h-52 backdrop-blur xl:backdrop-blur-md md:h-64 w-full"></div>
+        <!-- banner -->
+        <div class="block banner-container h-52 md:h-64" >
+          <div class=" -z-10 h-full w-full bg-center bg-cover  bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
+            <!-- <div class="absolute h-52 backdrop-blur backdrop-brightness-75 xl:backdrop-blur-md md:h-64 w-full"></div> -->
           </div>
-        </div>
-        <div class="m-6 md:m-12 xl:mx-20 md:grid md:auto-rows-auto justify-items-start md:grid-cols-3 gap-x-4 gap-y-2 xl:gap-x-8 xl:grid-cols-4">
+        </div> 
+        <div class="m-5 mt-10 md:mx-10 xl:mx-20 md:grid auto-cols-min 	md:justify-items-start md:grid-cols-3 gap-x-4 gap-y-2 xl:grid-cols-5">
           <!-- manga poster  -->
-          <div class="flex justify-center justify-self-end">
-            <div class="w-48 md:w-52 rounded overflow-hidden">
+          <div class="row-span-2 flex justify-center md:justify-self-end">
+            <div class="w-48 lg:w-52 rounded overflow-hidden">
               <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/a97eb.jpg" alt="">
             </div>
           </div>
-          <!-- manga info  -->
-          <div class="md:grid md:justify-items-start md:col-span-2 ">
-            <!-- stat -->
-            <div class="py-2 md:p-0  md:order-4 flex justify-center md:justify-start gap-4">
-              <div class="inline-flex items-center text-accent">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                </svg> 4.9
-              </div>
-              <div class="inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>313k
-              </div>
-              <div class="inline-flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg>249k
-              </div>
+          <!-- stat -->
+          <div class=" lg:w-52 my-2 row-start-3 self-start md:justify-self-end flex justify-center gap-4">
+            <div class="inline-flex items-center text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg> 4.9
             </div>
+            <div class="inline-flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>313k
+            </div>
+            <div class="inline-flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>249k
+            </div>
+          </div>
+          <!-- manga info  -->
+          <div class="md:h-52 md:grid md:justify-items-start col-span-3 ">
             <!-- title  -->
-            <div class="md:order-first md:p-0 text-left md:text-left">
+            <div class="md:p-0 text-left md:text-left">
               <h2 class="text-2xl md:text-4xl xl:text-5xl font-semibold md:font-bold md:text-white">
                 Otomege Sekai wa Mob ni Kibishii Sekai Desu</h2>
               <h2 class="text-xl md:text-xl xl:text-2xl md:text-gray-100 ">
                 Song of the Night Walkers</h2>
             </div>
-            <div class="flex md:hidden justify-center p-3 gap-2 ">
-              <button class="btn btn-primary">Đọc truyện</button>
-              <button class="btn btn-outline btn-primary border-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg></button>
-            </div>
-            <div class="md:text-white md:text-lg">
-              <span class="font-medium md:hidden">Tác giả:</span> <span>Aneko Yusagi, Aiya Kyu</span>
+            <div class="self-center md:text-white md:text-lg">
+              <!-- <span class="font-medium md:hidden">Tác giả:</span>  -->
+              <span>Aneko Yusagi, Aiya Kyu</span>
             </div>
           </div>
-          <!-- button desktop -->
-          <div class="hidden md:flex justify-self-end justify-end p-3 gap-2 row-start-2">
-            <button class="btn btn-primary">Đọc truyện</button>
-            <button class="btn btn-outline btn-primary border-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        
+          <!-- read button -->
+          <div class="row-start-2 col-start-2 flex  pt-3 gap-2">
+            <button class="btn btn-primary shadow-lg shadow-primary/50">Đọc truyện</button>
+            <button class="btn btn-outline btn-primary border-2  btn-square "><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg>
-            </button>
+              </svg></button>
           </div>
+
           <!-- Tag  -->
-          <div class="col-start-2 col-end-4">
-            <div class="font-medium">Tag:
-              <div>
-                <span class="badge badge-accent">#Action</span>
-                <span class="badge badge-accent">#Adventure</span>
-                <span class="badge badge-accent">#Isekai</span>
-                <span class="badge badge-accent">#Fantasy</span>
-                <span class="badge badge-accent">#Adventure</span>
-                <span class="badge badge-accent">#Isekai</span>
-                <span class="badge badge-accent">#Fantasy</span>
-              </div>
-            </div>
+          <div class="col-start-2 col-end-4 font-medium py-3">
+              <a href="#" class="badge badge-accent">#Action</a >
+              <a href="#" class="badge badge-accent">#Adventure</a >
+              <a href="#" class="badge badge-accent">#Isekai</a >
+              <a href="#" class="badge badge-accent">#Fantasy</a >
+              <a href="#" class="badge badge-accent">#Adventure</a >
+              <a href="#" class="badge badge-accent">#Isekai</a >
+              <a href="#" class="badge badge-accent">#Fantasy</a >
           </div>
           <!-- Desc -->
-          <div class="md:col-start-2 md:col-end-4">
-            <h2 class="font-medium">Giới thiệu:</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate est debitis, eaque dolore explicabo et
+          <div class=" col-start-1 col-end-4 justify-self-center">
+          <h2 class="font-medium">Giới thiệu:</h2>
+            <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate est debitis, eaque dolore explicabo et
               blanditiis nulla? Quaerat, tempore quo aspernatur accusamus a eaque sunt necessitatibus vero, odit quos in?
             </p>
           </div>
           <!-- Chapters List -->
-          <div class="w-full xl:w-3/4 bg-base-100 p-4 mt-4 rounded-lg shadow-lg  justify-self-center lg:col-start-2 lg:justify-self-start col-span-4">
+          <div class="w-full xl:w-3/4 bg-base-100 p-4 mt-4 rounded-lg shadow-lg shadow-secondary/50  justify-self-center  lg:justify-self-start col-span-4">
             <div class="text-xl flex pb-4 border-b items-center text-secondary  font-semibold"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
               </svg><span> Danh sách chương</span></div>
@@ -132,7 +124,7 @@
     <div class="drawer-side">
       <label for="my-drawer-3" class="drawer-overlay"></label>
       <ul class="menu font-semibold p-3 overflow-y-auto w-80 bg-base-100">
-        <label for="my-drawera href=" #" class="flex justify-end">
+        <label for="my-drawer-3" href=" #" class="flex justify-end">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>

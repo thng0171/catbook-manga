@@ -6105,10 +6105,6 @@ body[dir="rtl"] .checkbox:checked,
   z-index: -10;
 }
 
-.-z-20 {
-  z-index: -20;
-}
-
 .z-20 {
   z-index: 20;
 }
@@ -6121,12 +6117,32 @@ body[dir="rtl"] .checkbox:checked,
   grid-column: span 4 / span 4;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
 .col-start-2 {
   grid-column-start: 2;
 }
 
+.col-start-1 {
+  grid-column-start: 1;
+}
+
 .col-end-4 {
   grid-column-end: 4;
+}
+
+.row-span-2 {
+  grid-row: span 2 / span 2;
+}
+
+.row-start-3 {
+  grid-row-start: 3;
 }
 
 .row-start-2 {
@@ -6161,8 +6177,12 @@ body[dir="rtl"] .checkbox:checked,
   clear: none;
 }
 
-.m-6 {
-  margin: 1.5rem;
+.m-5 {
+  margin: 1.25rem;
+}
+
+.m-3 {
+  margin: 0.75rem;
 }
 
 .mx-5 {
@@ -6190,6 +6210,11 @@ body[dir="rtl"] .checkbox:checked,
   margin-bottom: 4rem;
 }
 
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -6198,12 +6223,20 @@ body[dir="rtl"] .checkbox:checked,
   margin-right: 0.25rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
 .mr-0\.5 {
   margin-right: 0.125rem;
 }
 
 .mr-0 {
   margin-right: 0px;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
 }
 
 .mt-4 {
@@ -6721,6 +6754,11 @@ body[dir="rtl"] .checkbox:checked,
 .break-after-column {
   -moz-column-break-after: column;
        break-after: column;
+}
+
+.auto-cols-min {
+  grid-auto-columns: -webkit-min-content;
+  grid-auto-columns: min-content;
 }
 
 .grid-flow-row {
@@ -7547,6 +7585,10 @@ body[dir="rtl"] .checkbox:checked,
   padding: 0px;
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -7560,11 +7602,6 @@ body[dir="rtl"] .checkbox:checked,
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}
-
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .px-3 {
@@ -7604,16 +7641,20 @@ body[dir="rtl"] .checkbox:checked,
   padding-top: 0px;
 }
 
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
 .pr-3 {
   padding-right: 0.75rem;
 }
 
-.pb-3 {
-  padding-bottom: 0.75rem;
+.pt-3 {
+  padding-top: 0.75rem;
 }
 
-.pb-4 {
-  padding-bottom: 1rem;
+.pt-4 {
+  padding-top: 1rem;
 }
 
 .text-left {
@@ -7997,6 +8038,16 @@ body[dir="rtl"] .checkbox:checked,
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
 }
 
+.shadow-primary\/50 {
+  --tw-shadow-color: hsl(var(--p) / 0.5);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-secondary\/50 {
+  --tw-shadow-color: hsl(var(--s) / 0.5);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -8037,11 +8088,6 @@ body[dir="rtl"] .checkbox:checked,
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.brightness-75 {
-  --tw-brightness: brightness(.75);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .drop-shadow {
   --tw-drop-shadow: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -8076,6 +8122,12 @@ body[dir="rtl"] .checkbox:checked,
 
 .backdrop-blur {
   --tw-backdrop-blur: blur(8px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.backdrop-brightness-75 {
+  --tw-backdrop-brightness: brightness(.75);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
@@ -8403,38 +8455,13 @@ body[dir="rtl"] .checkbox:checked,
     visibility: visible;
   }
 
-  .md\:order-4 {
-    order: 4;
-  }
-
-  .md\:order-first {
-    order: -9999;
-  }
-
   .md\:col-span-2 {
     grid-column: span 2 / span 2;
-  }
-
-  .md\:col-start-2 {
-    grid-column-start: 2;
-  }
-
-  .md\:col-end-4 {
-    grid-column-end: 4;
-  }
-
-  .md\:m-12 {
-    margin: 3rem;
   }
 
   .md\:mx-10 {
     margin-left: 2.5rem;
     margin-right: 2.5rem;
-  }
-
-  .md\:mx-12 {
-    margin-left: 3rem;
-    margin-right: 3rem;
   }
 
   .md\:block {
@@ -8457,24 +8484,20 @@ body[dir="rtl"] .checkbox:checked,
     height: 16rem;
   }
 
-  .md\:w-52 {
-    width: 13rem;
-  }
-
-  .md\:auto-rows-auto {
-    grid-auto-rows: auto;
+  .md\:h-52 {
+    height: 13rem;
   }
 
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .md\:justify-start {
-    justify-content: flex-start;
-  }
-
   .md\:justify-items-start {
     justify-items: start;
+  }
+
+  .md\:justify-self-end {
+    justify-self: end;
   }
 
   .md\:p-0 {
@@ -8525,10 +8548,6 @@ body[dir="rtl"] .checkbox:checked,
 }
 
 @media (min-width: 1024px) {
-  .lg\:col-start-2 {
-    grid-column-start: 2;
-  }
-
   .lg\:mx-16 {
     margin-left: 4rem;
     margin-right: 4rem;
@@ -8544,6 +8563,10 @@ body[dir="rtl"] .checkbox:checked,
 
   .lg\:hidden {
     display: none;
+  }
+
+  .lg\:w-52 {
+    width: 13rem;
   }
 
   .lg\:grid-cols-5 {
@@ -8580,10 +8603,6 @@ body[dir="rtl"] .checkbox:checked,
 }
 
 @media (min-width: 1280px) {
-  .xl\:m-20 {
-    margin: 5rem;
-  }
-
   .xl\:mx-20 {
     margin-left: 5rem;
     margin-right: 5rem;
@@ -8605,9 +8624,8 @@ body[dir="rtl"] .checkbox:checked,
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .xl\:gap-x-8 {
-    -moz-column-gap: 2rem;
-         column-gap: 2rem;
+  .xl\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .xl\:text-5xl {

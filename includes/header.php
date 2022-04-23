@@ -17,7 +17,7 @@
                 Catbook</a>
         </div>
         <!-- menu nav -->
-        <ul class="menu lg:ml-5  lg:space-x-2 menu-horizontal hidden text-lg font-semibold lg:flex p-0">
+        <ul class="menu lg:ml-5 lg:space-x-2 menu-horizontal hidden text-lg font-semibold lg:flex p-0">
             <li class=""><a href="index.php" class="menu-item">Trang chủ</a></li>
             <li tabindex="0" class="relative group hover:text-primary">
                 <a href="" class="menu-item">Thể loại</a>

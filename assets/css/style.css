@@ -16,3 +16,27 @@
     
 }
 
+
+.banner-container{
+   
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+}
+.banner-container:after {
+    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(67.81deg,rgba(0,0,0,.64) 35.51%,transparent);
+}
+.banner-container:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    backdrop-filter: brightness(.75);
+    backdrop-filter: blur(8px);
+}
