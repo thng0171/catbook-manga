@@ -37,19 +37,17 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
                     <div class="swiper-right">
                       <!-- manga title -->
-                      <a href="" class="swiper-item-title">Kawaii
-                        dake ja Nai Shikimori-san</a>
+                      <a href="" class="swiper-item-title">One Punch Man</a>
                       <!-- desc -->
                       <div class="h-fit"></div>
-                      <p class="swiper-item-desc">Daily life of a herbivore,
-                        unlucky
-                        boyfriend and his amazing and sometimes intimidating girlfriend.
+                      <p class="swiper-item-desc">
+                        After rigorously training for three years, the ordinary Saitama has gained immense strength which allows him to take out anyone and anything with just one punch. He decides to put his new skill to good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone to give him a challenge to bring back the spark of being a hero.
                       </p>
                       <div class="">
                         <div class="font-semibold text-gray-500 py-1">Chapter 84</div>
@@ -79,19 +77,17 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
                     <div class="swiper-right">
                       <!-- manga title -->
-                      <a href="" class="swiper-item-title">Kawaii
-                        dake ja Nai Shikimori-san</a>
+                      <a href="" class="swiper-item-title">One Punch Man</a>
                       <!-- desc -->
                       <div class="h-fit"></div>
-                      <p class="swiper-item-desc">Daily life of a herbivore,
-                        unlucky
-                        boyfriend and his amazing and sometimes intimidating girlfriend.
+                      <p class="swiper-item-desc">
+                        After rigorously training for three years, the ordinary Saitama has gained immense strength which allows him to take out anyone and anything with just one punch. He decides to put his new skill to good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone to give him a challenge to bring back the spark of being a hero.
                       </p>
                       <div class="">
                         <div class="font-semibold text-gray-500 py-1">Chapter 84</div>
@@ -121,19 +117,17 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
                     <div class="swiper-right">
                       <!-- manga title -->
-                      <a href="" class="swiper-item-title">Kawaii
-                        dake ja Nai Shikimori-san</a>
+                      <a href="" class="swiper-item-title">One Punch Man</a>
                       <!-- desc -->
                       <div class="h-fit"></div>
-                      <p class="swiper-item-desc">Daily life of a herbivore,
-                        unlucky
-                        boyfriend and his amazing and sometimes intimidating girlfriend.
+                      <p class="swiper-item-desc">
+                        After rigorously training for three years, the ordinary Saitama has gained immense strength which allows him to take out anyone and anything with just one punch. He decides to put his new skill to good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone to give him a challenge to bring back the spark of being a hero.
                       </p>
                       <div class="">
                         <div class="font-semibold text-gray-500 py-1">Chapter 84</div>
@@ -163,19 +157,17 @@
                   <div href="" class="swiper-item">
                     <!-- img left -->
                     <div class="swiper-image">
-                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/ddb13225.jpg"
+                      <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
                           alt=""></a>
                     </div>
                     <!-- text right  -->
                     <div class="swiper-right">
                       <!-- manga title -->
-                      <a href="" class="swiper-item-title">Kawaii
-                        dake ja Nai Shikimori-san</a>
+                      <a href="" class="swiper-item-title">One Punch Man</a>
                       <!-- desc -->
                       <div class="h-fit"></div>
-                      <p class="swiper-item-desc">Daily life of a herbivore,
-                        unlucky
-                        boyfriend and his amazing and sometimes intimidating girlfriend.
+                      <p class="swiper-item-desc">
+                        After rigorously training for three years, the ordinary Saitama has gained immense strength which allows him to take out anyone and anything with just one punch. He decides to put his new skill to good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone to give him a challenge to bring back the spark of being a hero.
                       </p>
                       <div class="">
                         <div class="font-semibold text-gray-500 py-1">Chapter 84</div>
