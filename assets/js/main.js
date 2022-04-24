@@ -30,14 +30,12 @@
 //   },
 //   onToggle: () => {
 //       console.log('modal has been toggled');
-      
+
 //   }
 // };
 // const loginModal = new Modal(Login, option);
 
 // ====DARK MODE TOGGLE ====
-
-
 
 // let defaultTransform = 0;
 

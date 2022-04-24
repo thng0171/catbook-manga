@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-base-200">
-  <div class="drawer ">
+  <div class="drawer">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle">
     <div class="drawer-content flex flex-col">
       <!-- ===HEADER=== -->
@@ -18,14 +18,14 @@
       <!-- ===Center=== -->
       <div class="relative my-16 w-full">
         <!-- banner -->
-        <div class="block banner-container h-52 sm:h-64" >
+        <div class="block banner-container h-52 sm:h-64">
           <div class=" -z-10 h-full w-full bg-center bg-cover  bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
           </div>
-        </div> 
+        </div>
         <div class="m-5 mt-10 sm:mx-10 xl:mx-20 sm:grid auto-cols-min 	sm:justify-items-start sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 xl:grid-cols-5">
           <!-- manga poster  -->
           <div class="row-span-2 flex justify-center sm:justify-self-end">
-            <div class="w-48 lg:w-52 rounded overflow-hidden">
+            <div class="w-48 lg:w-52 rounded-md overflow-hidden">
               <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/a97eb.jpg" alt="">
             </div>
           </div>
@@ -62,28 +62,46 @@
               <span>Aneko Yusagi, Aiya Kyu</span>
             </div>
           </div>
-        
+
           <!-- read button -->
-          <div class="row-start-2 col-start-2 flex pt-3 gap-2">
-            <button class="btn btn-primary shadow-lg shadow-primary/50">Đọc truyện</button>
-            <button class="btn btn-outline btn-primary border-2  btn-square "><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg></button>
+          <div class="row-start-2 first-letter: col-start-2 flex pt-3 gap-2">
+           <button class="btn btn-primary shadow-lg grow shadow-primary/50">Đọc truyện</button>
+            <!-- Save btn  -->
+            <button class="btn btn-outline btn-primary border-2  btn-square ">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+              </svg>
+            </button>
+            <!-- share and report  -->
+            <div class="dropdown">
+              <label tabindex="0" class="btn  btn-outline btn-primary border-2 btn-square "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                </svg></label>
+              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li><a><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+                    </svg>Share</a></li>
+                <li><a><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd" />
+                    </svg>Report</a></li>
+              </ul>
+            </div>
+             
           </div>
 
           <!-- Tag  -->
           <div class="col-start-2 col-end-4 font-medium py-3">
-              <a href="#" class="badge badge-accent">#Action</a >
-              <a href="#" class="badge badge-accent">#Adventure</a >
-              <a href="#" class="badge badge-accent">#Isekai</a >
-              <a href="#" class="badge badge-accent">#Fantasy</a >
-              <a href="#" class="badge badge-accent">#Adventure</a >
-              <a href="#" class="badge badge-accent">#Isekai</a >
-              <a href="#" class="badge badge-accent">#Fantasy</a >
+            <a href="#" class="badge badge-accent">#Action</a>
+            <a href="#" class="badge badge-accent">#Adventure</a>
+            <a href="#" class="badge badge-accent">#Isekai</a>
+            <a href="#" class="badge badge-accent">#Fantasy</a>
+            <a href="#" class="badge badge-accent">#Adventure</a>
+            <a href="#" class="badge badge-accent">#Isekai</a>
+            <a href="#" class="badge badge-accent">#Fantasy</a>
           </div>
           <!-- Desc -->
           <div class=" col-start-1 col-end-4 justify-self-center">
-          <h2 class="font-medium">Giới thiệu:</h2>
+            <h2 class="font-medium">Giới thiệu:</h2>
             <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate est debitis, eaque dolore explicabo et
               blanditiis nulla? Quaerat, tempore quo aspernatur accusamus a eaque sunt necessitatibus vero, odit quos in?
             </p>
@@ -117,7 +135,7 @@
 
       </div>
       <!-- ===FOOTER=== -->
-      <!-- <?php include 'includes/footer.php'; ?> -->
+      <?php include 'includes/footer.php'; ?>
     </div>
     <!-- Sidebar -->
     <div class="drawer-side">

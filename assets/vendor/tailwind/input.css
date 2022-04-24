@@ -3,33 +3,33 @@
 @tailwind utilities;
 
 .menu-item {
-    @apply hover:text-primary px-3 py-2 w-auto
+  @apply w-auto px-3 py-2 hover:text-primary;
 }
-.sub-menu{
-   @apply hover:text-primary text-base text-base-content font-medium hover:bg-transparent 
+.sub-menu {
+  @apply text-base font-medium text-base-content hover:bg-transparent hover:text-primary;
 }
 
-.swiper-item{ 
-    @apply flex h-64 w-auto bg-base-100 transition ease-in overflow-hidden rounded-lg drop-shadow-md
+.swiper-item {
+  @apply flex h-64 w-auto overflow-hidden rounded-lg bg-base-100 drop-shadow-md transition ease-in;
 }
-.swiper-image{
-    @apply w-1/3 sm:w-2/5 flex-none relative 
+.swiper-image {
+  @apply relative w-1/3 flex-none sm:w-2/5;
 }
-.swiper-right{
-    @apply p-3 relative flex-row justify-between tracking-wide gap-4
+.swiper-right {
+  @apply relative overflow-hidden p-3 tracking-wide;
 }
 .swiper-item-title {
-    @apply text-lg h-14 line-clamp-2 overflow-hidden text-base-content text-ellipsis font-bold
+  @apply overflow-hidden text-ellipsis text-lg font-bold text-base-content line-clamp-2;
 }
-.swiper-item-desc{
-    @apply line-clamp-5 py-1 text-ellipsis overflow-hidden
+.swiper-item-desc {
+  @apply mt-3 text-ellipsis line-clamp-6;
 }
-.truyen{
-    @apply flex overflow-hidden 
+.truyen {
+  @apply flex overflow-hidden;
 }
 .truyen-img {
-    @apply object-cover object-center w-full h-full aspect-truyen hover:scale-105 transition-all ease-in
+  @apply aspect-truyen h-full w-full object-cover object-center transition-all ease-in hover:scale-105;
 }
-.truyen-title{
-    @apply line-clamp-2 font-medium
+.truyen-title {
+  @apply font-medium line-clamp-2;
 }
