@@ -428,23 +428,7 @@
                 </div>
               </a>
             </div>
-            <div class="col-start-5 col-span-2 p-4 bg-base-100 rounded-xl">
-              <h2 class="text-xl font-semibold text-secondary">Bảng xếp hạng</h2>
-              <div class="flex gap-3 rounded-lg bg-base-200 p-2">
-                <span class="font-bold self-center">#1</span>
-                <img class="mask mask-square w-16 h-16" src="assets/img/a97eb.jpg" />
-                <div class="">
-                  <span class="font-medium">Otomege Sekai wa Mow ni Kibishii Sekai Desu</span>
-                </div>
-              </div>
-              <div class="flex gap-3 rounded-lg bg-base-200 p-2">
-                <span class="font-bold self-center">#1</span>
-                <img class="mask mask-square w-16 h-16" src="assets/img/a97eb.jpg" />
-                <div class="">
-                  <span class="font-medium">Otomege Sekai wa Mow ni Kibishii Sekai Desu</span>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
         <div class="w-full flex justify-center p-5">

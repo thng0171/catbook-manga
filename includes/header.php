@@ -1,5 +1,5 @@
 <!-- ===Header=== -->
-<div class="navbar h-16 bg-base-100 fixed z-20 border-b justify-between border-primary lg:px-10">
+<div class="navbar h-16 bg-base-100 fixed z-20 border-b justify-between border-primary lg:px-14">
     <div class="navbar-start sm:w-fit">
         <!-- Sidebar toogle -->
         <label for="my-drawer-3" class="btn btn-square btn-ghost lg:hidden">
@@ -10,8 +10,8 @@
         </label>
         <!-- logo -->
         <div class="flex items-center">
-            <img class="w-10 h-10 rounded-full" src="" alt="">
-            <a href="index.php" class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary px-3 font-bold text-2xl">
+            <a href="index.php" 
+            class="bg-clip-text text-transparent bg-gradient-to-r pb-1 from-primary to-secondary px-3 font-bold text-3xl">
                 Catbook</a>
         </div>
         <!-- menu nav -->
@@ -86,15 +86,15 @@
                             <label class="label">
                                 <span class="label-text">Tên tài khoản</span>
                             </label>
-                            <input type="text" placeholder="Nhập tên tài khoản" class="input   focus:border-secondary input-bordered">
+                            <input type="text" placeholder="Nhập tên tài khoản" class="input focus:outline-secondary input-bordered">
                         </div>
                         <div class="form-control mt-2">
                             <label class="label">
                                 <span class="label-text">Mật khẩu</span>
                             </label>
-                            <input type="password" placeholder="••••••••" class="input  focus:border-secondary input-bordered">
+                            <input type="password" placeholder="••••••••" class="input  focus:outline-secondary input-bordered">
                             <label class="label">
-                                <a href="" class="label-text link-secondary link link-hover">Quên mật khẩu?</a>
+                                <a href="#" class="label-text link-secondary link link-hover">Quên mật khẩu?</a>
                             </label>
                         </div>
                         <div class="form-control mt-6">

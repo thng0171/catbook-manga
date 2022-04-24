@@ -26,31 +26,31 @@
             <label class="label">
               <span class="label-text after:content-['*'] after:ml-0.5 after:text-red-500 block">Tên tài khoản</span>
             </label>
-            <input required type="text" placeholder="Nhập tên tài khoản" class="input focus:border-secondary input-bordered">
+            <input required type="text" placeholder="Nhập tên tài khoản" class="input focus:outline-secondary input-bordered">
           </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text after:content-['*'] after:ml-0.5 after:text-red-500 block">Họ và tên</span>
             </label>
-            <input required type="text" placeholder="Nhập họ và tên" class="input   focus:border-secondary input-bordered">
+            <input required type="text" placeholder="Nhập họ và tên" class="input   focus:outline-secondary input-bordered">
           </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text after:content-['*'] after:ml-0.5 after:text-red-500 block">Email</span>
             </label>
-            <input required type="email" placeholder="Nhập Email" class="input   focus:border-secondary input-bordered">
+            <input required type="email" placeholder="Nhập Email" class="input   focus:outline-secondary input-bordered">
           </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text after:content-['*'] after:ml-0.5 after:text-red-500 block">Mật khẩu</span>
             </label>
-            <input required type="password" placeholder="••••••••" class="input  focus:border-secondary input-bordered">
+            <input required type="password" placeholder="••••••••" class="input  focus:outline-secondary input-bordered">
           </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text after:content-['*'] after:ml-0.5 after:text-red-500 block">Nhập lại mật khẩu</span>
             </label>
-            <input required type="password" placeholder="••••••••" class="input  focus:border-secondary input-bordered">
+            <input required type="password" placeholder="••••••••" class="input  focus:outline-secondary input-bordered">
           </div>
 
           <div class="form-control mt-5">
