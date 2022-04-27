@@ -1,5 +1,5 @@
 <!-- ===Header=== -->
-<div class="navbar h-16 bg-base-100 fixed z-20 border-b justify-between border-primary lg:px-14">
+<div class="navbar h-16 p-1 bg-base-100 fixed z-20 border-b justify-between border-primary lg:px-14">
     <div class="navbar-start sm:w-fit">
         <!-- Sidebar toogle -->
         <label for="my-drawer-3" class="btn btn-square btn-ghost lg:hidden">
@@ -10,8 +10,7 @@
         </label>
         <!-- logo -->
         <div class="flex items-center">
-            <a href="index.php" 
-            class="bg-clip-text text-transparent bg-gradient-to-r pb-1 from-primary to-secondary px-3 font-bold text-3xl">
+            <a href="index.php" class="bg-clip-text text-transparent bg-gradient-to-r  from-primary to-secondary md:px-3 font-bold text-[1.75rem] md:text-3xl">
                 Catbook</a>
         </div>
         <!-- menu nav -->
@@ -47,7 +46,7 @@
         <!-- Search -->
         <div class="hidden md:flex">
             <form action="" class="relative">
-                <input type="text" class="input input-bordered focus:outline-primary py-0 h-10 w-full xl:w-72" placeholder="Tìm kiếm truyện...">
+                <input type="search" class="input input-bordered focus:outline-primary py-0 h-10 w-full xl:w-72" placeholder="Tìm kiếm truyện...">
                 <button type="submit" class="flex absolute right-0 inset-y-0 items-center pr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -55,8 +54,31 @@
                 </button>
             </form>
         </div>
+        <!-- Mobile search modal -->
+        <div class="">
+            <!-- search button  -->
+            <label for="search-modal" class="md:hidden btn btn-ghost btn-square">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
+            </label>
+            <input type="checkbox" name="" id="search-modal" class="modal-toggle">
+            <div class="modal h-full top-16">
+                <div class="modal-box rounded-none p-5 max-h-full w-full h-full top-full bg-base-200">
+                    <h1 class=" text-lg font-medium">Tìm kiếm</h1>
+                    <form action="" class="relative py-2">
+                        <input type="text" class="input input-bordered border-secondary focus:outline-none  h-11 w-full " placeholder="Tìm kiếm truyện...">
+                        <button type="submit" class="flex absolute right-0 inset-y-0 pr-3 items-center ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- Dark mode toggle  -->
-        <label class="swap swap-rotate scale-90 sm:scale-100">
+        <label class="hidden md:swap swap-rotate scale-90 sm:scale-100">
             <!-- this hidden checkbox controls the state -->
             <input type="checkbox" />
 
@@ -74,12 +96,12 @@
         <!-- login -->
         <div class="">
             <!-- Login button -->
-            <label for="login-modal" class=" btn btn-primary py-0 font-bold sm:scale-100 scale-90">Đăng nhập</label>
+            <label for="login-modal" class="btn btn-primary no-animation py-0 font-bold sm:scale-100 scale-90">Đăng nhập</label>
             <input type="checkbox" id="login-modal" class="modal-toggle">
             <!-- login modal  -->
-            <div class="modal">
-                <div class="modal-box max-w-fit h-auto flex p-8 relative">
-                    <div class="">
+            <div class="modal overflow-y-visible">
+                <div class="modal-box max-w-fit h-auto max-h-screen flex p-8 relative">
+                    <form action="" class="">
                         <label for="login-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                         <h3 class="font-bold text-2xl py-5">Đăng nhập vào Catbook manga</h3>
                         <div class="form-control">
@@ -102,18 +124,18 @@
                         </div>
 
                         <div class="form-control mt-5">
-                            <a href="register.php" id="register-btn" for="register-modal"  class="btn btn-primary btn-outline">Đăng ký</a>
+                            <a href="register.php" id="register-btn" for="register-modal" class="btn btn-primary btn-outline">Đăng ký</a>
                         </div>
 
-                    </div>
-                    <div class="ml-10 w-80 hidden md:block">
+                    </form>
+                    <div class="ml-10 w-80 hidden lg:block">
                         <img src="assets/img/makise-kurisu-png.png" class="object-cover object-center h-full w-full " alt="">
                     </div>
                 </div>
 
             </div>
         </div>
-      
+
 
 
     </div>
