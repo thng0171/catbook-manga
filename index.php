@@ -15,8 +15,8 @@
     <div class="drawer-content flex flex-col">
       <!-- ===HEADER=== -->
       <?php include 'includes/header.php'; ?>
-      <!-- ===CENTER=== -->
-      <main class="lg:mx-16 md:mx-10 mx-5 my-20">
+      <!-- ===MAIN=== -->
+      <main class=" lg:mx-16 md:mx-10 mx-5 my-20">
         <!-- Truyện phổ biến -->
         <section class="w-full my-5">
           <!-- title  -->

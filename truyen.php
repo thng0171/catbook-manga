@@ -9,24 +9,24 @@
   <?php include 'includes/style.php'; ?>
 </head>
 
-<body class="bg-base-200">
+<body class="bg-base-200 m-0">
   <div class="drawer">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle">
     <div class="drawer-content flex flex-col">
       <!-- ===HEADER=== -->
       <?php include 'includes/header.php'; ?>
-      <!-- ===Center=== -->
+      <!-- ===MAIN=== -->
       <main class="relative my-16 w-full">
         <!-- banner -->
         <div class="block banner-container h-52 sm:h-64">
-          <div class=" -z-10 h-full w-full bg-center bg-cover  bg-no-repeat bg-fixed" style="background-image: url('assets/img/a97eb.jpg') ;">
+          <div class=" -z-10 h-full w-full bg-center bg-cover  bg-no-repeat bg-fixed" style="background-image: url('assets/img/kaguya.png') ;">
           </div>
         </div>
         <div class="m-5 mt-10 sm:mx-10 xl:mx-20 sm:grid auto-cols-min 	sm:justify-items-start sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 xl:grid-cols-5">
           <!-- manga cover  -->
           <div class="row-span-2 flex justify-center sm:justify-self-end">
             <div class="w-48 lg:w-52 rounded-md overflow-hidden">
-              <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/a97eb.jpg" alt="">
+              <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/kaguya.png" alt="">
             </div>
           </div>
           <!-- stat -->
@@ -53,9 +53,9 @@
             <!-- title  -->
             <div class="sm:p-0 text-left sm:text-left">
               <h2 class="text-2xl sm:text-4xl xl:text-5xl font-semibold sm:font-bold sm:text-white">
-                Otomege Sekai wa Mob ni Kibishii Sekai Desu</h2>
+              Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</h2>
               <h2 class="text-xl sm:text-xl xl:text-2xl sm:text-gray-100 ">
-                Song of the Night Walkers</h2>
+              Kaguya-sama: Love is War</h2>
             </div>
             <div class="self-center sm:text-white sm:text-lg">
               <!-- <span class="font-medium sm:hidden">Tác giả:</span>  -->
@@ -64,8 +64,9 @@
           </div>
 
           <!-- buttons -->
-          <div class="row-start-2 first-letter: col-start-2 flex pt-3 gap-2">
-           <button class="btn btn-primary shadow-lg grow shadow-primary/50">Đọc truyện</button>
+          <div class="row-start-2 col-start-2 flex pt-3 gap-2">
+            <a href="doc-truyen.php" class="btn btn-primary hover:shadow-lg grow hover:shadow-primary/50">
+              Đọc truyện</a>
             <!-- Save btn  -->
             <button class="btn btn-outline btn-primary border-2  btn-square ">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -73,7 +74,7 @@
               </svg>
             </button>
             <!-- share and report  -->
-            <div class="dropdown">
+            <div class="dropdown dropdown-end md:dropdown-right">
               <label tabindex="0" class="btn  btn-outline btn-primary border-2 btn-square "><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                 </svg></label>
@@ -86,11 +87,11 @@
                     </svg>Report</a></li>
               </ul>
             </div>
-             
+
           </div>
 
           <!-- Tag  -->
-          <div class="col-start-2 col-end-4 font-medium py-3">
+          <section class="col-start-2 col-end-4 font-medium py-3">
             <a href="#" class="badge badge-accent">#Action</a>
             <a href="#" class="badge badge-accent">#Adventure</a>
             <a href="#" class="badge badge-accent">#Isekai</a>
@@ -98,39 +99,68 @@
             <a href="#" class="badge badge-accent">#Adventure</a>
             <a href="#" class="badge badge-accent">#Isekai</a>
             <a href="#" class="badge badge-accent">#Fantasy</a>
-          </div>
+          </section>
           <!-- Desc -->
-          <div class=" col-start-1 col-end-4 justify-self-center">
+          <section class="col-start-1 lg:col-start-1 md:px-4 col-end-5 justify-self-end">
             <h2 class="font-medium">Giới thiệu:</h2>
             <p class="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate est debitis, eaque dolore explicabo et
               blanditiis nulla? Quaerat, tempore quo aspernatur accusamus a eaque sunt necessitatibus vero, odit quos in?
             </p>
-          </div>
+          </section>
           <!-- Chapters List -->
-          <div class="w-full lg:col-span-3 bg-base-100 p-4 mt-4 rounded-lg shadow-lg  justify-self-center  lg:justify-self-start col-span-4">
+          <section class="w-full lg:col-span-3 lg:col-start-1 bg-base-100 p-5 mt-5 rounded-lg shadow-lg  justify-self-center  lg:justify-self-start col-span-4">
             <div class="text-xl flex pb-4 border-b items-center text-secondary  font-semibold"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
-              </svg><span> Danh sách chương</span></div>
+              </svg><span> Danh sách Chapter</span></div>
             <div class="divide-y">
               <a href="#" class="flex justify-between hover:bg-base-200  p-2">
-                <span class="font-medium">Chương 4</span>
+                <span class="font-medium">Chapter 4</span>
                 <span class="text-sm "> 1 giờ trước</span>
               </a>
               <a href="#" class="flex justify-between hover:bg-base-200  p-2">
-                <span class="font-medium">Chương 3</span>
+                <span class="font-medium">Chapter 3</span>
                 <span class="text-sm "> 1 ngày trước</span>
               </a>
               <a href="#" class="flex justify-between hover:bg-base-200  p-2">
-                <span class="font-medium">Chương 2</span>
+                <span class="font-medium">Chapter 2</span>
                 <span class="text-sm "> 20/04/2022</span>
               </a>
               <a href="#" class="flex justify-between hover:bg-base-200  p-2">
-                <span class="font-medium">Chương 1</span>
+                <span class="font-medium">Chapter 1</span>
+                <span class="text-sm "> 12//03/2022</span>
+              </a>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chapter 4</span>
+                <span class="text-sm "> 1 giờ trước</span>
+              </a>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chapter 3</span>
+                <span class="text-sm "> 1 ngày trước</span>
+              </a>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chapter 2</span>
+                <span class="text-sm "> 20/04/2022</span>
+              </a>
+              <a href="#" class="flex justify-between hover:bg-base-200  p-2">
+                <span class="font-medium">Chapter 1</span>
                 <span class="text-sm "> 12//03/2022</span>
               </a>
             </div>
-          </div>
-
+          </section>
+          <!-- comment -->
+          <section class="w-full lg:col-span-3 lg:col-start-1 bg-base-100 p-5 mt-5 rounded-lg shadow-lg min-h-[13rem] col-span-4">
+            <div class="relative inline-block pr-5">
+              <span class="absolute top-0 right-0 rounded-full bg-base-300 text-xs py-0.5 px-1.5">12</span>
+              <h2 class="text-xl font-semibold py-3">Bình luận</h2>
+            </div>
+            <div class="relative">
+              <textarea name="" id="" class="textarea resize-none textarea-bordered w-full" placeholder="Nhập bình luận"></textarea>
+              <button class="absolute top-full right-0 btn btn-secondary max-h-8"> Send</button>
+            </div>
+          </section>
+          <section class="w-full mt-5 mx-5 xl:col-span-2 xl:row-span-2 xl:row-start-5 xl:col-start-4 bg-base-100 rounded-lg shadow-lg">
+            
+          </section>
         </div>
 
       </main>

@@ -2,6 +2,7 @@
 <script src="assets/js/main.js"></script>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+
 <script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: 3,
@@ -43,5 +44,14 @@
             },
         }
     });
-    
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("navbar").style.top = "0";
+        } else {
+            document.getElementById("navbar").style.top = "-64px";
+        }
+        prevScrollpos = currentScrollPos;
+    }
 </script>

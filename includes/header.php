@@ -1,5 +1,5 @@
 <!-- ===Header=== -->
-<div class="navbar h-16 p-1 bg-base-100 fixed z-20 border-b justify-between border-primary lg:px-14">
+<header id="navbar" class="navbar h-16 p-1 bg-base-100 transition-all top-0 fixed z-20 border-b justify-between border-primary lg:px-14">
     <div class="navbar-start sm:w-fit">
         <!-- Sidebar toogle -->
         <label for="my-drawer-3" class="btn btn-square btn-ghost lg:hidden">
@@ -96,7 +96,7 @@
         <!-- login -->
         <div class="">
             <!-- Login button -->
-            <label for="login-modal" class="btn btn-primary no-animation py-0 font-bold sm:scale-100 scale-90">Đăng nhập</label>
+            <label for="login-modal" class="btn btn-primary py-0 font-bold sm:scale-100 scale-90">Đăng nhập</label>
             <input type="checkbox" id="login-modal" class="modal-toggle">
             <!-- login modal  -->
             <div class="modal overflow-y-visible">
@@ -139,4 +139,4 @@
 
 
     </div>
-</div>
+</header>

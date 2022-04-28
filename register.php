@@ -52,12 +52,12 @@
             </label>
             <input required type="password" placeholder="••••••••" class="input  focus:outline-secondary input-bordered">
           </div>
-
+        
           <div class="form-control mt-5">
-            <button class="btn btn-primary">Đăng ký</button>
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
           </div>
           <div class="form-control mt-5">
-            <button class="btn btn-primary btn-outline ">Quay lại</button>
+            <a class="btn btn-primary btn-outline ">Quay lại</a>
           </div>
         </form>
 
@@ -72,96 +72,9 @@
   </div>
 
 
-  <script src="/assets/vendor/jquery/jquery-3.6.0.min.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
-  <script>
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 3,
-      spaceBetween: 30,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 1,
-        },
-        320: {
-          slidesPerView: 1.2,
-        },
-        640: {
-          slidesPerView: 1.5,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 2.5,
-          spaceBetween: 40,
-        },
-        1440: {
-          slidesPerView: 3,
-          spaceBetween: 40,
-        },
-        2560: {
-          slidesPerView: 4.5,
-          spaceBetween: 40,
-        },
-      }
-    });
-    //===Dark mode toggle===
-    var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-
-    // Change the icons inside the button based on previous settings
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
-        '(prefers-color-scheme: dark)').matches)) {
-      themeToggleLightIcon.classList.remove('hidden');
-    } else {
-      themeToggleDarkIcon.classList.remove('hidden');
-    }
-
-
-    var themeToggleBtn = document.getElementById('theme-toggle');
-
-    themeToggleBtn.addEventListener('click', function () {
-
-      // toggle icons inside button
-      themeToggleDarkIcon.classList.toggle('hidden');
-      themeToggleLightIcon.classList.toggle('hidden');
-
-      // if set via local storage previously
-      if (localStorage.getItem('color-theme')) {
-        if (localStorage.getItem('color-theme') === 'light') {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('color-theme', 'dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('color-theme', 'light');
-        }
-
-        // if NOT set via local storage previously
-      } else {
-        if (document.documentElement.classList.contains('dark')) {
-          document.documentElement.classList.remove('dark');
-          localStorage.setItem('color-theme', 'light');
-        } else {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('color-theme', 'dark');
-        }
-      }
-
-    });
-  </script>
-
+  <!-- </Script> -->
+  <?php include 'includes/script.php';?>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 
 </html>
