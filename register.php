@@ -10,9 +10,6 @@
 </head>
 
 <body class="">
-  <div class="drawer ">
-    <input id="my-drawer-3" type="checkbox" class="drawer-toggle">
-    <div class="drawer-content flex flex-col">
       <!-- ===HEADER=== -->
       <?php include 'includes/header.php';?>
       <!-- ===CENTER=== -->
@@ -63,16 +60,9 @@
 
         
       </main>
-
       <!-- ===FOOTER=== -->
       <?php include 'includes/footer.php';?>
-    </div>
-    <!-- Sidebar -->
-    <?php include 'includes/sidebar.php';?>
-  </div>
-
-
-  <!-- </Script> -->
+<!-- </Script> -->
   <?php include 'includes/script.php';?>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>

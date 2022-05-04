@@ -20,7 +20,7 @@
   width: 100%;
 }
 .banner-container:after {
-  -webkit-backdrop-filter: blur(8px);
+   
   background: linear-gradient(
     67.81deg,
     rgba(0, 0, 0, 0.64) 35.51%,
@@ -36,5 +36,5 @@
   width: 100%;
   pointer-events: none;
   backdrop-filter: brightness(0.75);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }

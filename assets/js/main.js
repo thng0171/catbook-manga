@@ -1,19 +1,20 @@
+//Hide navbar on scroll
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-64px";
+  }
+  prevScrollpos = currentScrollPos;
+}
 
-
-// user dropdowm
-// const userDropdown = document.querySelector('#user-drop');
-// const userButtom = document.querySelector('#user-button');
-
-// userButtom.addEventListener('click', () => {
-//     userDropdown.classList.toggle('invisible')
-// });
-// //===Menu===
-// const menu = document.querySelector("#mobile-menu-3");
-// const menuButton = document.querySelector("#menu-button");
-
-// menuButton.addEventListener("click", () => {
-//     menu.classList.toggle("invisible");
-// });
+//Show/hide navbar on click
+function openSidebar() {
+    document.querySelector('.sidebar').classList.toggle('-left-80');
+    document.querySelector('.overlay').classList.toggle('hidden');
+  }
 
 // //===Login Modal===
 // //set the modal menu element

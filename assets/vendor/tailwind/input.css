@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .menu-item {
-  @apply w-auto px-3 py-2 hover:text-primary;
+  @apply w-auto inline-flex gap-1 px-3 py-2 hover:text-primary;
 }
 .sub-menu {
   @apply text-base font-medium text-base-content hover:bg-transparent hover:text-primary;
