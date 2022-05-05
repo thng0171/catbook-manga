@@ -52,6 +52,11 @@
 
   <!-- </Script> -->
   <?php include 'includes/script.php'; ?>
+  <script>
+    
+//Show/hide navbtn on scroll
+ 
+  </script>
 </body>
 
 </html>

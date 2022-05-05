@@ -14,7 +14,7 @@
   <?php include 'includes/header.php'; ?>
   <!-- ===MAIN=== -->
 
-  <main class="lg:mx-16 md:mx-10 mx-5 my-16">
+  <main class="lg:mx-16 md:mx-10 mx-5 py-16">
     <!-- Truyện phổ biến -->
     <section class="w-full my-5">
       <!-- title  -->
