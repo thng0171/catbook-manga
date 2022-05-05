@@ -36,20 +36,19 @@
             <div class="swiper-item">
               <!-- img left -->
               <div class="swiper-image">
-                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
+                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/manga-cover.png"
                     alt=""></a>
               </div>
               <!-- text right  -->
               <div class="swiper-right">
                 <!-- manga title -->
-                <a href="" class="swiper-item-title">One Punch Man</a>
+                <a href="truyen.php" class="swiper-item-title" >Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</a>
                 <!-- desc -->
                 <div class="h-fit"></div>
                 <p class="swiper-item-desc">
-                  After rigorously training for three years, the ordinary Saitama has gained immense strength which
-                  allows him to take out anyone and anything with just one punch. He decides to put his new skill to
-                  good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and
-                  wants someone to give him a challenge to bring back the spark of being a hero.
+                  All’s fair when love is war!
+          Two geniuses. Two brains. Two hearts. One battle. Who will confess their love first…?!
+          Kaguya Shinomiya and Miyuki Shirogane are two geniuses who stand atop their prestigious academy’s student council, making them the elite among elite. But it’s lonely at the top and each has fallen for the other. There’s just one huge problem standing in the way of lovey-dovey bliss—they’re both too prideful to be the first to confess their romantic feelings and thus become the “loser” in the competition of love! And so begins their daily schemes to force the other to confess first!
                 </p>
               </div>
 
@@ -61,20 +60,19 @@
             <div href="" class="swiper-item">
               <!-- img left -->
               <div class="swiper-image">
-                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
+                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/manga-cover.png"
                     alt=""></a>
               </div>
               <!-- text right  -->
               <div class="swiper-right">
                 <!-- manga title -->
-                <a href="" class="swiper-item-title">One Punch Man</a>
+                <a href="truyen.php" class="swiper-item-title">Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</a>
                 <!-- desc -->
                 <div class="h-fit"></div>
                 <p class="swiper-item-desc">
-                  After rigorously training for three years, the ordinary Saitama has gained immense strength which
-                  allows him to take out anyone and anything with just one punch. He decides to put his new skill to
-                  good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and
-                  wants someone to give him a challenge to bring back the spark of being a hero.
+                  All’s fair when love is war!
+          Two geniuses. Two brains. Two hearts. One battle. Who will confess their love first…?!
+          Kaguya Shinomiya and Miyuki Shirogane are two geniuses who stand atop their prestigious academy’s student council, making them the elite among elite. But it’s lonely at the top and each has fallen for the other. There’s just one huge problem standing in the way of lovey-dovey bliss—they’re both too prideful to be the first to confess their romantic feelings and thus become the “loser” in the competition of love! And so begins their daily schemes to force the other to confess first!
                 </p>
               </div>
             </div>
@@ -85,20 +83,19 @@
             <div href="" class="swiper-item">
               <!-- img left -->
               <div class="swiper-image">
-                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
+                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/manga-cover.png"
                     alt=""></a>
               </div>
               <!-- text right  -->
               <div class="swiper-right">
                 <!-- manga title -->
-                <a href="" class="swiper-item-title">One Punch Man</a>
+                <a href="truyen.php" class="swiper-item-title">Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</a>
                 <!-- desc -->
                 <div class="h-fit"></div>
                 <p class="swiper-item-desc">
-                  After rigorously training for three years, the ordinary Saitama has gained immense strength which
-                  allows him to take out anyone and anything with just one punch. He decides to put his new skill to
-                  good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and
-                  wants someone to give him a challenge to bring back the spark of being a hero.
+                  All’s fair when love is war!
+          Two geniuses. Two brains. Two hearts. One battle. Who will confess their love first…?!
+          Kaguya Shinomiya and Miyuki Shirogane are two geniuses who stand atop their prestigious academy’s student council, making them the elite among elite. But it’s lonely at the top and each has fallen for the other. There’s just one huge problem standing in the way of lovey-dovey bliss—they’re both too prideful to be the first to confess their romantic feelings and thus become the “loser” in the competition of love! And so begins their daily schemes to force the other to confess first!
                 </p>
               </div>
             </div>
@@ -109,20 +106,19 @@
             <div href="" class="swiper-item">
               <!-- img left -->
               <div class="swiper-image">
-                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/opm2.jpg"
+                <a href="truyen.php"><img class="absolute  w-full h-full object-cover inset-0" src="assets/img/manga-cover.png"
                     alt=""></a>
               </div>
               <!-- text right  -->
               <div class="swiper-right">
                 <!-- manga title -->
-                <a href="" class="swiper-item-title">One Punch Man</a>
+                <a href="truyen.php" class="swiper-item-title">Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</a>
                 <!-- desc -->
                 <div class="h-fit"></div>
                 <p class="swiper-item-desc">
-                  After rigorously training for three years, the ordinary Saitama has gained immense strength which
-                  allows him to take out anyone and anything with just one punch. He decides to put his new skill to
-                  good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and
-                  wants someone to give him a challenge to bring back the spark of being a hero.
+                  All’s fair when love is war!
+          Two geniuses. Two brains. Two hearts. One battle. Who will confess their love first…?!
+          Kaguya Shinomiya and Miyuki Shirogane are two geniuses who stand atop their prestigious academy’s student council, making them the elite among elite. But it’s lonely at the top and each has fallen for the other. There’s just one huge problem standing in the way of lovey-dovey bliss—they’re both too prideful to be the first to confess their romantic feelings and thus become the “loser” in the competition of love! And so begins their daily schemes to force the other to confess first!
                 </p>
 
 

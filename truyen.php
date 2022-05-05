@@ -17,7 +17,7 @@
     <!-- banner -->
     <div class="block banner-container h-72 sm:h-80">
       <div class="-z-10 h-full w-full bg-center bg-cover bg-no-repeat bg-fixed"
-        style="background-image: url('assets/img/kaguya.png');">
+        style="background-image: url('assets/img/manga-cover.png');">
       </div>
     </div>
     <!-- content -->
@@ -25,7 +25,7 @@
       <!-- manga cover  -->
       <div class="row-span-2 flex justify-center sm:justify-self-end">
         <div class="w-48 lg:w-52 rounded-md overflow-hidden">
-          <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/kaguya.png" alt="">
+          <img class="object-cover object-center aspect-truyen w-full h-full" src="assets/img/manga-cover.png" alt="">
         </div>
       </div>
       <!-- stat -->
@@ -101,14 +101,14 @@
       </div>
 
       <!-- Tag  -->
-      <section class="col-start-2 col-end-4 font-medium py-3">
-        <a href="#" class="badge badge-accent">#Action</a>
-        <a href="#" class="badge badge-accent">#Adventure</a>
-        <a href="#" class="badge badge-accent">#Isekai</a>
-        <a href="#" class="badge badge-accent">#Fantasy</a>
-        <a href="#" class="badge badge-accent">#Adventure</a>
-        <a href="#" class="badge badge-accent">#Isekai</a>
-        <a href="#" class="badge badge-accent">#Fantasy</a>
+      <section class="col-start-2  col-end-4 font-medium py-3">
+        <a href="#" class="badge badge-accent">Action</a>
+        <a href="#" class="badge badge-accent">Adventure</a>
+        <a href="#" class="badge badge-accent">Isekai</a>
+        <a href="#" class="badge badge-accent">Fantasy</a>
+        <a href="#" class="badge badge-accent">Adventure</a>
+        <a href="#" class="badge badge-accent">Isekai</a>
+        <a href="#" class="badge badge-accent">Fantasy</a>
       </section>
       <!-- Desc -->
       <section class="col-start-1 lg:col-start-1 md:px-4 col-end-5 justify-self-end">
@@ -118,7 +118,7 @@
           Kaguya Shinomiya and Miyuki Shirogane are two geniuses who stand atop their prestigious academy’s student council, making them the elite among elite. But it’s lonely at the top and each has fallen for the other. There’s just one huge problem standing in the way of lovey-dovey bliss—they’re both too prideful to be the first to confess their romantic feelings and thus become the “loser” in the competition of love! And so begins their daily schemes to force the other to confess first!
         </p>
       </section>
-      <!-- Chapters List -->
+      <!-- Chapter List -->
       <section
         class="w-full lg:col-span-3 lg:col-start-1 bg-base-100 p-5 mt-5 rounded-lg shadow-lg  justify-self-center  lg:justify-self-start col-span-4">
         <div class="text-xl flex pb-4 border-b items-center text-secondary  font-semibold"><svg
@@ -163,18 +163,7 @@
         </div>
       </section>
       <!-- comment -->
-      <section
-        class="w-full lg:col-span-3 lg:col-start-1 bg-base-100 p-5 mt-5 rounded-lg shadow-lg min-h-[13rem] col-span-4">
-        <div class="relative inline-block pr-5">
-          <span class="absolute top-0 right-0 rounded-full bg-base-300 text-xs py-0.5 px-1.5">12</span>
-          <h2 class="text-xl font-semibold py-3">Bình luận</h2>
-        </div>
-        <div class="relative">
-          <textarea name="" id="" class="textarea resize-none textarea-bordered w-full"
-            placeholder="Nhập bình luận"></textarea>
-          <button class="absolute top-full right-0 btn btn-secondary max-h-8"> Send</button>
-        </div>
-      </section>
+      <?php include 'includes/comment.php'; ?>
 
       <section
         class="w-full mt-5 mx-5 xl:col-span-2 xl:row-span-2 xl:row-start-5 xl:col-start-4 bg-base-100 rounded-lg shadow-lg">

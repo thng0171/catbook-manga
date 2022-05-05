@@ -1,11 +1,14 @@
-//Hide navbar on scroll
+//Hide navbar/navbutton on scroll
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
   var currentScrollPos = window.pageYOffset;
   if (prevScrollpos > currentScrollPos) {
     document.getElementById("navbar").style.top = "0";
+    document.getElementById("navbtn").style.bottom = "0";
+    
   } else {
     document.getElementById("navbar").style.top = "-64px";
+    document.getElementById("navbtn").style.bottom = "-64px";
   }
   prevScrollpos = currentScrollPos;
 }
@@ -13,8 +16,21 @@ window.onscroll = function() {
 //Show/hide navbar on click
 function openSidebar() {
     document.querySelector('.sidebar').classList.toggle('-left-80');
-    document.querySelector('.overlay').classList.toggle('hidden');
+    document.querySelector('.overlay').classList.toggle('hidden');    
   }
+
+// scroll to top button
+var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    var rootElement = document.documentElement;
+
+    function scrollToTop() {
+      // Scroll to top logic
+      rootElement.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+    scrollToTopBtn.addEventListener("click", scrollToTop);
 
 // //===Login Modal===
 // //set the modal menu element
