@@ -85,7 +85,7 @@
                 Catbook</a>
         </div>
         <!-- menu nav -->
-        <ul id="menu" class="hidden p-0 text-lg font-semibold menu xl:ml-5 lg:space-x-2 lg:menu-horizontal">
+        <ul id="menu" class="hidden p-0 text-lg font-bold menu xl:ml-5 lg:space-x-2 lg:menu-horizontal">
             <li class="">
                 <a href="index.php" class="menu-item">
                     Trang chủ </a>

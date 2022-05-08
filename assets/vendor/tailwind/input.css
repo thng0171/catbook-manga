@@ -19,10 +19,10 @@
   @apply w-auto inline-flex gap-1 px-3 py-2 hover:text-primary;
 }
 .sub-menu {
-  @apply text-base font-medium text-base-content hover:bg-transparent hover:text-primary;
+  @apply text-base font-semibold text-base-content hover:bg-transparent hover:text-primary;
 }
 .swiper-item {
-  @apply grid relative grid-cols-3 h-64 max-w-sm overflow-hidden rounded-xl shadow-xl;
+  @apply grid relative bg-base-100 grid-cols-3 h-64 max-w-sm overflow-hidden rounded-xl shadow-xl;
 }
 .swiper-item-left {
   @apply relative;
@@ -45,7 +45,6 @@
 .manga-title {
   @apply font-semibold line-clamp-2;
 }
-
 .s-title{
-  @apply  text-xl md:text-2xl font-bold border-l-4 px-1.5 border-primary/80;
+  @apply  text-xl md:text-2xl font-bold text-base-content/90 border-l-4 px-1.5 border-primary/80;
 }
