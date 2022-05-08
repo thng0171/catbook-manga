@@ -16,8 +16,7 @@
   <main class="w-full py-16 ">
     <!-- banner -->
     <div class="block banner-container h-72 sm:h-80">
-      <div class="w-full h-full bg-fixed bg-center bg-no-repeat bg-cover -z-10"
-        style="background-image: url('assets/img/manga-cover.png');">
+      <div class="w-full h-full bg-fixed bg-center bg-no-repeat bg-cover -z-10" style="background-image: url('assets/img/manga-cover.png');">
       </div>
     </div>
     <!-- content -->
@@ -31,25 +30,19 @@
       <!-- stat -->
       <div class="flex self-start justify-center gap-4 my-2 font-medium sm:row-start-3 lg:w-52 sm:justify-self-center">
         <div class="inline-flex items-center text-accent">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
           </svg>4.9
         </div>
         <div class="inline-flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-0.5" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
           </svg>313k
         </div>
         <div class="inline-flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
           </svg>249k
         </div>
       </div>
@@ -79,20 +72,15 @@
         </button>
         <!-- share and report  -->
         <div class="dropdown dropdown-end md:dropdown-right">
-          <label tabindex="0" class="border-2 btn btn-outline btn-primary btn-square "><svg
-              xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+          <label tabindex="0" class="border-2 btn btn-outline btn-primary btn-square "><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
             </svg></label>
           <ul tabindex="0" class="p-2 shadow dropdown-content menu bg-base-100 rounded-box w-52">
             <li><a><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path
-                    d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
+                  <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
                 </svg>Share</a></li>
             <li><a><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"
-                    clip-rule="evenodd" />
+                  <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd" />
                 </svg>Report</a></li>
           </ul>
         </div>
@@ -114,10 +102,9 @@
       <div class="p-2 sm:row-span-2 sm:col-start-1 sm:col-end-4 lg:col-end-3 justify-self-center">
         <h1 class="flex items-center gap-1 text-lg font-semibold">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd" />
-          </svg>Giới thiệu</h1>
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>Giới thiệu
+        </h1>
         <hr class="my-2">
         <div class="whitespace-pre-line element" data-config='{ "type": "text", "limit": 120, "more": "→ show more", "less": "← less"}'>All’s fair when love is war!
           Two geniuses. Two brains. Two hearts. One battle. Who will confess their love first…?!
@@ -127,13 +114,10 @@
       </div>
       <!-- Chapter List -->
       <div class="w-full p-4 rounded-lg shadow-lg sm:row-span-2 sm:col-span-full lg:col-start-3 lg:row-start-4 bg-base-100 justify-self-center lg:justify-self-start">
-        <div class="flex items-center gap-1 text-xl font-semibold"><svg xmlns="http://www.w3.org/2000/svg"
-            class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd"
-              d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-              clip-rule="evenodd" />
+        <div class="flex items-center gap-1 text-xl font-semibold"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
           </svg>Danh sách Chapter</div>
-          <hr class="w-full my-2">
+        <hr class="w-full my-2">
         <div class="divide-y">
           <a href="#" class="flex justify-between p-2 hover:bg-base-200">
             <span class="font-medium">Chapter 4</span>
@@ -183,18 +167,31 @@
   <!-- </Script> -->
   <?php include 'includes/script.php'; ?>
   <script>
+    // create a condition that targets viewports at least 768px wide
     const mediaQuery = window.matchMedia('(max-width: 768px)')
-    if (mediaQuery.matches) {
-      document.addEventListener('DOMContentLoaded', function () {
-    // text, table, list, elelemnts
-    new ShowMore('.element', {
-      onMoreLess: (type, object) => {
-        // type = less/more and full object
-        console.log(type, object);
-      },
-    });
-  });
+
+    function handleTabletChange(e) {
+      // Check if the media query is true
+      if (e.matches) {
+        // Then log the following message to the console
+        console.log('Media Query Matched!')
+        document.addEventListener('DOMContentLoaded', function() {
+          // text, table, list, elelemnts
+          new ShowMore('.element', {
+            onMoreLess: (type, object) => {
+              // type = less/more and full object
+              console.log(type, object);
+            },
+          });
+        });
+      }
     }
+
+    // Register event listener
+    mediaQuery.addListener(handleTabletChange)
+
+    // Initial check
+    handleTabletChange(mediaQuery)
   </script>
 </body>
 
