@@ -311,7 +311,6 @@
                 </p>
               </div>
             </div>
-
           </div>
           <!-- item -->
           <div class="swiper-slide">
