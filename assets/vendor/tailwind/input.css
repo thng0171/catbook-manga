@@ -1,35 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@layer base {
+  html {
+    font-family: Nunito, sans-serif;
+  }
+  h1{
+    font-family: Nunito Sans, sans-serif;
+  }
+}
+@layer components{
+  .btn{
+    min-height: 2rem;
+    font-weight: bold;
+  }
+}
 .menu-item {
   @apply w-auto inline-flex gap-1 px-3 py-2 hover:text-primary;
 }
 .sub-menu {
   @apply text-base font-medium text-base-content hover:bg-transparent hover:text-primary;
 }
-
 .swiper-item {
-  @apply flex h-64 w-auto overflow-hidden rounded-lg bg-base-100 drop-shadow-md transition ease-in;
+  @apply grid relative grid-cols-3 h-64 max-w-sm overflow-hidden rounded-xl shadow-xl;
 }
-.swiper-image {
-  @apply relative w-1/3 flex-none sm:w-2/5;
+.swiper-item-left {
+  @apply relative;
 }
-.swiper-right {
-  @apply relative overflow-hidden p-3 tracking-wide;
+.swiper-item-right {
+  @apply col-span-2  overflow-hidden p-3 ;
 }
 .swiper-item-title {
-  @apply overflow-hidden text-ellipsis text-lg font-bold text-base-content line-clamp-2;
+  @apply overflow-hidden text-ellipsis text-lg font-bold line-clamp-2;
 }
 .swiper-item-desc {
-  @apply mt-3 text-ellipsis line-clamp-6;
+  @apply  text-ellipsis line-clamp-6;
 }
-.truyen {
+.manga {
   @apply flex overflow-hidden;
 }
-.truyen-img {
-  @apply aspect-truyen h-full w-full object-cover object-center transition-all ease-in hover:scale-105;
+.manga-cover {
+  @apply aspect-5/7 h-full w-full object-cover object-center transition-all ease-in hover:scale-105;
 }
-.truyen-title {
-  @apply font-medium line-clamp-2;
+.manga-title {
+  @apply font-semibold line-clamp-2;
+}
+
+.s-title{
+  @apply  text-xl md:text-2xl font-bold border-l-4 px-1.5 border-primary/80;
 }

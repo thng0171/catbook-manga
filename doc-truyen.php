@@ -9,25 +9,25 @@
   <?php include 'includes/style.php'; ?>
 </head>
 
-<body class="relative w-full bg-base-200">
+<body class="relative bg-base-200">
 
   <!-- ===HEADER=== -->
 
   <?php include 'includes/header.php'; ?>
   <!-- MAIN  -->
-  <main class="h-full py-16 w-full mx-auto">
+  <main class="w-full h-full py-16 mx-auto md:w-5/6 lg:w-4/6 xl:w-1/2">
     <!-- info  -->
-    <div class="m-4 text-center">
-      <a href="truyen.php" class="font-semibold text-xl  text-secondary">
-        Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</a>
+    <div class="px-2 py-4">
+      <a href="truyen.php" class="text-xl font-semibold md:text-2xl text-secondary">
+      Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</a>
       <div class="flex-col">
-        <div class="font-medium">Chapter 01</div>
+        <div class="font-medium md:text-lg">Chapter 01</div>
         <div class="text-sm italic">Cập nhật: 12h32 23/04/2022</div>
       </div>
     </div>
 
     <!-- content -->
-    <div class="items-center  my-5 md:mx-10 lg:mx-24 xl:mx-48">
+    <div class="items-center m-0 mx-auto">
       <img src="assets/img/1.png" alt="">
       <img src="assets/img/2.png" alt="">
       <img src="assets/img/3.png" alt="">
@@ -42,7 +42,7 @@
       <!-- comment -->
       <?php include 'includes/comment.php'; ?>
     </div>
-    <div id="navbtn" class=" fixed bottom-0 inset-x-0 z-10 duration-300 w-full">
+    <div id="navbtn" class="fixed inset-x-0 bottom-0 z-10 w-full duration-300 ">
       <?php include 'includes/navButton.php'; ?>
     </div>
 
@@ -53,9 +53,21 @@
   <!-- </Script> -->
   <?php include 'includes/script.php'; ?>
   <script>
+    //Hide navbar/navbutton on scroll
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("navbar").style.top = "0";
+    // document.getElementById("navbtn").style.bottom = "0";
     
-//Show/hide navbtn on scroll
- 
+  } else {
+    document.getElementById("navbar").style.top = "-64px";
+    // document.getElementById("navbtn").style.bottom = "-64px";
+  }
+  prevScrollpos = currentScrollPos;
+}
+
   </script>
 </body>
 

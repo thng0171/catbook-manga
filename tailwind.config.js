@@ -2,11 +2,11 @@ module.exports = {
   
   content: ["./**/*.{php,js}"],
   theme: {
-    extend: {
-      aspectRatio: {
-        truyen: "5 / 7",
+      extend: {
+        aspectRatio: {
+          '5/7': "5 / 7",
+        },
       },
-    },
   },
   plugins: [require("@tailwindcss/line-clamp"), require("daisyui")],
   daisyui: {
