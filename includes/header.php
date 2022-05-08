@@ -15,10 +15,10 @@
             <ul class="fixed inset-0 z-50 h-screen p-2 overflow-y-auto font-semibold duration-300 sidebar w-72 -left-80 menu bg-base-100">
                 <!-- Sidebar content here -->
                 <div class="flex items-center justify-between p-2">
-                    <h1
-                        class="px-3 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                    <div
+                        class="px-3 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
                         Catbook
-                    </h1>
+                    </div>
                     <div class="flex items-center justify-between gap-4">
                         <label class="md:hidden swap swap-rotate">
                             <!-- this hidden checkbox controls the state -->
