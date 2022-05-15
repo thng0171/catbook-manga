@@ -8,17 +8,65 @@ MFA.login(username, password, './bin/.md_cache').then(async () => {
   const pathArray = window.location.pathname.split('/');
   const endPath = pathArray[pathArray.length - 1];
   console.log(endPath);
+  // Get all tag 
+  let allTag = await MFA.Manga.getAllTags();
+  var tagList = document.getElementById('tag-list');
+  for (let tag of allTag) {
+    let tagItem = document.createElement('div')
+    tagItem.classList.add('tag-item', 'inline-block')
+    tagItem.innerHTML = `
+    <a href="search.php?tag=${tag.id}">${tag.name}</a>
+    `
+    tagList.appendChild(tagItem);
+  };
+  console.log('get tag');
   switch (endPath) {
     case 'index.php':
-      let mangas = await MFA.Manga.search({
+      // Get Suggestive Manga
+      let mangaList = await MFA.Manga.search({
+        limit: 20,
+        order: {
+          followedCount: 'desc'
+        },
+      });
+      for (let manga of mangaList) {
+        let swiper = document.getElementById('swiper');
+        let swiperItem = document.createElement('div');
+        swiperItem.classList.add('swiper-slide');
+        let image_src = await MFA.Cover.get(manga.mainCover.id)
+        swiperItem.innerHTML = `
+        <div class="swiper-item">
+          <!-- img left -->
+          <div class="swiper-item-left flex overflow-hidden">
+            <a href="manga.php?id=${manga.id}">
+              <img class="object-cover w-full h-full"
+                  src="${image_src.image256}" alt="${manga.title}">
+            </a>
+          </div>
+          <!-- text right  -->
+          <div class="swiper-item-right">
+            <!-- manga title -->
+            <a href="manga.php?id=${manga.id}" class="swiper-item-title" title="${manga.title}">${manga.title}</a>
+            <div></div>
+            <!-- desc -->
+            <p class="swiper-item-desc">
+              ${manga.description}
+            </p>
+          </div>
+        </div>
+        `
+        swiper.appendChild(swiperItem);
+      };
+      //Get lastest update manga
+      let lastestManga = await MFA.Manga.search({
         limit: 24,
         order: {
-          updatedAt: 'desc'
+          updatedAt: 'desc',
         }
       });
-      //TRUYEN MOI CAP NHAT
       let moiCapNhat = document.getElementById('moicapnhat')
-      for (let manga of mangas) {
+      for (let manga of lastestManga) {
+        console.log(manga);
         let mangaItem = document.createElement('div')
         mangaItem.classList.add('truyen')
         let image_src = await MFA.Cover.get(manga.mainCover.id)
@@ -27,15 +75,12 @@ MFA.login(username, password, './bin/.md_cache').then(async () => {
               <div class="overflow-hidden rounded">
                 <img class="manga-cover" src="${image_src.image256}" alt="">
               </div>
-              <div class="manga-title">
+              <div class="manga-title" title="${manga.title}">
                 ${manga.title}
               </div>
-            </a>
-            `;
-        // <div class="flex items-center justify-between">
-        //         <span class="">Ch. ${manga.lastChapter}</span>
-        //         <time class="text-sm text-gray-500">${manga.updatedAt.toLocaleDateString()}</time>
-        //       </div>
+              
+            </a>`;
+        
         moiCapNhat.appendChild(mangaItem)
       }
       break;
@@ -63,119 +108,141 @@ MFA.login(username, password, './bin/.md_cache').then(async () => {
       document.getElementById('author').innerHTML = `<div>${authors.name}</div>`;
       // get Tag 
       for (let tag of manga.tags) {
-        let tagItem = document.createElement('a');
-        tagItem.classList.add('badge', 'inline-block')
-        tagItem.href = '/tag/' + tag.id;
-        tagItem.innerHTML = tag.name;
+        let tagItem = document.createElement('div');
+        tagItem.innerHTML = `<a class="inline-block badge" href="search.php?tag=${tag.id}">${tag.name}</a>`
         document.getElementById('tag').appendChild(tagItem);
       }
       // get description
-      document.getElementById('desc').innerText = manga.description;
+      document.getElementById('desc').innerText = manga.description ? manga.description : '';
+      
       // get stactic data
       let staticData = await MFA.Manga.getStatistics(manga.id);
-      document.getElementById('rating').innerText = staticData.rating.average.toFixed(1) ? staticData.rating.average.toFixed(1) : 'N/A';
+      document.getElementById('rating').innerText = staticData.rating.average ? staticData.rating.average.toFixed(1) : 'N/A';
       document.getElementById('follows').innerText = staticData.follows;
       // Get the manga's chapters:
       let chapters = await manga.getFeed({
+        translatedLanguage: ['en'],
         order: {
           chapter: 'desc'
         }
       }, true);
-      if (chapters) {
+      if (chapters.length > 0) {
+        // read btn 
+        document.getElementById('read-btn').href = `chapter.php?id=${chapters[chapters.length-1].id}`;
         for (let chapter of chapters) {
           let chapterItem = document.createElement('div');
+          chapterItem.classList.add('grid','grid-cols-4','bg-base-200','p-1','m-2', 'px-2', 'hover:border-l-2' ,'border-primary');
           chapterItem.innerHTML = `
-              <a class="p-2 hover:border-l-2 border-primary flex" href="/chapter.php/${chapter.id}">
-                Chapter ${chapter.chapter ? chapter.chapter :''}: ${chapter.title? chapter.title : ''}
-              <a/>`
-          let chapterTime = document.createElement('div');
-          chapterTime.innerHTML = `
-              <div class="flex p-2 items-center gap-1 justify-end">
-                <i class="fa-regular fa-clock"></i>
-                <span>${chapter.publishAt.toLocaleDateString('en-GB')}</span>
-              </div>`
+            <div class="col-span-3">
+              <a class="block hover:text-primary font-semibold" href="chapter.php?id=${chapter.id}">
+                Chapter ${chapter.chapter ? chapter.chapter :''} ${chapter.title ?': ' + chapter.title : ''}  <a/>
+            </div>
+            <div class="flex items-center gap-1 justify-end text-sm">
+              <i class="fa-regular fa-clock"></i>
+              <div>${chapter.publishAt.toLocaleDateString('en-GB')}</div>
+            </div>`
+          
           let chapterList = document.getElementById('chapter-list');
-          let chapterStat = document.getElementById('chapter-stat');
+      
           chapterList.appendChild(chapterItem);
-          chapterStat.appendChild(chapterTime);
+       
         }
       } else {
-        document.getElementById('chapter-list-container').innerHTML = `<div class="text-center">No chapters</div>`;
+        document.getElementById('chapter-list').innerText = 'No chapters yet';
       }
       break;
-    case 'random.php':
-      //Get random manga
-      let random = await MFA.Manga.getRandom('safe');
-      // get title
-      Array.from(document.getElementsByClassName('title')).forEach(item => item.innerHTML = random.title);
-      // get alt title
-      if (random.altTitles[0]) {
-        document.getElementById('alt-title').innerHTML = random.altTitles[0];
-      }
-      //get cover banner
-      let random_img_src = await MFA.Cover.get(random.mainCover.id);
-      document.getElementById('manga-cover').innerHTML = `<img id="manga-cover" class="object-cover object-center w-full h-full aspect-truyen" src="${random_img_src.image256}">`
-      document.getElementById('banner').innerHTML = `
-        <div class="w-full h-full bg-fixed bg-center bg-no-repeat bg-cover -z-10" style="background-image:url('${random_img_src.image256}')">
-        </div>
-        `
-      // get authors
-      let random_authors = await MFA.Author.get(random.authors[0].id);
-      document.getElementById('author').innerHTML = `<div>${random_authors.name}</div>`;
-      // get Tag 
-      for (let tag of random.tags) {
-        let tagItem = document.createElement('a');
-        tagItem.classList.add('badge', 'inline-block')
-        tagItem.href = '/tag/' + tag.id;
-        tagItem.innerHTML = tag.name;
-        document.getElementById('tag').appendChild(tagItem);
-      }
-      // get description
-      document.getElementById('desc').innerText = random.description;
-      // get stactic data
-      let random_stat = await MFA.Manga.getStatistics(random.id);
-      document.getElementById('rating').innerText = random_stat.rating.average.toFixed(1);
-      document.getElementById('follows').innerText = random_stat.follows;
-      // Get the random's chapters:
-      let random_chapters = await random.getFeed({
+    case 'chapter.php':
+      //Get chapter
+      const chapterqueryString = window.location.search;
+      const chapterUrlParams = new URLSearchParams(chapterqueryString);
+      const chapterId = chapterUrlParams.get('id');
+      let chapter = await MFA.Chapter.get(chapterId);
+      let mangaInfo = await MFA.Manga.get(chapter.manga.id);
+      let chapterList = await MFA.Manga.getFeed(mangaInfo.id,{
+        translatedLanguage: ['en'],
         order: {
           chapter: 'desc'
         }
-      }, true);
-      if (random_chapters) {
-        for (let chapter of random_chapters) {
-          let chapterItem = document.getElementById('chapter-list');
-          chapterItem.innerHTML = `
-              <a class="p-2 hover:border-l-2 border-primary flex" href="/chapter.php/${chapter.id}">
-                Chapter ${chapter.chapter ? chapter.chapter :''}: ${chapter.title? chapter.title : ''}
-              <a/>`
-          let chapterTime = document.createElement('div');
-          chapterTime.innerHTML = `
-              <div class="flex p-2 items-center gap-1 justify-end">
-                <i class="fa-regular fa-clock"></i>
-                <span>${chapter.publishAt.toLocaleDateString('en-GB')}</span>
-              </div>`
-          let chapterList = document.getElementById('chapter-list');
-          let chapterStat = document.getElementById('chapter-stat');
-          chapterList.appendChild(chapterItem);
-          chapterStat.appendChild(chapterTime);
-        }
+      });
+      console.log(chapterList);
+      document.getElementById('info').innerHTML = `
+        <a href="manga.php?id=${mangaInfo.id}" class="text-xl font-semibold md:text-2xl text-secondary">
+        ${mangaInfo.title}</a>
+        <div class="flex-col">
+          <div class="font-medium md:text-lg">${chapter.chapter?'Chapter '+chapter.chapter:chapter.title}</div>
+          <div class="text-sm italic">Cập nhật: ${chapter.publishAt.toLocaleString('en-GB')}</div>
+        </div>
+      `
+      let pages = await chapter.getReadablePages('saver');
+      for (let page of pages) {
+        let pageItem = document.createElement('div');
+        pageItem.innerHTML = `<img src="${page}" alt="" loading="lazy">`
+        document.getElementById('page-list').appendChild(pageItem);
+      }
+      for(let chapter of chapterList){
+          let chapterItem = document.createElement('option');
+          chapterItem.value = `chapter.php?id=${chapter.id}`
+          chapterItem.innerText = chapter.chapter ? 'Chapter '+ chapter.chapter : chapter.title
+          document.getElementById('select-chapter').appendChild(chapterItem);
+      }
+      
+      document.getElementById('backtomanga').href = `manga.php?id=${mangaInfo.id}#chapter-list`
+      break;
+    case 'search.php':
+      const queryString1 = window.location.search;
+      const urlParams1 = new URLSearchParams(queryString1);
+      let keyword = urlParams1.get('s')
+      let tag = urlParams1.get('tag')
+      console.log(keyword)
+      if (keyword) {
+        var search_mangas = await MFA.Manga.search({
+          title: keyword,
+          limit: 24,
+        });
+        document.getElementById('searchbar').value = keyword;
+        document.getElementById('search-info').innerHTML = `<div class="text-lg font-semibold">Kết quả tìm kiếm cho "${keyword}"</div>`;
+
       } else {
-        document.getElementById('chapter-list-container').innerHTML = `<div class="text-center">No chapters</div>`;
+        var search_mangas = await MFA.Manga.search({
+          includedTags: [tag],
+          limit: 24,
+          order: {
+            relevance: 'desc'
+          }
+        });
+        tagInfo = (await MFA.Manga.getTag(tag)).name;
+        console.log(tagInfo)
+        document.getElementById('search-info').innerHTML = `<div class="text-3xl font-semibold">${tagInfo}</div>`;
+      }
+      if (search_mangas.length > 0) {
+        let results = document.getElementById('search-results')
+        for (let search_manga of search_mangas) {
+          let mangaItem = document.createElement('div')
+          mangaItem.classList.add('truyen')
+          let image_src = await MFA.Cover.get(search_manga.mainCover.id)
+          mangaItem.innerHTML = `
+            <a href="manga.php?id=${search_manga.id}">
+              <div class="overflow-hidden rounded">
+                <img class="manga-cover" src="${image_src.image256}" alt="${search_manga.title}">
+              </div>
+              <div class="manga-title">
+                ${search_manga.title}
+              </div>
+            </a>`;
+          // <div class="flex items-center justify-between">
+          //         <span class="">Ch. ${manga.lastChapter}</span>
+          //         <time class="text-sm text-gray-500">${manga.updatedAt.toLocaleDateString()}</time>
+          //       </div>
+          results.appendChild(mangaItem)
+        }
+      }
+      else{
+        document.getElementById('search-results').innerHTML = `<div class="text-lg col-span-full">Không tìm thấy kết quả nào cho "${keyword}" </div>`
       }
       break;
   }
 
-  // Get all tag 
-  let allTag = await MFA.Manga.getAllTags();
-  var tagList = document.getElementById('tag-list');
-  for (let i = 0; i <= 20; i++) {
-    let tagItem = document.createElement('div')
-    tagItem.innerHTML = `
-    <a href="/tag/${allTag[i].id}" class="tag-item">${allTag[i].name}</a>
-    `
-    tagList.appendChild(tagItem);
-  };
+
 }).catch(console.error);
 
 

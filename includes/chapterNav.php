@@ -2,12 +2,12 @@
   <div class="flex items-center justify-center gap-1 scale-95 md:scale-100 md:gap-2">
     <!-- Chapter list button -->
     <div class="tooltip" data-tip="Chapter list">
-      <button type="button" class="btn btn-square btn-ghost">
+      <a id="backtomanga" href="" class="btn btn-square btn-ghost">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
           stroke-width="3">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
         </svg>
-      </button>
+      </a>
     </div>
     <!-- Add to favorite -->
     <div class="tooltip" data-tip="Add to favorite">
@@ -35,13 +35,8 @@
       </button>
     </div>
     <!-- select chapter -->
-    <select class="text-base select select-ghost select-bordered select-sm focus:outline-none">
-      <option selected>Chapter 1</option>
-      <option>Chapter 2</option>
-      <option>Chapter 3</option>
-      <option>Chapter 4</option>
-      <option>Chapter 5</option>
-      <option>Chapter 6</option>
+    <select  onchange="window.location.href=this.value;" id="select-chapter" class="text-base select select-ghost select-bordered select-sm focus:outline-none">
+      
     </select>
     <!-- Next chapter button -->
     <div class="tooltip" data-tip="Next chapter">

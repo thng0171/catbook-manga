@@ -50,19 +50,20 @@
                 </div>
             </div>
             <!-- manga info  -->
-            <div class=" sm:h-52 sm:grid sm:justify-items-start sm:col-span-2 lg:col-span-3">
+            <div class="overflow-hidden sm:h-52 sm:grid sm:justify-items-start sm:col-span-2 lg:col-span-4">
                 <!-- title  -->
                 <div class="text-left sm:p-0 sm:text-left">
                     <h1 class="text-2xl font-bold title sm:text-4xl xl:text-5xl sm:text-white"></h1>
-                    <h2 id="alt-title" class="text-xl sm:text-xl xl:text-2xl sm:text-gray-100 "></h1>
+                    <h2 id="alt-title" class="text-xl sm:text-xl xl:text-2xl sm:text-white/90 "></h1>
                 </div>
                 <div id="author" class="self-center sm:text-white sm:text-lg">
-                    <!-- author    -->
+                    <!-- author    --> 
+
                 </div>
             </div>
             <!-- buttons -->
             <div class="flex flex-wrap items-end gap-2 sm:col-start-2 sm:row-start-2 sm:col-span-2">
-                <a href="doc-truyen.php" class="btn btn-primary grow">
+                <a id="read-btn" href="" class="btn btn-primary grow">
                     Đọc truyện</a>
                 <!-- Save btn  -->
                 <button class="border-2 btn btn-outline btn-primary btn-square ">
@@ -97,7 +98,7 @@
                 <i class="fa-solid fa-circle-info fa-sm"></i>Giới thiệu
                 </h1>
                 <hr class="my-2">
-                <div id="desc" class="whitespace-pre-line element" data-config='{ "type": "text", "limit": 120, "more": "→ show more", "less": "← less"}'>
+                <div id="desc"  class="whitespace-pre-line element" data-config='{ "type": "text", "limit": 120, "more": "→ show more", "less": "← less"}'>
                     
                 </div>
             </div>
@@ -106,12 +107,7 @@
                 <div class="flex items-center gap-1 text-xl font-semibold">
                 <i class="fa-solid fa-list"></i> Danh sách Chapter</div>
                 <hr class="w-full my-2">
-                <div class="grid grid-cols-3" >
-                    <div id="chapter-list" class="col-span-2">
-                    </div>
-                    <div id="chapter-stat">
-                        
-                    </div>
+                <div id="chapter-list"></div>
                 </div>
             </div>
             <!-- comment -->

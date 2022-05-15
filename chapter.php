@@ -17,31 +17,15 @@
   <!-- MAIN  -->
   <main class="w-full h-full py-16 mx-auto md:w-5/6 lg:w-4/6 xl:w-1/2">
     <!-- info  -->
-    <div class="px-2 py-4">
-      <a href="truyen.php" class="text-xl font-semibold md:text-2xl text-secondary">
-        Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen</a>
-      <div class="flex-col">
-        <div class="font-medium md:text-lg">Chapter 01</div>
-        <div class="text-sm italic">Cập nhật: 12h32 23/04/2022</div>
-      </div>
+    <div id="info" class="px-2 py-4">
+      
     </div>
 
     <!-- content -->
-    <div class="items-center m-0 mx-auto">
-      <img src="assets/img/1.png" alt="">
-      <img src="assets/img/2.png" alt="">
-      <img src="assets/img/3.png" alt="">
-      <img src="assets/img/4.png" alt="">
-      <img src="assets/img/5.png" alt="">
-      <img src="assets/img/6.png" alt="">
-      <img src="assets/img/7.png" alt="">
-      <img src="assets/img/8.png" alt="">
-      <img src="assets/img/9.png" alt="">
-      <img src="assets/img/10.png" alt="">
-      <!-- navigation buttons -->
+    <div id="page-list" class="items-center m-0 mx-auto">
+      </div>
       <!-- comment -->
-      <?php include 'includes/comment.php'; ?>
-    </div>
+    <?php include 'includes/comment.php'; ?>
     <div id="navbtn" class="fixed inset-x-0 bottom-0 z-10 duration-300">
       <?php include 'includes/chapterNav.php'; ?>
     </div>

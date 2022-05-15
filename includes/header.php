@@ -13,18 +13,15 @@
         <!-- menu nav -->
         <ul id="menu" class="hidden p-0 text-lg font-bold menu xl:ml-5 lg:space-x-2 lg:menu-horizontal">
             <li class="">
-                <a href="index.php" class="menu-item">
-                    Trang chủ </a>
+                <a href="index.php" class="menu-item">Trang chủ</a>
             </li>
             <li tabindex="0" class="relative group hover:text-primary">
-                <a href="" class="menu-item">
-                    Thể loại</a>
+                <a href="" class="menu-item">Thể loại</a>
                 <div id="tag-list"
-                    class="absolute z-20 w-[700px] hidden grid-flow-row grid-cols-8 p-4 rounded-md shadow-lg min-w-fit md:group-hover:grid gap-x-6 top-full bg-base-100 ">
+                    class="absolute z-20 items-start hidden w-[64rem] -left-64 grid-flow-row grid-cols-6 p-4 rounded-md shadow-lg top-full md:group-hover:grid bg-base-100 ">
                 </div>
             </li>
-            <li><a href="" class="menu-item">Mới cập nhật</a></li>
-            <li><a href="random.php" class="menu-item">Ngẫu nhiên</a></li>
+            <li><a href="manga.php?id=random" class="menu-item">Ngẫu nhiên</a></li>
         </ul>
     </div>
     </div>
@@ -38,7 +35,7 @@
                     </svg>                 
             </button>
             <div class="fixed inset-x-0 hidden p-4 duration-300 searchbar md:static bg-base-100 md:bg-transparent top-14 md:flex">
-                <form method="GET" action="../search.php" class="relative">
+                <form action="search.php" class="relative">
                     <input required type="text" name="s" class="w-full h-10 py-0 input input-bordered bg-base-200 focus:outline-none xl:w-72"
                         placeholder="Tìm kiếm truyện...">
                     <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3">
