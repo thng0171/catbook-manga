@@ -12,7 +12,7 @@
     <?php include 'includes/header.php'; ?>
     <!-- MAIN  -->
     <main class="flex items-center justify-center pb-96 pt-20 w-full ">
-   <div class=" flex items-center gap-20 sm:gap-4">
+    <div class=" flex items-center gap-20 sm:gap-4">
        <form method="GET"  action="" class="relative">
            <div>
            <input type="text" placeholder="Search" class="input input-bordered w-96 input-primary" />
