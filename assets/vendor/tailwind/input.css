@@ -16,10 +16,13 @@
   }
 }
 .menu-item {
-  @apply w-auto inline-flex gap-1 px-3 py-2 hover:text-primary;
+  @apply  gap-1 px-3 py-2 hover:text-primary;
 }
-.sub-menu {
-  @apply text-base font-semibold text-base-content hover:bg-transparent hover:text-primary;
+.tag-list {
+  @apply absolute z-20 hidden grid-rows-6 p-4 rounded-md shadow-lg group-hover:grid gap-x-6 top-full bg-base-100;
+}
+.tag-item {
+  @apply text-base inline-block font-semibold text-base-content hover:bg-transparent hover:text-primary;
 }
 .swiper-item {
   @apply grid relative bg-base-100 grid-cols-3 h-64 max-w-sm overflow-hidden rounded-xl shadow-xl;
@@ -40,10 +43,10 @@
   @apply flex overflow-hidden;
 }
 .manga-cover {
-  @apply aspect-5/7 h-full w-full object-cover object-center transition-all ease-in hover:scale-105;
+  @apply aspect-5/7 h-full w-full object-cover object-center;
 }
 .manga-title {
-  @apply font-semibold line-clamp-2;
+  @apply font-semibold line-clamp-2 py-1;
 }
 .s-title{
   @apply  text-xl md:text-2xl font-bold text-base-content/90 border-l-4 px-1.5 border-primary/80;
