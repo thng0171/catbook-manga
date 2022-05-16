@@ -15,20 +15,20 @@
 
   <?php include 'includes/header.php'; ?>
   <!-- MAIN  -->
-  <main class="w-full h-full py-16 mx-auto md:w-5/6 lg:w-4/6 xl:w-1/2">
+  <main class="w-full min-h-screen py-16 mx-auto md:w-5/6 lg:w-4/6 xl:w-1/2">
     <!-- info  -->
     <div id="info" class="px-2 py-4">
       
     </div>
 
     <!-- content -->
-    <div id="page-list" class="items-center m-0 mx-auto">
+    <div id="page-list" class="justify-center m-0 mx-auto ">
+
+      <div id="navbtn" class="fixed inset-x-0 bottom-0 z-10 duration-300">
+        <?php include 'includes/chapterNav.php'; ?>
       </div>
-      <!-- comment -->
-    <?php include 'includes/comment.php'; ?>
-    <div id="navbtn" class="fixed inset-x-0 bottom-0 z-10 duration-300">
-      <?php include 'includes/chapterNav.php'; ?>
-    </div>
+      </div>
+
 
   </main>
   <!-- ===FOOTER=== -->

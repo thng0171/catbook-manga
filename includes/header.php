@@ -16,7 +16,7 @@
                 <a href="index.php" class="menu-item">Trang chủ</a>
             </li>
             <li tabindex="0" class="relative group hover:text-primary">
-                <a href="" class="menu-item">Thể loại</a>
+                <div class="menu-item">Thể loại</div>
                 <div id="tag-list"
                     class="absolute z-20 items-start hidden w-[64rem] -left-64 grid-flow-row grid-cols-6 p-4 rounded-md shadow-lg top-full md:group-hover:grid bg-base-100 ">
                 </div>
@@ -27,30 +27,29 @@
     </div>
     <div class="flex items-center gap-2 sm:gap-4">
         <!-- Search -->
-            <button onclick="toggleSearchbar()" class="md:hidden btn btn-ghost btn-square">
+        <button onclick="toggleSearchbar()" class="md:hidden btn btn-ghost btn-square">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+        <div
+            class="fixed inset-x-0 hidden p-4 duration-300 searchbar md:static bg-base-100 md:bg-transparent top-14 md:flex">
+            <form action="search.php" class="relative">
+                <input required type="text" name="s"
+                    class="w-full h-10 py-0 input input-bordered bg-base-200 focus:outline-none xl:w-72"
+                    placeholder="Tìm kiếm truyện...">
+                <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                             clip-rule="evenodd" />
-                    </svg>                 
-            </button>
-            <div class="fixed inset-x-0 hidden p-4 duration-300 searchbar md:static bg-base-100 md:bg-transparent top-14 md:flex">
-                <form action="search.php" class="relative">
-                    <input required type="text" name="s" class="w-full h-10 py-0 input input-bordered bg-base-200 focus:outline-none xl:w-72"
-                        placeholder="Tìm kiếm truyện...">
-                    <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </form>
-            </div>
-        <!-- Theme toggle  -->
-        <div class="hidden lg:swap">
-           <?php include 'includes/themeToggle.php'; ?>
+                    </svg>
+                </button>
+            </form>
         </div>
+
         <!-- login -->
         <div class="z-0">
             <!-- Login button -->
@@ -73,8 +72,8 @@
                             <label class="label">
                                 <span class="label-text">Mật khẩu</span>
                             </label>
-                            <input type="password" placeholder="••••••••••" 
-                            class="input focus:outline-secondary input-bordered" required>
+                            <input type="password" placeholder="••••••••••"
+                                class="input focus:outline-secondary input-bordered" required>
                             <label class="label">
                                 <a href="#" class="label-text link-secondary link link-hover">Quên mật khẩu?</a>
                             </label>
@@ -97,7 +96,7 @@
 
             </div>
         </div>
-        
+
     </div>
 </header>
 <!-- end header -->

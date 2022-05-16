@@ -9,7 +9,7 @@
   <?php include 'includes/style.php'; ?>
 </head>
 
-<body class="bg-base-200">
+<body class="relative bg-base-200">
   <!-- ===HEADER=== -->
   <?php include 'includes/header.php'; ?>
   <!-- ===MAIN=== -->
@@ -18,12 +18,13 @@
     <!-- Truyện de cu -->
     <section class="w-full my-5">
       <!-- title  -->
-      <a href="" class="inline-block py-3">
-         <span class="s-title">TRUYỆN ĐỀ CỬ</span></a>
+      <div id="suggestion" class="inline-block py-3">
+        <div  class="s-title">TRUYỆN ĐỀ CỬ</div>
+      </div>
       <!-- Swiper -->
       <div class="relative swiper mySwiper">
         <div id="swiper" class="w-full h-full swiper-wrapper">
-          
+
         </div>
         <!-- navigation -->
         <div class="invisible p-8 scale-90 rounded-full swiper-button-next md:visible bg-black/40 ">
@@ -37,13 +38,13 @@
     <!-- Truyện mới cập nhật -->
     <section class="">
       <!-- title  -->
-      <a href="" class="inline-block py-3">
-            <span class="s-title">
+      <div id="lastest" class="inline-block py-3">
+        <span class="s-title">
           MỚI CẬP NHẬT
         </span>
-      </a>
+      </div>
       <!-- container -->
-      <div id="moicapnhat" class="grid w-full grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"> 
+      <div id="moicapnhat" class="grid w-full grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
       </div>
     </section>
     <!-- phan trang  -->
@@ -64,47 +65,44 @@
   <script>
     // Swiper
     var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
+      spaceBetween: 30,
+      draggable: true,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1.2,
         },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+        640: {
+          slidesPerView: 1.5,
+          spaceBetween: 20,
         },
-        breakpoints: {
-            0: {
-                slidesPerView: 1,
-            },
-            320: {
-                slidesPerView: 1.2,
-            },
-            640: {
-                slidesPerView: 1.5,
-                spaceBetween: 20,
-            },
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-            },
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-            },
-            1440: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-            },
-            2560: {
-                slidesPerView: 4.5,
-                spaceBetween: 40,
-            },
-        }
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1440: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        2560: {
+          slidesPerView: 4.5,
+          spaceBetween: 40,
+        },
+      }
     });
-    
-</script>
+  </script>
 
 </body>
 

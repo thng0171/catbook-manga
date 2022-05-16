@@ -1,6 +1,325 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const _0x4dd06a=_0x5438;function _0x5438(_0x473e15,_0x527409){const _0x5d4b1b=_0x5d4b();return _0x5438=function(_0x54386a,_0x337c1b){_0x54386a=_0x54386a-0xd3;let _0x24ac0c=_0x5d4b1b[_0x54386a];return _0x24ac0c;},_0x5438(_0x473e15,_0x527409);}(function(_0x411a73,_0x36be0e){const _0x29a07e=_0x5438,_0x1dcc38=_0x411a73();while(!![]){try{const _0x23ef0e=-parseInt(_0x29a07e(0xda))/0x1+-parseInt(_0x29a07e(0xd7))/0x2+parseInt(_0x29a07e(0xdc))/0x3*(-parseInt(_0x29a07e(0xd4))/0x4)+-parseInt(_0x29a07e(0xde))/0x5+-parseInt(_0x29a07e(0xd5))/0x6*(parseInt(_0x29a07e(0xdd))/0x7)+-parseInt(_0x29a07e(0xd8))/0x8+-parseInt(_0x29a07e(0xdb))/0x9*(-parseInt(_0x29a07e(0xd9))/0xa);if(_0x23ef0e===_0x36be0e)break;else _0x1dcc38['push'](_0x1dcc38['shift']());}catch(_0x3ab7ab){_0x1dcc38['push'](_0x1dcc38['shift']());}}}(_0x5d4b,0x7caeb));function _0x5d4b(){const _0x4316f7=['286115qGfqzQ','Demond_Corkery','5732pVSusZ','99612mIaOmM','hC7wQ7DAnFvFMXa','354742wAjIBv','2037104aJfuWC','120ESYWkV','922896DwLSmp','1564380yjyXCH','237mjGZKd','21RMkUWH'];_0x5d4b=function(){return _0x4316f7;};return _0x5d4b();}const username=_0x4dd06a(0xd3),password=_0x4dd06a(0xd6);
 
-},{}],2:[function(require,module,exports){
+
+const MFA = require('mangadex-full-api');
+MFA.login(username, password, './bin/.md_cache').then(async () => {
+  const pathArray = window.location.pathname.split('/');
+  const endPath = pathArray[pathArray.length - 1];
+  console.log(endPath);
+  // Get all tag 
+  let allTag = await MFA.Manga.getAllTags();
+  var tagList = document.getElementById('tag-list');
+  var tagList2 = document.getElementById('tag-sidebar')
+  for (let tag of allTag) {
+    let tagItem = document.createElement('div')
+    let tagItem2 = document.createElement('div')
+    tagItem.classList.add('tag-item', 'inline-block')
+    // tagItem2.classList.add('tag-item');
+    tagItem.innerHTML = `
+    <a href="search.php?tag=${tag.id}">${tag.name}</a>
+    `
+    tagItem2.innerHTML = `
+    <a href="search.php?tag=${tag.id}">${tag.name}</a>
+    `
+    tagList.appendChild(tagItem);
+    tagList2.appendChild(tagItem2);
+  };
+  switch (endPath) {
+    case 'index.php':
+      // Get Suggestive Manga
+      let mangaList = await MFA.Manga.search({
+        limit: 9,
+        order: {
+          followedCount: 'desc'
+        },
+        offset: 1,
+      });
+      for (let manga of mangaList) {
+        let swiper = document.getElementById('swiper');
+        let swiperItem = document.createElement('div');
+        swiperItem.classList.add('swiper-slide');
+        let image_src = await MFA.Cover.get(manga.mainCover.id)
+        swiperItem.innerHTML = `
+        <div class="swiper-item">
+          <!-- img left -->
+          <div class="swiper-item-left flex overflow-hidden">
+            <a href="manga.php?id=${manga.id}">
+              <img class="object-cover w-full h-full"
+                  src="${image_src.image256}" alt="${manga.title}">
+            </a>
+          </div>
+          <!-- text right  -->
+          <div class="swiper-item-right">
+            <!-- manga title -->
+            <a href="manga.php?id=${manga.id}" class="swiper-item-title" title="${manga.title}">${manga.title}</a>
+            <div></div>
+            <!-- desc -->
+            <p class="swiper-item-desc">
+              ${manga.description}
+            </p>
+          </div>
+        </div>
+        `
+        swiper.appendChild(swiperItem);
+      };
+      //Get lastest update manga
+      let lastestManga = await MFA.Manga.search({
+        limit: 25,
+        order: {
+          updatedAt: 'desc',
+        },
+        contentRating: ['safe'],
+      });
+      console.log(lastestManga)
+      let moiCapNhat = document.getElementById('moicapnhat')
+      for (let manga of lastestManga) {
+
+        let mangaItem = document.createElement('div')
+        mangaItem.classList.add('truyen')
+        if(!manga.mainCover){
+          continue
+        }
+        let image_src = await MFA.Cover.get(manga.mainCover.id)
+        console.log(manga.mainCover);
+        mangaItem.innerHTML = `
+            <a href="manga.php?id=${manga.id}">
+              <div class="overflow-hidden rounded">
+                <img class="manga-cover" src="${image_src.image256}" alt="">
+              </div>
+              <div class="manga-title" title="${manga.title}">
+                ${manga.title}
+              </div>
+              
+            </a>`;
+        
+        moiCapNhat.appendChild(mangaItem)
+      }
+      break;
+    case 'manga.php':
+      //Get  manga
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const id = urlParams.get('id')
+      console.log(id);
+      var manga = await MFA.Manga.get(id);
+      // get title
+      Array.from(document.getElementsByClassName('title')).forEach(item => item.innerHTML = manga.title);
+      // get alt title
+      if (manga.altTitles[0]) {
+        document.getElementById('alt-title').innerText = manga.altTitles[0];
+      }
+      //get cover banner
+      let image_src = await MFA.Cover.get(manga.mainCover.id);
+      document.getElementById('manga-cover').innerHTML = `<img id="manga-cover" class="object-cover object-center w-full h-full aspect-truyen" src="${image_src.image256}">`
+      document.getElementById('banner').innerHTML = `
+        <div class="w-full h-full bg-fixed bg-center bg-no-repeat bg-cover -z-10" style="background-image:url('${image_src.image256}')">
+        </div>
+        `
+      // get authors
+      let authors = await MFA.Author.get(manga.authors[0].id);
+      document.getElementById('author').innerHTML = `<div>${authors.name}</div>`;
+      // get Tag 
+      for (let tag of manga.tags) {
+        let tagItem = document.createElement('div');
+        tagItem.innerHTML = `<a class="inline-block badge" href="search.php?tag=${tag.id}">${tag.name}</a>`
+        document.getElementById('tag').appendChild(tagItem);
+      }
+      // get description
+      document.getElementById('desc').innerHTML = 
+      `<div class="whitespace-pre-line element" data-config='{ "type": "text", "limit": 120, "more": "→ show more", "less": "← less"}'>             
+        ${manga.description ? manga.description : ''} 
+      </div>`;
+      
+      // get stactic data
+      let staticData = await MFA.Manga.getStatistics(manga.id);
+      document.getElementById('rating').innerText = staticData.rating.average ? staticData.rating.average.toFixed(1) : 'N/A';
+      document.getElementById('follows').innerText = staticData.follows;
+      // Get the manga's chapters:
+      let chapters = await manga.getFeed({
+        translatedLanguage: ['en'],
+        order: {
+          chapter: 'asc'
+        }
+
+      }, true);
+      if (chapters.length > 0) {
+        // read btn 
+        document.getElementById('read-btn').href = `chapter.php?id=${chapters[chapters.length-1].id}`;
+        for (let chapter of chapters) {
+          if(!chapter.isExternal){
+            let chapterItem = document.createElement('div');
+            chapterItem.classList.add('grid','grid-cols-4','bg-base-200','p-1','my-2', 'px-2', 'hover:border-l-2' ,'border-primary');
+            chapterItem.innerHTML = `
+              <div class="col-span-3">
+                <a class="block hover:text-primary-focus font-semibold" href="chapter.php?id=${chapter.id}">
+                  Chapter ${chapter.chapter ? chapter.chapter :''} ${chapter.title ?': ' + chapter.title : ''}  <a/>
+              </div>
+              <div class="flex items-center gap-1 justify-end text-sm">
+                <i class="fa-regular fa-clock"></i>
+                <i>${chapter.publishAt.toLocaleDateString('en-GB')}</i>
+              </div>`
+            
+            let chapterList = document.getElementById('chapter-list');
+        
+            chapterList.appendChild(chapterItem);
+          }
+       
+        }
+      } else {
+        document.getElementById('chapter-list').innerText = 'No chapters yet';
+      }
+      break;
+    case 'chapter.php':
+      //Get chapter
+      const chapterqueryString = window.location.search;
+      const chapterUrlParams = new URLSearchParams(chapterqueryString);
+      const chapterId = chapterUrlParams.get('id');
+      let chapter = await MFA.Chapter.get(chapterId);
+      console.log(chapter.manga.id);
+      let mangaInfo = await MFA.Manga.get(chapter.manga.id);
+      document.getElementById('title').innerText = chapter.chapter?'Chapter '+chapter.chapter:chapter.title;
+      let chapterList = await mangaInfo.getFeed({
+        translatedLanguage: ['en'],
+        order: {
+          chapter: 'asc'
+        }
+      });
+      // console.log(chapterList);
+      document.getElementById('info').innerHTML = `
+        <a href="manga.php?id=${mangaInfo.id}" class="text-xl font-semibold md:text-2xl text-secondary">
+        ${mangaInfo.title}</a>
+        <div class="flex-col">
+          <div class="font-medium md:text-lg">${chapter.chapter?'Chapter '+chapter.chapter:chapter.title}</div>
+          <div class="text-sm italic">Cập nhật: ${chapter.publishAt.toLocaleString('en-GB')}</div>
+        </div>
+      `
+      let pages = await chapter.getReadablePages('saver');
+      for (let page of pages) {
+        let pageItem = document.createElement('div');
+        pageItem.innerHTML = `<img src="${page}" alt="" loading="lazy">`
+        document.getElementById('page-list').appendChild(pageItem);
+      } 
+      document.getElementById('backtomanga').href = `manga.php?id=${mangaInfo.id}#chapter-list`
+      var inChapterList = [];
+      for(let chapter of chapterList){
+        if(!chapter.isExternal){
+          inChapterList.push(chapter)
+        }
+      }
+
+      for(let i=0; inChapterList.length-1;i++){
+          let chapterItem = document.createElement('option');
+          if(chapterId === inChapterList[i].id){
+            chapterItem = new Option('','',false,true)
+          }
+          chapterItem.value = `chapter.php?id=${inChapterList[i].id}`
+          chapterItem.innerText = inChapterList[i].chapter ? 'Chapter '+ inChapterList[i].chapter : inChapterList[i].title
+          document.getElementById('select-chapter').appendChild(chapterItem);
+          if(chapterId === inChapterList[i].id){
+            if(i==0){
+              document.getElementById('prev-chapter-btn').classList.add('btn-disabled');
+            }
+            else{
+              let prevChapter = i-1
+              document.getElementById('prev-chapter').href= `chapter.php?id=${inChapterList[prevChapter].id}`
+            }
+            if(i==inChapterList.length-1){
+              document.getElementById('next-chapter-btn').classList.add('btn-disabled');
+            }
+            else{
+              let nextChapter = i+1;
+              document.getElementById('next-chapter').href= `chapter.php?id=${inChapterList[nextChapter].id}`
+            }
+          }
+      }
+      
+      break;
+    case 'search.php':
+      const queryString1 = window.location.search;
+      const urlParams1 = new URLSearchParams(queryString1);
+      let keyword = urlParams1.get('s')
+      let tag = urlParams1.get('tag')
+      console.log(keyword)
+      if (keyword) {
+        var search_mangas = await MFA.Manga.search({
+          title: keyword,
+          limit: 24,
+          order: {
+            relevance: 'desc'
+          }
+        });
+        document.getElementById('searchbar').value = keyword;
+        
+
+      } else {
+        var search_mangas = await MFA.Manga.search({
+          includedTags: [tag],
+          limit: 24,
+          order: {
+            relevance: 'desc'
+          }
+        });
+        tagInfo = (await MFA.Manga.getTag(tag)).name;
+        document.getElementById('search-info').innerHTML = `<div class="text-3xl font-semibold">${tagInfo}</div>`;
+      }
+      if (search_mangas.length > 0) {
+        let results = document.getElementById('search-results')
+        for (let search_manga of search_mangas) {
+          let mangaItem = document.createElement('div')
+          mangaItem.classList.add('truyen')
+          let image_src = await MFA.Cover.get(search_manga.mainCover.id)
+          mangaItem.innerHTML = `
+            <a href="manga.php?id=${search_manga.id}">
+              <div class="overflow-hidden rounded">
+                <img class="manga-cover" src="${image_src.image256}" alt="${search_manga.title}">
+              </div>
+              <div class="manga-title">
+                ${search_manga.title}
+              </div>
+            </a>`;
+          // <div class="flex items-center justify-between">
+          //         <span class="">Ch. ${manga.lastChapter}</span>
+          //         <time class="text-sm text-gray-500">${manga.updatedAt.toLocaleDateString()}</time>
+          //       </div>
+          results.appendChild(mangaItem)
+        }
+      }
+      else{
+        document.getElementById('search-results').innerHTML = `<div class="text-lg col-span-full">Không tìm thấy kết quả nào cho "${keyword}" </div>`
+      }
+      break;
+  }
+
+
+}).catch(console.error);
+
+
+
+//Show/hide navbar on click
+
+function openSidebar() {
+  document.querySelector('.sidebar').classList.toggle('-left-80');
+  toggleOverlay();
+}
+// category sidebar
+function openTagSidebar() {
+  document.getElementById('tag-sidebar').classList.toggle('-left-80');
+  toggleOverlay2();
+}
+function toggleOverlay() {
+    document.querySelector('.overlay').classList.toggle('hidden');
+}
+function toggleOverlay2() {
+    document.querySelector('.overlay2').classList.toggle('hidden');
+}
+// toggle searchbar
+function toggleSearchbar() {
+  document.querySelector('.searchbar').classList.toggle('hidden');
+  console.log('toggle searchbar');
+}
+
+},{"mangadex-full-api":13}],2:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -153,8 +472,10 @@ function fromByteArray (uint8) {
 }
 
 },{}],3:[function(require,module,exports){
-arguments[4][1][0].apply(exports,arguments)
-},{"dup":1}],4:[function(require,module,exports){
+
+},{}],4:[function(require,module,exports){
+arguments[4][3][0].apply(exports,arguments)
+},{"dup":3}],5:[function(require,module,exports){
 (function (Buffer){(function (){
 /*!
  * The buffer module from node.js, for the browser.
@@ -1935,7 +2256,7 @@ function numberIsNaN (obj) {
 }
 
 }).call(this)}).call(this,require("buffer").Buffer)
-},{"base64-js":2,"buffer":4,"ieee754":8}],5:[function(require,module,exports){
+},{"base64-js":2,"buffer":5,"ieee754":9}],6:[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -2001,7 +2322,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -2500,7 +2821,7 @@ function eventTargetAgnosticAddListener(emitter, name, listener, flags) {
   }
 }
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var http = require('http')
 var url = require('url')
 
@@ -2533,7 +2854,7 @@ function validateParams (params) {
   return params
 }
 
-},{"http":17,"url":37}],8:[function(require,module,exports){
+},{"http":35,"url":55}],9:[function(require,module,exports){
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
@@ -2620,7 +2941,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -2649,7 +2970,3132 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
+module.exports={
+  "name": "mangadex-full-api",
+  "version": "5.11.1",
+  "description": "A MangaDex api based around the official API.",
+  "main": "./src/index.js",
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "test": "mocha",
+    "gen-types": "dts-bundle-generator --out-file=./types/index.d.ts --external-types=node --no-banner ./src/index.js",
+    "gen-docs": "jsdoc -c ./jsdoc/config.json -d ./docs"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/md-y/mangadex-full-api.git"
+  },
+  "keywords": [
+    "mangadex",
+    "api",
+    "manga",
+    "anime",
+    "manwha",
+    "manhua"
+  ],
+  "author": "m;dy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/md-y/mangadex-full-api/issues"
+  },
+  "homepage": "https://md-y.github.io/mangadex-full-api/",
+  "devDependencies": {
+    "@types/node": "^17.0.12",
+    "docdash": "^1.2.0",
+    "dotenv": "^14.3.2",
+    "dts-bundle-generator": "^6.4.0",
+    "jsdoc": "^3.6.10",
+    "mocha": "^9.1.2"
+  }
+}
+
+},{}],12:[function(require,module,exports){
+'use strict';
+
+const Util = require('./util.js');
+var fs, Path;
+if (!Util.isBrowser()) {
+    fs = require('fs');
+    Path = require('path');
+}
+const APIRequestError = require('./internal/requesterror.js');
+
+/**
+ * Any function that requires authentication should call 'validateTokens().'
+ * How authentication works:
+ * If there is no cache or its invalid, simply request tokens through logging in ('login()').
+ * If there is a cache, check if the tokens are up to date ('validateTokens()').
+ * If the session token is out of date, refresh it ('validateTokens()').
+ * If the refresh token is out of date, log in again ('login()').
+ * At most there are three calls to the API, two of which are rate limited (/auth/refresh and /auth/login).
+ */
+class AuthUtil {
+    /** @type {Boolean} */
+    static canAuth = false;
+    /** @type {Cache} */
+    static cache;
+
+    /**
+     * @param {String} username 
+     * @param {String} password 
+     * @param {String} [cacheLocation]
+     * @returns {Promise<void>}
+     */
+    static async login(username, password, cacheLocation) {
+        if (username === undefined || password === undefined) throw new Error('Invalid Argument(s)');
+
+        AuthUtil.canAuth = true;
+        if (Util.isBrowser()) AuthUtil.cache = new BrowserCache(cacheLocation, username);
+        else AuthUtil.cache = new Cache(cacheLocation, username);
+
+        // Check if the cache tokens are still valid
+        if (await AuthUtil.cache.read()) {
+            try {
+                let token = await AuthUtil.validateTokens(true);
+                if (token === AuthUtil.token) return;
+            } catch (error) { }
+        }
+
+        // Login if the cache is not valid or missing
+        let res = await Util.apiRequest('/auth/login', 'POST', { username: username, password: password });
+        if (!('token') in res) throw new APIRequestError('The API did not respond with any tokens when logging in', APIRequestError.INVALID_RESPONSE);
+        AuthUtil.cache.write({ ...res.token, date: Date.now() });
+        AuthUtil.updateHeader();
+    }
+
+    /**
+     * Checks if the current tokens are valid and refreshes them if needed
+     * @param {Boolean} [force] If false, will not skip validation based on the last verification time
+     * @returns {Promise<String>} Returns session token
+     */
+    static async validateTokens(force = false) {
+        if (!AuthUtil.canAuth) throw new APIRequestError('Not logged in.', APIRequestError.AUTHORIZATION);
+        AuthUtil.updateHeader();
+
+        // Don't refresh if the token was refreshed less than 14.9 minutes ago (15 is the maximum age)
+        if (!force && Date.now() - AuthUtil.cache.date < 894000) return AuthUtil.token;
+
+        // Check if session token is out of date:
+        let res = await Util.apiRequest('/auth/check');
+        if (res.isAuthenticated) return AuthUtil.token;
+
+        // Refresh token
+        return await AuthUtil.refreshToken();
+    }
+    
+    /**
+     * Refreshes the current token.
+     * @returns {Promise<String>} Returns session token
+     */
+    static async refreshToken() {
+        const res = await Util.apiRequest('/auth/refresh', 'POST', { token: AuthUtil.cache.refresh });
+        if (!('token') in res) throw new APIRequestError('The API did not respond with any tokens when refreshing tokens', APIRequestError.INVALID_RESPONSE);
+        AuthUtil.cache.write({ ...res.token, date: Date.now() });
+        AuthUtil.updateHeader();
+        return AuthUtil.token;
+    }
+
+    /**
+     * Updates the authorization header with the session current token
+     */
+    static updateHeader() {
+        Util.registerHeader('authorization', `bearer ${AuthUtil.token}`);
+    }
+
+    static get token() {
+        return AuthUtil.cache.session;
+    }
+}
+
+class Cache {
+    /** @type {Object} */
+    static allUsers = {};
+
+    /**
+     * @param {String} location File location or localStorage key
+     */
+    constructor(location, user) {
+        this.location = location;
+        this.user = user;
+    }
+
+    /**
+     * Retrieves the information of a user from a string of all users, or 
+     * retrieves the information of all users as a string from the object of one user.
+     * Also updates any changed information for all instances.
+     * Returns null if the user object is invalid
+     * @param {Object|String} obj 
+     * @returns {Object|String|null}
+     */
+    parse(obj) {
+        const KEYS = [['session', 'string'], ['refresh', 'string'], ['date', 'number']];
+
+        let read = typeof obj === 'string';
+        if (read) {
+            try {
+                Cache.allUsers = JSON.parse(obj);
+                if (!(this.user in Cache.allUsers)) return null;
+                obj = Cache.allUsers[this.user];
+            } catch (error) {
+                return null;
+            }
+        }
+
+        // Return null if any keys are missing or if their types are wrong
+        if (KEYS.some(key => !(key[0] in obj) || typeof obj[key[0]] !== key[1])) return null;
+
+        if (read) return obj; // Returns target user as an object
+        else {
+            Cache.allUsers[this.user] = obj;
+            return JSON.stringify(Cache.allUsers); // Returns all users as a string
+        }
+    }
+
+    /** @returns {String} */
+    get session() {
+        if (!(this.user) in Cache.allUsers) return undefined;
+        return Cache.allUsers[this.user].session;
+    }
+
+    /** @returns {String} */
+    get refresh() {
+        if (!(this.user) in Cache.allUsers) return undefined;
+        return Cache.allUsers[this.user].refresh;
+    }
+
+    /** @returns {Number} */
+    get date() {
+        if (!(this.user) in Cache.allUsers) return undefined;
+        return Cache.allUsers[this.user].date;
+    }
+
+    /**
+     * Reads from file using 'fs'
+     * @returns {Boolean} False if failed
+     */
+    read() {
+        if (this.user in Cache.allUsers && this.session !== undefined) return true; // No need to read if we already have the info
+        if (!this.location || !fs.existsSync(this.location)) return false; // Won't throw error if file doesn't exist
+        if (fs.lstatSync(this.location).isDirectory()) {
+            this.location = Path.join(this.location, '.md_tokens'); // Default name for the file is this
+            if (!fs.existsSync(this.location)) return false;
+        }
+        let res = fs.readFileSync(this.location).toString(); // Will throw error if the file cannot be read
+        return this.parse(res) !== null;
+    }
+
+    /**
+     * Write to file using 'fs'
+     * @param {Object} obj
+     * @returns {Boolean} False if failed
+     */
+    write(obj) {
+        let str = this.parse(obj);
+        if (str !== null && this.location !== undefined) fs.writeFileSync(this.location, str); // Will throw error if the file cannot be written
+    }
+}
+
+class BrowserCache extends Cache {
+    /**
+     * Reads from localStorage
+     * @returns {Boolean} False if failed
+     */
+    read() {
+        if (this.location === undefined) this.location = 'md_tokens';
+        if (!window.localStorage.getItem(this.location)) return false;
+        let res = window.localStorage.getItem(this.location);
+        return this.parse(res) !== null;
+    }
+
+    /**
+     * Writes to localStorage
+     * @param {Object} obj
+     * @returns {Boolean} False if failed
+     */
+    write(obj) {
+        let str = this.parse(obj);
+        if (str !== null && this.location !== undefined) window.localStorage.setItem(this.location, str);
+    }
+}
+
+exports = module.exports = AuthUtil;
+
+},{"./internal/requesterror.js":17,"./util.js":27,"fs":4,"path":28}],13:[function(require,module,exports){
+'use strict';
+
+// Internal
+const Util = require('./util.js');
+const LocalizedString = require('./internal/localizedstring.js');
+const APIRequestError = require('./internal/requesterror.js');
+
+// Export
+const Manga = require('./structure/manga.js');
+exports.Manga = Manga;
+const Author = require('./structure/author.js');
+exports.Author = Author;
+const Chapter = require('./structure/chapter.js');
+exports.Chapter = Chapter;
+const Group = require('./structure/group.js');
+exports.Group = Group;
+const User = require('./structure/user.js');
+exports.User = User;
+const List = require('./structure/list.js');
+exports.List = List;
+const Cover = require('./structure/cover.js');
+exports.Cover = Cover;
+
+/**
+ * Converts old (pre v5, numeric ids) Mangadex ids to v5 ids.
+ * Any invalid legacy ids will be skipped by Mangadex when remapping, so
+ * call this function for each individual id if this is an issue.
+ * @param {'group'|'manga'|'chapter'|'tag'} type Type of id 
+ * @param {...Number|Number[]} ids Array of ids to convert
+ * @returns {Promise<String[]>}
+ */
+async function convertLegacyId(type, ...ids) {
+    if (ids.length === 0) throw new Error('Invalid Argument(s)');
+    ids = ids.flat();
+    let res = await Util.apiRequest('/legacy/mapping', 'POST', { type: type, ids: ids });
+    if (!(res.data instanceof Array)) throw new APIRequestError('The API did not respond with an array when it was expected to', APIRequestError.INVALID_RESPONSE);
+    return res.data.map(e => e.attributes.newId);
+}
+exports.convertLegacyId = convertLegacyId;
+
+/**
+ * Sets the global locaization for LocalizedStrings.
+ * Uses 2-letter Mangadex region codes.
+ * @param {String} newLocale
+ */
+function setGlobalLocale(newLocale) {
+    if (typeof newLocale !== 'string' || newLocale.length !== 2) throw new Error('Invalid Locale Code.');
+    LocalizedString.locale = newLocale;
+};
+exports.setGlobalLocale = setGlobalLocale;
+
+const AuthUtil = require('./auth.js');
+
+/**
+ * Required for authorization
+ * https://api.mangadex.org/docs.html#operation/post-auth-login
+ * @param {String} username 
+ * @param {String} password 
+ * @param {String} [cacheLocation] File location (or localStorage key for browsers) to store the persistent token IN PLAIN TEXT
+ * @returns {Promise<void>}
+ */
+function login(username, password, cacheLocation) {
+    return AuthUtil.login(username, password, cacheLocation);
+}
+exports.login = login;
+
+// Register class types to bypass circular references
+const Relationship = require('./internal/relationship.js');
+Relationship.registerType('author', Author);
+Relationship.registerType('artist', Author);
+Relationship.registerType('manga', Manga);
+Relationship.registerType('chapter', Chapter);
+Relationship.registerType('scanlation_group', Group);
+Relationship.registerType('user', User);
+Relationship.registerType('leader', User);
+Relationship.registerType('member', User);
+Relationship.registerType('custom_list', List);
+Relationship.registerType('cover_art', Cover);
+
+/**
+ * A shortcut for resolving all relationships in an array
+ * @template T
+ * @param {Array<Relationship<T>>} relationshipArray
+ * @returns {Promise<Array<T>>}
+ */
+function resolveArray(relationshipArray) {
+    return Relationship.resolveAll(relationshipArray);
+}
+exports.resolveArray = resolveArray;
+},{"./auth.js":12,"./internal/localizedstring.js":15,"./internal/relationship.js":16,"./internal/requesterror.js":17,"./structure/author.js":20,"./structure/chapter.js":21,"./structure/cover.js":22,"./structure/group.js":23,"./structure/list.js":24,"./structure/manga.js":25,"./structure/user.js":26,"./util.js":27}],14:[function(require,module,exports){
+'use strict';
+
+/**
+ * Represents the links that represent manga on different websites
+ * https://api.mangadex.org/docs.html#section/Static-data/Manga-links-data
+ */
+class Links {
+    /**
+     * @param {Object.<string, string>} linksObject 
+     */
+    constructor(linksObject) {
+        if (!linksObject) {
+            this.availableLinks = [];
+            return;
+        }
+
+        /**
+         * Anilist (https://anilist.co) link to manga
+         * @type {String} URL
+         */
+        this.al = !linksObject.al ? undefined : `https://anilist.co/manga/${linksObject.al}`;
+
+        /**
+         * AnimePlanet (https://anime-planet.com) link to manga
+         * @type {String} URL
+         */
+        this.ap = !linksObject.ap ? undefined : `https://www.anime-planet.com/manga/${linksObject.ap}`;
+
+        /**
+         * Bookwalker (https://bookwalker.jp/) link to manga
+         * @type {String} URL
+         */
+        this.bw = !linksObject.bw ? undefined : `https://bookwalker.jp/${linksObject.bw}`;
+
+        /**
+         * Mangaupdates (https://mangaupdates.com) link to manga
+         * @type {String} URL
+         */
+        this.mu = !linksObject.mu ? undefined : `https://www.mangaupdates.com/series.html?id=${linksObject.mu}`;
+
+        /**
+         * Novelupdates (https://novelupdates.com) link to manga
+         * @type {String} URL
+         */
+        this.nu = !linksObject.nu ? undefined : `https://www.novelupdates.com/series/${linksObject.nu}`;
+
+        /**
+         * MyAnimeList (https://myanimelist.net) link to manga
+         * @type {String} URL
+         */
+        this.mal = !linksObject.mal ? undefined : `https://myanimelist.net/manga/${linksObject.mal}`;
+
+        /**
+         * Kitsu (https://kitsu.io) link to manga
+         * @type {String} URL
+         */
+        this.kt = undefined; // Set to undefined by default, but if it isn't, change it in the following lines
+        if (linksObject.kt !== undefined) {
+            // Stored as either a number or slug. See official documentaion
+            if (isNaN(linksObject.kt)) this.kit = `https://kitsu.io/api/edge/manga?filter[slug]=${linksObject.kt}`;
+            else this.kt = `https://kitsu.io/api/edge/manga/${linksObject.kt}`;
+        }
+
+        /**
+         * Amazon (https://amazon.com) link to manga
+         * @type {String} URL
+         */
+        this.amz = linksObject.amz;
+
+        /**
+         * EBookJapan (https://ebookjapan.yahoo.co.jp) link to manga
+         * @type {String} URL
+         */
+        this.ebj = linksObject.ebj;
+
+        /**
+         * Link to manga raws
+         * @type {String} URL
+         */
+        this.raw = linksObject.raw;
+
+        /**
+         * Link to offical english manga translation
+         * @type {String} URL
+         */
+        this.engtl = linksObject.engtl;
+
+        /**
+         * CDJapan (https://www.cdjapan.co.jp/) link to manga
+         * @type {String} URL
+         */
+        this.cdj = linksObject.cdj;
+
+        /**
+         * All of the links that have valid values
+         * @type {String[]}
+         */
+        this.availableLinks = Object.keys(linksObject);
+    }
+}
+
+exports = module.exports = Links;
+},{}],15:[function(require,module,exports){
+'use strict';
+
+/**
+ * Represents a string, but in different languages.
+ * Generates properties for each language available
+ * (ie you can index with language codes through localizedString['en'] or localizedString.jp)
+ */
+class LocalizedString {
+    /**
+     * Global locale setting
+     * @ignore
+     * @type {String}
+     */
+    static locale = 'en';
+
+    /**
+     * @param {Object.<string, string>} stringObject
+     */
+    constructor(stringObject) {
+        if (!stringObject) {
+            this.availableLocales = [];
+            return;
+        }
+
+        for (let i in stringObject) if (typeof stringObject[i] === 'string') this[i] = stringObject[i];
+
+        /**
+         * Array with all locales with values in this object
+         * @type {String[]}
+         */
+        this.availableLocales = Object.keys(stringObject);
+    }
+
+    /**
+     * String from global locale setting (setGlobalLocale)
+     * @returns {String}
+     */
+    get localString() {
+        if (LocalizedString.locale in this) return this[LocalizedString.locale];
+        for (let i of this.availableLocales) if (i in this) return this[i];
+        return null;
+    }
+
+    /**
+     * Gets an object
+     * @returns {{[locale: string]: string}}
+     */
+    get data(){
+        return this.availableLocales.reduce((obj, locale) => {
+            obj[locale] = this[locale];
+            return obj;
+        }, {});
+    }
+}
+
+exports = module.exports = LocalizedString;
+},{}],16:[function(require,module,exports){
+'use strict';
+
+/**
+ * Represents a relationship from one Mangadex object to another such as a manga, author, etc via its id.
+ * @template ResolveType
+ */
+class Relationship {
+    static types = {};
+
+    constructor(data) {
+        /**
+         * Id of the object this is a relationship to
+         * @type {String}
+         */
+        this.id = data.id;
+
+        /**
+         * The type of the object this is a relationship to
+         * @type {String}
+         */
+        this.type = data.type;
+
+        /**
+         * True if this relationship will instantly return with an included object instead of sending a request
+         * when resolve() is called
+         * @type {Boolean}
+         */
+        this.cached = data.cached === true;
+    }
+
+    /**
+     * This function must be called to return the proper and complete object representation of this relationship.
+     * Essentially, it calls and returns Manga.get(), Author.get(), Cover.get(), etc.
+     * @returns {Promise<ResolveType>}
+     */
+    resolve() {
+        if (this.id === undefined || this.type === undefined) throw new Error('Invalid Relationship object');
+        if (!(this.type in Relationship.types)) throw new Error(`Relationship type ${this.type} is not registered. Please fix index.js`);
+        return Relationship.types[this.type].get(this.id);
+    }
+
+    /**
+     * Returns an array of converted objects from a Mangadex Relationships Array
+     * @ignore
+     * @template T
+     * @param {String} type 
+     * @param {Object[]} dataArray 
+     * @param {Object} caller
+     * @returns {Relationship<T>}
+     */
+    static convertType(type, dataArray, caller) {
+        if (!(dataArray instanceof Array)) return [];
+        let classObject = Relationship.types[type];
+        let relationshipArray = dataArray;
+        if (caller && typeof caller.id === 'string') Object.keys(Relationship.types).some(key => {
+            let isType = caller instanceof Relationship.types[key];
+            if (isType) relationshipArray.push({ id: caller.id, type: key });
+            return isType;
+        });
+        return dataArray.filter(elem => elem.type === type).map(elem => {
+            if ('attributes' in elem) {
+                let obj = new classObject({ data: { ...elem, relationships: relationshipArray } });
+                let rel = new Relationship({ id: elem.id, type: type, cached: true });
+                rel.resolve = () => {
+                    return Promise.resolve(obj);
+                };
+                return rel;
+            }
+            else return new Relationship(elem);
+        });
+    }
+
+    /**
+     * Provides a constructor for a relationship type at run-time.
+     * Should only be called in index.js
+     * @ignore
+     * @param {String} name 
+     * @param {Object} classObject 
+     */
+    static registerType(name, classObject) {
+        if (name in Relationship.types) return;
+        if (!('get' in classObject)) throw new Error(`Attempted to register a class object with no 'get' method`);
+        Relationship.types[name] = classObject;
+    }
+
+    /**
+     * Resolves an array of relationships
+     * @ignore
+     * @template T
+     * @param {Array<Relationship<T>>} relationshipArray
+     * @returns {Promise<Array<T>>}
+     */
+    static resolveAll(relationshipArray) {
+        if (relationshipArray.length === 0) return [];
+        let classObject = Relationship.types[relationshipArray[0].type];
+        if (relationshipArray.some(elem => !elem.cached) && 'getMultiple' in classObject) {
+            return classObject.getMultiple(...relationshipArray.map(elem => elem.id));
+        } else return Promise.all(relationshipArray.map(elem => elem.resolve()));
+    }
+}
+
+exports = module.exports = Relationship;
+},{}],17:[function(require,module,exports){
+'use strict';
+
+/**
+ * This error respresents when the API responds with an error or invalid response.
+ * In other words, this error represents 400 and 500 status code responses.
+ */
+class APIRequestError extends Error {
+    /** @type {Number} */
+    static OTHER = 0;
+    /** @type {Number} */
+    static AUTHORIZATION = 1;
+    /** @type {Number} */
+    static INVALID_REQUEST = 2;
+    /** @type {Number} */
+    static INVALID_RESPONSE = 3;
+
+    /**
+     * @param {String|Object} reason An error message or response from the API
+     * @param {Number} code
+     * @param {String} requestId The `X-Request-ID` header value sent via the API.
+     * @param  {...any} params
+     */
+    constructor(reason = 'Unknown Request Error', code = 0, requestId = "Unknown Request ID", ...params) {
+        super(...params);
+
+        /**
+         * What type of error is this?
+         * AUTHORIZATION, INVALID_RESPONSE, etc.
+         * @type {Number}
+         */
+        this.code = code;
+
+        /** @type {String} */
+        this.name = 'APIRequestError';
+
+        /** @type {String} */
+        this.requestId = requestId;
+
+        if (typeof reason === 'string') {
+            /** @type {String} */
+            this.message = reason;
+        } else {
+            if (reason.errors instanceof Array && reason.errors.length > 0) {
+                this.message = `${reason.errors[0].detail} (${reason.errors[0].status}: ${reason.errors[0].title})`;
+                if (reason.errors[0].status === 400 || reason.errors[0].status === 404) this.code = APIRequestError.INVALID_REQUEST;
+                else if (reason.errors[0].status === 403) this.code = APIRequestError.AUTHORIZATION;
+                else if (code > 500) this.code = APIRequestError.INVALID_RESPONSE;
+            } else this.message = 'Unknown Reason.';
+        }
+        if (requestId !== "Unknown Request ID"){
+            this.message = `[X-Request-ID: ${this.requestId}] ${this.message}`;
+        }
+    }
+}
+exports = module.exports = APIRequestError;
+},{}],18:[function(require,module,exports){
+'use strict';
+
+const LocalizedString = require('../internal/localizedstring.js');
+const Util = require('../util.js');
+const APIRequestError = require('./requesterror.js');
+
+/**
+ * Represents a manga tag
+ */
+class Tag {
+    /** 
+     * A cached response from https://api.mangadex.org/manga/tag
+     * @type {Tag[]} 
+     */
+    static cache = [];
+
+    constructor(data) {
+        if (data === undefined || !('id' in data)) throw new Error('Attempted to create a tag with invalid data.');
+
+        /**
+         * Mangadex id of this tag
+         * @type {String}
+         */
+        this.id = data.id;
+
+        /**
+         * Name with different localization options
+         * @type {LocalizedString}
+         */
+        this.localizedName = new LocalizedString(data.attributes.name);
+
+        /**
+         * Description with different localization options
+         * @type {LocalizedString}
+         */
+        this.localizedDescription = new LocalizedString(data.attributes.description);
+
+        /**
+         * What type of tag group this tag belongs to
+         * @type {String}
+         */
+        this.group = data.attributes.group;
+    }
+
+    /**
+     * Name string based on global locale
+     * @type {String}
+     */
+    get name() {
+        if (this.localizedName !== undefined) return this.localizedName.localString;
+        return undefined;
+    }
+
+    /**
+     * Description string based on global locale
+     * @type {String}
+     */
+    get description() {
+        if (this.localizedDescription !== undefined) return this.localizedDescription.localString;
+        return undefined;
+    }
+
+    /**
+     * @ignore
+     * @returns {Promise<Tag[]>}
+     */
+    static async getAllTags() {
+        if (Tag.cache.length === 0) {
+            let res = await Util.apiRequest('/manga/tag');
+            if (!(res.data instanceof Array)) throw new APIRequestError('The API did not respond with an array when it was expected to', APIRequestError.INVALID_RESPONSE);
+            if (res.data.length === 0) throw new APIRequestError('The API returned an empty array of tags.', APIRequestError.INVALID_RESPONSE);
+            Tag.cache = res.data.map(elem => new Tag(elem));
+        }
+        return Tag.cache;
+    }
+
+    /**
+     * @ignore
+     * @param {String} indentity
+     * @returns {Promise<Tag>}
+     */
+    static async getTag(indentity) {
+        for (let i of await Tag.getAllTags()) {
+            if (i.id === indentity || i.localizedName.availableLocales.some(elem => i.localizedName[elem].toLowerCase() === indentity)) {
+                return i;
+            }
+        }
+        return null;
+    }
+}
+
+exports = module.exports = Tag;
+},{"../internal/localizedstring.js":15,"../util.js":27,"./requesterror.js":17}],19:[function(require,module,exports){
+'use strict';
+
+const Util = require('../util.js');
+const AuthUtil = require('../auth.js');
+const APIRequestError = require('./requesterror.js');
+const Relationship = require('./relationship.js');
+const Chapter = require('../structure/chapter.js');
+
+/**
+ * Represents a chapter upload session
+ * https://api.mangadex.org/docs.html#tag/Upload
+ */
+class UploadSession {
+    /**
+     * There is no reason to directly create an upload session object. Use static methods, ie 'open()'.
+     * @param {Object} res API response 
+     */
+    constructor(res) {
+        if (!('data' in res) || !('id' in res.data))
+            throw new APIRequestError('The API did not respond with a session object when it was expected to', APIRequestError.INVALID_RESPONSE);
+
+        /**
+         * Id of this upload session
+         * @type {String}
+         */
+        this.id = res.data.id;
+
+        /**
+         * Relationship of the target manga
+         * @type {Relationship<import('../index').Manga>}
+         */
+        this.manga = Relationship.convertType('manga', res.data.relationships, this).pop();
+
+        /**
+         * Relationships to the groups attributed to this chapter
+         * @type {Relationship<import('../index').Group>}
+         */
+        this.groups = Relationship.convertType('group', res.data.relationships, this);
+
+        /**
+         * Relationship to the uploader (the current user)
+         * @type {Relationship<import('../index').User>}
+         */
+        this.uploader = Relationship.convertType('user', res.data.relationships, this).pop();
+
+        /**
+         * Is this session commited?
+         * @type {Boolean}
+         */
+        this.isCommitted = res.data.attributes.isCommitted;
+
+        /**
+         * Is this session processed?
+         * @type {Boolean}
+         */
+        this.isProcessed = res.data.attributes.isProcessed;
+
+
+        /**
+        * Is this session deleted?
+        * @type {Boolean}
+        */
+        this.isDeleted = res.data.attributes.isDeleted;
+
+        /**
+         * Is this session open for uploading pages?
+         * @type {Boolean}
+         */
+        this.open = !this.isDeleted && !this.isCommitted && !this.isProcessed;
+
+        /**
+         * The ids of every page uploaded THIS session
+         * @type {String[]}
+         */
+        this.pages = [];
+    }
+
+    /**
+     * Requests MD to start an upload session
+     * @param {String|import('../index').Manga} manga 
+     * @param  {...String|import('../index').Group|Relationship<import('../index').Group>} groups
+     * @returns {UploadSession}
+     */
+    static async open(manga, ...groups) {
+        if (typeof manga !== 'string') manga = manga.id;
+        groups = groups.flat().map(elem => typeof elem === 'string' ? elem : elem.id);
+        if (!manga || groups.some(elem => !elem)) throw new Error('Invalid Argument(s)');
+        await AuthUtil.validateTokens();
+        let res = await Util.apiRequest('/upload/begin', 'POST', {
+            manga: manga,
+            groups: groups
+        });
+        return new UploadSession(res);
+    }
+
+    /**
+     * Returns the currently open upload session for the logged in user.
+     * Returns null if there is no current session
+     * @returns {UploadSession|null}
+     */
+    static async getCurrentSession() {
+        await AuthUtil.validateTokens();
+        let res;
+        try {
+            res = await Util.apiRequest('/upload');
+        } catch (err) {
+            if (err instanceof APIRequestError && err.message.includes('404')) return null;
+            else throw err;
+        }
+        return new UploadSession(res);
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} PageFileObject
+     * @property {Buffer} PageFileObject.data 
+     * @property {'jpeg'|'png'|'gif'} [PageFileObject.type]
+     * @property {String} PageFileObject.name
+     */
+
+    /**
+     * Uploads pages through this upload session
+     * @param {PageFileObject[]} pages 
+     * @returns {Promise<String[]>} Returns the ids of every newly uploaded file
+     */
+    async uploadPages(pages) {
+        if (!this.open) throw new APIRequestError('Attempted to upload to a closed upload session', APIRequestError.INVALID_REQUEST);
+        let fileObjects = pages.map(obj => {
+            let page = { ...obj };
+            if (page.type === 'jpg') page.type = 'image/jpeg';
+            else if (page.type === undefined) {
+                if (page.name.endsWith('.jpg') || page.name.endsWith('.jpeg')) page.type = 'image/jpeg';
+                else if (page.name.endsWith('.png')) page.type = 'image/png';
+                else if (page.name.endsWith('.gif')) page.type = 'image/gif';
+            } else page.type = `image/${page.type}`;
+            if (!('data' in page) || !('type' in page) || !('name' in page)) throw new Error('Invalid Page Object(s).');
+            return page;
+        });
+        await AuthUtil.validateTokens();
+        let newPages = [];
+        while (fileObjects.length > 0) {
+            let payload = Util.createMultipartPayload(fileObjects.splice(0, 10)); // 10 images max per request
+            let res = await Util.apiRequest(`/upload/${this.id}`, 'POST', payload);
+            if ('data' in res) res.data.forEach(elem => newPages.push(elem.id));
+            else throw new APIRequestError('The API did not respond with a session file object when it was expected to', APIRequestError.INVALID_REQUEST);
+        }
+        this.pages.push(...newPages);
+        return newPages;
+    }
+
+    /**
+     * Closes this upload session
+     * @returns {Promise<void>}
+     */
+    async close() {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/upload/${this.id}`, 'DELETE');
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} ChapterDraftObject
+     * @property {String} ChapterDraftObject.volume
+     * @property {String} ChapterDraftObject.chapter
+     * @property {String} ChapterDraftObject.title
+     * @property {String} ChapterDraftObject.translatedLanguage
+     */
+
+    /**
+     * @param {ChapterDraftObject} chapterDraft
+     * @param {String[]} pageOrder Array of file ids sorted by their proper order. Default is the upload order
+     * @returns {Promise<Chapter>} Returns the new chapter
+     */
+    async commit(chapterDraft, pageOrder = this.pages) {
+        await AuthUtil.validateTokens();
+        return new Chapter(await Util.apiRequest(`/upload/${this.id}/commit`, 'POST', {
+            chapterDraft: chapterDraft,
+            pageOrder: pageOrder
+        }));
+    }
+
+    /**
+     * Deletes an uploaded page via its upload file id.
+     * @param {String} page
+     * @returns {Promise<void>}
+     */
+    async deletePage(page) {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/upload/${this.id}/${page}`, 'DELETE');
+        this.pages = this.pages.filter(elem => elem !== page);
+    }
+}
+
+exports = module.exports = UploadSession;
+},{"../auth.js":12,"../structure/chapter.js":21,"../util.js":27,"./relationship.js":16,"./requesterror.js":17}],20:[function(require,module,exports){
+'use strict';
+
+const Util = require('../util.js');
+const Relationship = require('../internal/relationship.js');
+
+/**
+ * Represents an author or artist
+ * https://api.mangadex.org/docs.html#tag/Author
+ */
+class Author {
+    /**
+     * There is no reason to directly create an author object. Use static methods, ie 'get()'.
+     * @param {Object|String} context Either an API response or Mangadex id
+     */
+    constructor(context) {
+        if (typeof context === 'string') {
+            this.id = context;
+            return;
+        } else if (!context) return;
+
+        if (!context.data) context.data = {};
+
+        /**
+         * Mangadex id for this object
+         * @type {String}
+         */
+        this.id = context.data.id;
+
+        if (context.data.attributes === undefined) context.data.attributes = {};
+
+        /**
+         * Name of this author/artist
+         * @type {String}
+         */
+        this.name = context.data.attributes.name;
+
+        /**
+         * Image URL for this author/artist
+         * @type {String}
+         */
+        this.imageUrl = context.data.attributes.imageUrl;
+
+        /**
+         * Author/Artist biography
+         * @type {String[]}
+         */
+        this.biography = context.data.attributes.biography;
+
+        /**
+         * The date of this author/artist page creation
+         * @type {Date}
+         */
+        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : context.data.attributes.createdAt;
+
+        /**
+         * The date the author/artist was last updated
+         * @type {Date}
+         */
+        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : context.data.attributes.updatedAt;
+
+        /**
+         * Manga this author/artist has been attributed to
+         * @type {Array<Relationship<import('../index').Manga>>}
+         */
+        this.manga = Relationship.convertType('manga', context.data.relationships, this);
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} AuthorParameterObject
+     * @property {String} [AuthorParameterObject.name]
+     * @property {String[]} [AuthorParameterObject.ids] Max of 100 per request
+     * @property {Number} [AuthorParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [AuthorParameterObject.offset]
+     * @property {Object} [AuthorParameterObject.order]
+     * @property {'asc'|'desc'} [AuthorParameterObject.order.name]
+     */
+
+    /**
+     * Peforms a search and returns an array of a authors/artists.
+     * https://api.mangadex.org/docs.html#operation/get-author
+     * @param {AuthorParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Author[]>}
+     */
+    static search(searchParameters = {}, includeSubObjects = false) {
+        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters };
+        if (includeSubObjects) searchParameters.includes = ['manga'];
+        return Util.apiCastedRequest('/author', Author, searchParameters);
+    }
+
+    /**
+     * Create a new Author.
+     * @param {string} [name] The name of the author.
+     * @param {Object | undefined} [options] Additional arguments to pass to the API.
+     * @returns {Promise<Author>}
+     */
+    static async create(name, options) {
+        return new Author(await Util.apiRequest('/author', 'POST', { name, ...options }));
+    }
+
+    /**
+     * Gets multiple authors
+     * @param {...String|Author|Relationship<Author>} ids
+     * @returns {Promise<Author[]>}
+     */
+    static getMultiple(...ids) {
+        return Util.getMultipleIds(Author.search, ids);
+    }
+
+    /**
+     * Retrieves and returns a author by its id
+     * @param {String} id Mangadex id
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Author>}
+     */
+    static async get(id, includeSubObjects = false) {
+        return new Author(await Util.apiRequest(`/author/${id}${includeSubObjects ? '?includes[]=manga' : ''}`));
+    }
+
+    /**
+     * Performs a search for one author and returns that author
+     * @param {AuthorParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
+     * @returns {Promise<Author>}
+     */
+    static async getByQuery(searchParameters = {}) {
+        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters, limit: 1 };
+        else searchParameters.limit = 1;
+        let res = await Author.search(searchParameters);
+        if (res.length === 0) throw new Error('Search returned no results.');
+        return res[0];
+    }
+}
+
+exports = module.exports = Author;
+},{"../internal/relationship.js":16,"../util.js":27}],21:[function(require,module,exports){
+'use strict';
+
+const Util = require('../util.js');
+const AuthUtil = require('../auth.js');
+const Relationship = require('../internal/relationship.js');
+const APIRequestError = require('../internal/requesterror.js');
+
+/**
+ * Represents a chapter with readable pages
+ * https://api.mangadex.org/docs.html#tag/Chapter
+ */
+class Chapter {
+    /**
+     * There is no reason to directly create a chapter object. Use static methods, ie 'get()'.
+     * @param {Object|String} context Either an API response or Mangadex id 
+     */
+    constructor(context) {
+        if (typeof context === 'string') {
+            this.id = context;
+            return;
+        } else if (!context) return;
+
+        if (!context.data) context.data = {};
+
+        /**
+         * Mangadex id for this object
+         * @type {String}
+         */
+        this.id = context.data.id;
+
+
+        if (context.data.attributes === undefined) context.data.attributes = {};
+
+        /**
+         * This chapter's volume number/string
+         * @type {String}
+         */
+        this.volume = context.data.attributes.volume;
+
+        /**
+         * This chapter's number/string identifier
+         * @type {String}
+         */
+        this.chapter = context.data.attributes.chapter;
+
+        /**
+         * Title of this chapter
+         * @type {String}
+         */
+        this.title = context.data.attributes.title;
+
+        /**
+         * Translated language code (2 Letters)
+         * @type {String}
+         */
+        this.translatedLanguage = context.data.attributes.translatedLanguage;
+
+        /**
+         * The date of this chapter's creation
+         * @type {Date}
+         */
+        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
+
+        /**
+         * The date this chapter was last updated
+         * @type {Date}
+         */
+        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
+
+        /**
+         * The date this chapter was published
+         * @type {Date}
+         */
+        this.publishAt = context.data.attributes.publishAt ? new Date(context.data.attributes.publishAt) : null;
+
+        /**
+         * The date this chapter was/will be readable
+         * @type {Date}
+         */
+        this.readableAt = context.data.attributes.readableAt ? new Date(context.data.attributes.readableAt) : null;
+
+        /**
+         * Page count
+         * @type {Number}
+         */
+        this.pages = context.data.attributes.pages;
+
+        /**
+         * Is this chapter only a link to another website (eg Mangaplus) instead of being hosted on MD?
+         * @type {Boolean}
+         */
+        this.isExternal = 'externalUrl' in context.data.attributes && context.data.attributes.externalUrl !== null;
+
+        /**
+         * The external URL to this chapter if it is not hosted on MD. Null if it is hosted on MD
+         * @type {String}
+         */
+        this.externalUrl = this.isExternal ? context.data.attributes.externalUrl : null;
+
+        /**
+         * The scanlation groups that are attributed to this chapter
+         * @type {Array<Relationship<import('../index').Group>>}
+         */
+        this.groups = Relationship.convertType('scanlation_group', context.data.relationships, this);
+
+        /**
+         * The manga this chapter belongs to
+         * @type {Relationship<import('../index').Manga>}
+         */
+        this.manga = Relationship.convertType('manga', context.data.relationships, this).pop();
+
+        /**
+         * The user who uploaded this chapter
+         * @type {Relationship<import('../index').User>}
+         */
+        this.uploader = Relationship.convertType('user', context.data.relationships, this).pop();
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} ChapterParameterObject
+     * @property {String} [ChapterParameterObject.title]
+     * @property {String} [ChapterParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {String} [ChapterParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {String} [ChapterParameterObject.publishAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {Object} [ChapterParameterObject.order]
+     * @property {'asc'|'desc'} [ChapterParameterObject.order.createdAt]
+     * @property {'asc'|'desc'} [ChapterParameterObject.order.updatedAt]
+     * @property {'asc'|'desc'} [ChapterParameterObject.order.publishAt]
+     * @property {'asc'|'desc'} [ChapterParameterObject.order.volume]
+     * @property {'asc'|'desc'} [ChapterParameterObject.order.chapter]
+     * @property {String[]} [ChapterParameterObject.translatedLanguage]
+     * @property {String[]} [ChapterParameterObject.originalLanguage]
+     * @property {String[]} [ChapterParameterObject.excludedOriginalLanguage]
+     * @property {Array<'safe'|'suggestive'|'erotica'|'pornographic'>} [ChapterParameterObject.contentRating]
+     * @property {String[]} [ChapterParameterObject.ids] Max of 100 per request
+     * @property {Number} [ChapterParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [ChapterParameterObject.offset]
+     * @property {String[]|import('../index').Group[]} [ChapterParameterObject.groups]
+     * @property {String|import('../index').User|Relationship<import('../index').User>} [ChapterParameterObject.uploader]
+     * @property {String|import('../index').Manga|Relationship<import('../index').Manga>} [ChapterParameterObject.manga]
+     * @property {String[]} [ChapterParameterObject.volume]
+     * @property {String} [ChapterParameterObject.chapter]
+     */
+
+    /**
+     * Peforms a search and returns an array of chapters.
+     * https://api.mangadex.org/docs.html#operation/get-chapter
+     * @param {ChapterParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Chapter[]>}
+     */
+    static search(searchParameters = {}, includeSubObjects = false) {
+        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters, groups };
+        if (includeSubObjects) searchParameters.includes = ['scanlation_group', 'manga', 'user'];
+        return Util.apiCastedRequest('/chapter', Chapter, searchParameters);
+    }
+
+    /**
+     * Gets multiple chapters
+     * @param {...String|Chapter|Relationship<Chapter>} ids
+     * @returns {Promise<Chapter[]>}
+     */
+    static getMultiple(...ids) {
+        return Util.getMultipleIds(Chapter.search, ids);
+    }
+
+
+    /**
+     * Retrieves and returns a chapter by its id
+     * @param {String} id Mangadex id
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Chapter>}
+     */
+    static async get(id, includeSubObjects = false) {
+        return new Chapter(await Util.apiRequest(`/chapter/${id}${includeSubObjects ? '?includes[]=scanlation_group&includes[]=manga&includes[]=user' : ''}`));
+    }
+
+    /**
+     * Performs a search for one chapter and returns that chapter
+     * @param {ChapterParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
+     * @returns {Promise<Chapter>}
+     */
+    static async getByQuery(searchParameters = {}) {
+        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters, limit: 1 };
+        else searchParameters.limit = 1;
+        let res = await Chapter.search(searchParameters);
+        if (res.length === 0) throw new Error('Search returned no results.');
+        return res[0];
+    }
+
+    /**
+     * Marks a chapter as either read or unread
+     * @param {String} id
+     * @param {Boolean} [read=true] True to mark as read, false to mark unread
+     * @returns {Promise<void>}
+     */
+    static async changeReadMarker(id, read = true) {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/chapter/${id}/read`, read ? 'POST' : 'DELETE');
+    }
+
+    /**
+     * Retrieves URLs for actual images from Mangadex @ Home.
+     * This only gives URLs, so it does not report the status of the server to Mangadex @ Home.
+     * Therefore applications that download image data pleaese report failures as stated here:
+     * https://api.mangadex.org/docs.html#section/Reading-a-chapter-using-the-API/Report
+     * @param {Boolean} [saver=false] Use data saver images?
+     * @param {Boolean} [forcePort=false] Force the final URLs to use port 443
+     * @returns {Promise<String[]>}
+     */
+    async getReadablePages(saver = false, forcePort = false) {
+        if (this.isExternal) throw new Error('Cannot get readable pages for an external chapter.');
+        let res = await Util.apiParameterRequest(`/at-home/server/${this.id}`, { forcePort443: forcePort });
+        if (!res.baseUrl || !res.chapter.hash || !res.chapter.hash) {
+            throw new APIRequestError(`The API did not respond the correct structure for a MD@H chapter request:\n${JSON.stringify(res)}`, APIRequestError.INVALID_RESPONSE);
+        }
+        return res.chapter[saver ? 'dataSaver' : 'data'].map(file => `${res.baseUrl}/${saver ? 'data-saver' : 'data'}/${res.chapter.hash}/${file}`);
+    }
+
+    /**
+     * Marks this chapter as either read or unread
+     * @param {Boolean} [read=true] True to mark as read, false to mark unread
+     * @returns {Promise<Chapter>}
+     */
+    async changeReadMarker(read = true) {
+        await Chapter.changeReadMarker(this.id, read);
+        return this;
+    }
+}
+
+exports = module.exports = Chapter;
+},{"../auth.js":12,"../internal/relationship.js":16,"../internal/requesterror.js":17,"../util.js":27}],22:[function(require,module,exports){
+'use strict';
+
+const Relationship = require('../internal/relationship.js');
+const Util = require('../util.js');
+
+/**
+ * Represents the cover art of a manga volume
+ * https://api.mangadex.org/docs.html#tag/Cover
+ */
+class Cover {
+    /**
+     * There is no reason to directly create a cover art object. Use static methods, ie 'get()'.
+     * @param {Object|String} context Either an API response or Mangadex id
+     */
+    constructor(context) {
+        if (typeof context === 'string') {
+            this.id = context;
+            return;
+        } else if (!context) return;
+
+        if (!context.data) context.data = {};
+
+        /**
+         * Mangadex id for this object
+         * @type {String}
+         */
+        this.id = context.data.id;
+
+
+        if (context.data.attributes === undefined) context.data.attributes = {};
+
+        /**
+         * Manga volume this is a cover for
+         * @type {String}
+         */
+        this.volume = context.data.attributes.volume;
+
+        /**
+         * Description of this cover
+         * @type {String}
+         */
+        this.description = context.data.attributes.description;
+
+        /**
+         * The date of the cover's creation
+         * @type {Date}
+         */
+        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
+
+        /**
+         * The date the cover was last updated
+         * @type {Date}
+         */
+        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
+
+        /**
+         * Manga this is a cover for
+         * @type {Relationship<import('../index').Manga>}
+         */
+        this.manga = Relationship.convertType('manga', context.data.relationships, this).pop();
+        if (!this.manga) this.manga = null;
+
+        /**
+         * The user who uploaded this cover
+         * @type {Relationship<import('../index').User>}
+         */
+        this.uploader = Relationship.convertType('user', context.data.relationships, this).pop();
+        if (!this.uploader) this.uploader = null;
+
+        /**
+         * The locale of this cover
+         * @type {String}
+         */
+        this.locale = context.data.attributes.locale;
+
+        /**
+         * URL to the source image of the cover
+         * @type {String}
+         */
+        this.imageSource = context.data.attributes.fileName && this.manga ? `https://uploads.mangadex.org/covers/${this.manga.id}/${context.data.attributes.fileName}` : null;
+
+        /**
+         * URL to the 512px image of the cover
+         * @type {String}
+         */
+        this.image512 = context.data.attributes.fileName && this.manga ? `https://uploads.mangadex.org/covers/${this.manga.id}/${context.data.attributes.fileName}.512.jpg` : null;
+
+        /**
+         * URL to the 256px image of the cover
+         * @type {String}
+         */
+        this.image256 = context.data.attributes.fileName && this.manga ? `https://uploads.mangadex.org/covers/${this.manga.id}/${context.data.attributes.fileName}.256.jpg` : null;
+    }
+
+    /**
+     * Retrieves and returns a cover by its id
+     * @param {String} id Mangadex id
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Cover>}
+     */
+    static async get(id, includeSubObjects = false) {
+        return new Cover(await Util.apiRequest(`/cover/${id}${includeSubObjects ? '?includes[]=user&includes[]=manga' : ''}`));
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} CoverParameterObject
+     * @property {Number} [CoverParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [CoverParameterObject.offset]
+     * @property {String[]|import('../index').Manga[]} [CoverParameterObject.manga] Manga ids (limited to 100 per request)
+     * @property {String[]|Cover[]} [CoverParameterObject.ids] Covers ids (limited to 100 per request)
+     * @property {String[]|import('../index').User[]} [CoverParameterObject.uploaders] User ids (limited to 100 per request)
+     * @property {Object} [CoverParameterObject.order]
+     * @property {'asc'|'desc'} [CoverParameterObject.order.createdAt]
+     * @property {'asc'|'desc'} [CoverParameterObject.order.updatedAt]
+     * @property {'asc'|'desc'} [CoverParameterObject.order.volume]
+     */
+
+    /**
+     * Peforms a search and returns an array of covers.
+     * https://api.mangadex.org/docs.html#operation/get-cover
+     * @param {CoverParameterObject} [searchParameters]
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Cover[]>}
+     */
+    static search(searchParameters = {}, includeSubObjects = false) {
+        if (includeSubObjects) searchParameters.includes = ['user', 'manga'];
+        return Util.apiCastedRequest('/cover', Cover, searchParameters);
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} CoverUploadParameterObject
+     * @property {string|null} [CoverUploadParameterObject.volume] Volume of the cover
+     * @property {string} [CoverUploadParameterObject.description] Description of the cover
+     */
+
+    /**
+     * @ignore
+     * @typedef {Object} CoverFileObject
+     * @property {Buffer} CoverFileObject.data
+     * @property {'jpeg'|'png'|'gif'} [CoverFileObject.type]
+     * @property {String} CoverFileObject.name
+     */
+
+    /**
+     * Creates a new cover.
+     * @param {string} [mangaId] The id of the manga that the cover is for.
+     * @param {CoverFileObject} [file] The buffer containing the image data.
+     * @param {CoverUploadParameterObject | undefined} [options] Additional options for the cover upload.
+     * @returns {Promise<Cover>}
+     */
+    static async create(mangaId, file, options){
+        options = options || {};
+        return new Cover(await Util.apiRequest(`/cover/${mangaId}`, 'POST', Util.createMultipartPayload([file], {
+            volume: options.volume,
+            description: options.description
+        })))
+    }
+
+    /**
+     * Gets multiple covers
+     * @param {...String|Cover|Relationship<Cover>} ids
+     * @returns {Promise<Cover[]>}
+     */
+    static getMultiple(...ids) {
+        return Util.getMultipleIds(Cover.search, ids);
+    }
+
+    /**
+     * Performs a search for one manga and returns that manga
+     * @param {CoverParameterObject} [searchParameters]
+     * @returns {Promise<Cover>}
+     */
+    static async getByQuery(searchParameters = {}) {
+        searchParameters.limit = 1;
+        let res = await Cover.search(searchParameters);
+        if (res.length === 0) throw new Error('Search returned no results.');
+        return res[0];
+    }
+
+    /**
+     * Get an array of manga's covers
+     * @param {...String|import('../index').Manga|Relationship<import('../index').Manga>} manga
+     * @returns {Promise<Cover[]>}
+     */
+    static getMangaCovers(...manga) {
+        return Util.getMultipleIds(Cover.search, manga, {}, Infinity, 'manga');
+    }
+}
+
+exports = module.exports = Cover;
+},{"../internal/relationship.js":16,"../util.js":27}],23:[function(require,module,exports){
+'use strict';
+
+const Util = require('../util.js');
+const AuthUtil = require('../auth.js');
+const Relationship = require('../internal/relationship.js');
+
+/**
+ * Represents a scanlation group
+ * https://api.mangadex.org/docs.html#tag/Group
+ */
+class Group {
+    /**
+     * There is no reason to directly create a group object. Use static methods, ie 'get()'.
+     * @param {Object|String} context Either an API response or Mangadex id 
+     */
+    constructor(context) {
+        if (typeof context === 'string') {
+            this.id = context;
+            return;
+        } else if (!context) return;
+
+        if (!context.data) context.data = {};
+
+        /**
+         * Mangadex id for this object
+         * @type {String}
+         */
+        this.id = context.data.id;
+
+        if (context.data.attributes === undefined) context.data.attributes = {};
+
+        /**
+         * Name of this group
+         * @type {String}
+         */
+        this.name = context.data.attributes.name;
+
+        /**
+         * The date of this group's creation
+         * @type {Date}
+         */
+        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
+
+        /**
+         * The date the group was last updated
+         * @type {Date}
+         */
+        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
+
+        /**
+         * Is this group locked?
+         * @type {Boolean}
+         */
+        this.locked = context.data.attributes.locked === true;
+
+        /**
+         * Website URL for this group
+         * @type {String}
+         */
+        this.website = context.data.attributes.website;
+
+        /**
+        * IRC Server for this group
+        * @type {String}
+        */
+        this.ircServer = context.data.attributes.ircServer;
+
+        /**
+        * IRC Channel for this group
+        * @type {String}
+        */
+        this.ircChannel = context.data.attributes.ircChannel;
+
+        /**
+        * Discord Invite Code for this group
+        * @type {String}
+        */
+        this.discord = context.data.attributes.discord;
+
+        /**
+         * Email for this group
+         * @type {String}
+         */
+        this.contactEmail = context.data.attributes.contactEmail;
+
+        /**
+         * This group's twitter
+         * @type {String}
+         */
+        this.twitter = context.data.attributes.twitter;
+
+        /**
+         * This group's manga updates page
+         * @type {String}
+         */
+        this.mangaUpdates = context.data.attributes.mangaUpdates;
+
+        /**
+         * This group's focused languages
+         * @type {String[]}
+         */
+        this.focusedLanguages = context.data.attributes.focusedLanguages;
+
+        /**
+         * This group's publish delay
+         * @type {Number}
+         */
+        this.publishDelay = context.data.attributes.publishDelay;
+
+        /**
+         * Is this group inactive?
+         * @type {Boolean}
+         */
+        this.inactive = context.data.attributes.inactive;
+
+        /**
+         * The group's custom description
+         * @type {String}
+         */
+        this.description = context.data.attributes.description;
+
+        /**
+         * Is this group an official publisher?
+         * @type {Boolean}
+         */
+        this.official = context.data.attributes.official;
+
+        /**
+         * Is this group managed by an official publisher?
+         * @type {Boolean}
+         */
+        this.verified = context.data.attributes.verified;
+
+        /**
+         * This group's leader
+         * @type {Relationship<import('../index').User>}
+         */
+        this.leader = Relationship.convertType('leader', context.data.relationships, this).pop();
+
+        /**
+         * Array of this group's members
+         * @type {Array<Relationship<import('../index').User>>}
+         */
+        this.members = Relationship.convertType('member', context.data.relationships, this);
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} GroupParameterObject
+     * @property {String} [GroupParameterObject.name]
+     * @property {String} [GroupParameterObject.name]
+     * @property {String} [GroupParameterObject.focusedLanguage]
+     * @property {Object} [GroupParameterObject.order]
+     * @property {'asc'|'desc'} [GroupParameterObject.order.createdAt]
+     * @property {'asc'|'desc'} [GroupParameterObject.order.updatedAt]
+     * @property {'asc'|'desc'} [GroupParameterObject.order.name]
+     * @property {'asc'|'desc'} [GroupParameterObject.order.followedCount]
+     * @property {'asc'|'desc'} [GroupParameterObject.order.relevance]
+     * @property {String[]} [GroupParameterObject.ids] Max of 100 per request
+     * @property {Number} [GroupParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [GroupParameterObject.offset]
+     */
+
+    /**
+     * Peforms a search and returns an array of groups.
+     * https://api.mangadex.org/docs.html#operation/get-search-group
+     * @param {GroupParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Group[]>}
+     */
+    static search(searchParameters = {}, includeSubObjects = false) {
+        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters };
+        if (includeSubObjects) searchParameters.includes = ['user'];
+        return Util.apiCastedRequest('/group', Group, searchParameters);
+    }
+
+    /**
+     * Gets multiple groups
+     * @param {...String|Group|Relationship<Group>} ids
+     * @returns {Promise<Group[]>}
+     */
+    static getMultiple(...ids) {
+        return Util.getMultipleIds(Group.search, ids);
+    }
+
+    /**
+     * Retrieves and returns a group by its id
+     * @param {String} id Mangadex id
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Group>}
+     */
+    static async get(id, includeSubObjects = false) {
+        return new Group(await Util.apiRequest(`/group/${id}${includeSubObjects ? '?includes[]=leader&includes[]=member' : ''}`));
+    }
+
+    /**
+     * Performs a search for one group and returns that group
+     * @param {GroupParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
+     * @returns {Promise<Group>}
+     */
+    static async getByQuery(searchParameters = {}) {
+        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters, limit: 1 };
+        else searchParameters.limit = 1;
+        let res = await Group.search(searchParameters);
+        if (res.length === 0) throw new Error('Search returned no results.');
+        return res[0];
+    }
+
+    /**
+     * Returns all groups followed by the logged in user
+     * @param {Number} [limit=100] Amount of groups to return (0 to Infinity)
+     * @param {Number} [offset=0] How many groups to skip before returning
+     * @returns {Promise<Group[]>}
+     */
+    static async getFollowedGroups(limit = 100, offset = 0) {
+        await AuthUtil.validateTokens();
+        return await Util.apiCastedRequest('/user/follows/group', Group, { limit: limit, offset: offset });
+        // Currently (8/30/21) MD does not support includes[]=leader&includes[]=member for this endpoint
+    }
+
+    /**
+     * Makes the logged in user either follow or unfollow a group
+     * @param {String} id 
+     * @param {Boolean} [follow=true] True to follow, false to unfollow
+     * @returns {Promise<void>}
+     */
+    static async changeFollowship(id, follow = true) {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/group/${id}/follow`, follow ? 'POST' : 'DELETE');
+    }
+
+    /**
+     * Makes the logged in user either follow or unfollow this group
+     * @param {Boolean} [follow=true] True to follow, false to unfollow
+     * @returns {Promise<Group>}
+     */
+    async changeFollowship(follow = true) {
+        await Group.changeFollowship(this.id, follow);
+        return this;
+    }
+}
+
+exports = module.exports = Group;
+},{"../auth.js":12,"../internal/relationship.js":16,"../util.js":27}],24:[function(require,module,exports){
+'use strict';
+
+const Relationship = require('../internal/relationship.js');
+const Util = require('../util.js');
+const AuthUtil = require('../auth.js');
+const Chapter = require('./chapter.js');
+
+/**
+ * Represents a custom, user-created list of manga
+ * https://api.mangadex.org/docs.html#tag/CustomList
+ */
+class List {
+    /**
+     * There is no reason to directly create a custom list object. Use static methods, ie 'get()'.
+     * @param {Object|String} context Either an API response or Mangadex id 
+     */
+    constructor(context) {
+        if (typeof context === 'string') {
+            this.id = context;
+            return;
+        } else if (!context) return;
+
+        if (!context.data) context.data = {};
+
+        /**
+         * Mangadex id for this object
+         * @type {String}
+         */
+        this.id = context.data.id;
+
+
+        if (context.data.attributes === undefined) context.data.attributes = {};
+
+        /**
+         * Name of this custom list
+         * @type {String}
+         */
+        this.name = context.data.attributes.name;
+
+        /**
+         * Version of this custom list
+         * @type {String}
+         */
+        this.version = context.data.attributes.version;
+
+        /**
+         * String form of this list's visibility
+         * @type {'public'|'private'}
+         */
+        this.visibility = context.data.attributes.visibility;
+        if (this.visibility !== 'public' && this.visibility !== 'private') this.visibility = null;
+
+        /**
+         * Relationships to all of the manga in this custom list
+         * @type {Array<Relationship<import('../index').Manga>>}
+         */
+        this.manga = Relationship.convertType('manga', context.data.relationships, this);
+
+        /**
+         * This list's owner
+         * @type {Relationship<import('../index').User>}
+         */
+        this.owner = Relationship.convertType('user', context.data.relationships, this).pop();
+    }
+
+    /**
+     * Is this list public?
+     * @type {Boolean}
+     */
+    get public() {
+        if (this.visibility !== 'private' && this.visibility !== 'public') return null;
+        return this.visibility === 'public';
+    }
+
+    /**
+     * Retrieves and returns a list by its id
+     * @param {String} id Mangadex id
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<List>}
+     */
+    static async get(id, includeSubObjects = false) {
+        if (AuthUtil.canAuth) await AuthUtil.validateTokens();
+        return new List(await Util.apiRequest(`/list/${id}${includeSubObjects ? '?includes[]=manga&includes[]=user' : ''}`));
+    }
+
+    /**
+     * Create a new custom list. Must be logged in
+     * @param {String} name
+     * @param {import('../index').Manga[]|String[]} manga
+     * @param {'public'|'private'} [visibility='private'] 
+     * @returns {Promise<List>}
+     */
+    static async create(name, manga, visibility = 'private') {
+        if (!name || !manga || !manga.every(e => typeof e === 'string' || 'id' in e)) throw new Error('Invalid Argument(s)');
+        await AuthUtil.validateTokens();
+        let res = await Util.apiRequest('/list', 'POST', {
+            name: name,
+            manga: manga.map(elem => typeof elem === 'string' ? elem : elem.id),
+            visibility: visibility === 'public' ? visibility : 'private'
+        });
+        return new List(res);
+    }
+
+    /**
+     * Deletes a custom list. Must be logged in
+     * @param {String} id 
+     * @returns {Promise<void>}
+     */
+    static async delete(id) {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/list/${id}`, 'DELETE');
+    }
+
+    /**
+     * Adds a manga to a custom list. Must be logged in
+     * @param {String} listId
+     * @param {import('../index').Manga|String} manga
+     * @returns {Promise<void>}
+     */
+    static async addManga(listId, manga) {
+        if (!listId || !manga) throw new Error('Invalid Argument(s)');
+        if (typeof manga !== 'string') manga = manga.id;
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/manga/${manga}/list/${listId}`, 'POST');
+    }
+
+    /**
+     * Removes a manga from a custom list. Must be logged in
+     * @param {String} listId
+     * @param {import('../index').Manga|String} manga
+     * @returns {Promise<void>}
+     */
+    static async removeManga(listId, manga) {
+        if (!listId || !manga) throw new Error('Invalid Argument(s)');
+        if (typeof manga !== 'string') manga = manga.id;
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/manga/${manga}/list/${listId}`, 'DELETE');
+    }
+
+    /**
+     * Returns all lists created by the logged in user.
+     * @param {Number} [limit=100] Amount of lists to return (0 to Infinity)
+     * @param {Number} [offset=0] How many lists to skip before returning
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<List[]>}
+     */
+    static async getLoggedInUserLists(limit = 100, offset = 0, includeSubObjects = false) {
+        await AuthUtil.validateTokens();
+        let res = await Util.apiSearchRequest('/user/list', { limit: limit, offset: offset });
+        return res.map(elem => new List({ data: elem }));
+    }
+
+    /**
+     * Returns all public lists created by a user.
+     * @param {String|import('../index').User|Relationship<import('../index').User>} user
+     * @param {Number} [limit=100] Amount of lists to return (0 to Infinity)
+     * @param {Number} [offset=0] How many lists to skip before returning
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<List[]>}
+     */
+    static async getUserLists(user, limit = 100, offset = 0, includeSubObjects = false) {
+        if (typeof user !== 'string') user = user.id;
+        let res = await Util.apiSearchRequest(`/user/${user}/list`, { limit: limit, offset: offset });
+        return res.map(elem => new List({ data: elem }));
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} FeedParameterObject
+     * @property {Number} [FeedParameterObject.limit] Not limited by API limits (more than 500). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [FeedParameterObject.offset]
+     * @property {String[]} [FeedParameterObject.translatedLanguage]
+     * @property {String} [FeedParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {String} [FeedParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {String} [FeedParameterObject.publishAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {Object} [FeedParameterObject.order]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.volume]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.chapter]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.createdAt]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.updatedAt]
+     */
+
+    /**
+     * Returns a list of the most recent chapters from the manga in a list
+     * @param {String} id Mangadex id of the list
+     * @param {FeedParameterObject} parameterObject Information on which chapters to be returned
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Chapter[]>}
+     */
+    static async getFeed(id, parameterObject = {}, includeSubObjects = false) {
+        if (AuthUtil.canAuth) await AuthUtil.validateTokens();
+        if (includeSubObjects) parameterObject.includes = ['scanlation_group', 'manga', 'user'];
+        return await Util.apiCastedRequest(`/list/${id}/feed`, Chapter, parameterObject, 500, 100);
+    }
+
+    /**
+     * Returns a list of the most recent chapters from the manga in a list
+     * https://api.mangadex.org/docs.html#operation/get-list-id-feed
+     * @param {FeedParameterObject} [parameterObject] Information on which chapters to be returned
+     * @returns {Promise<Chapter[]>}
+     */
+    getFeed(parameterObject = {}) {
+        return List.getFeed(this.id, parameterObject);
+    }
+
+    /**
+     * Delete a custom list. Must be logged in
+     * @returns {Promise<void>}
+     */
+    delete() {
+        return List.delete(this.id);
+    }
+
+    /**
+     * Renames a custom list. Must be logged in
+     * @param {String} newName
+     * @returns {Promise<List>}
+     */
+    async rename(newName) {
+        if (!newName || typeof newName !== 'string') throw new Error('Invalid Argument(s)');
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/list/${this.id}`, 'PUT', { name: newName, version: this.version });
+        this.name = newName;
+        return this;
+    }
+
+    /**
+     * Changes the visibility a custom list. Must be logged in
+     * @param {'public'|'private'} [newVis] Leave blank to toggle
+     * @returns {Promise<List>}
+     */
+    async changeVisibility(newVis) {
+        if (!newVis && this.public) newVis = 'private';
+        else if (!newVis && this.public !== null) newVis = 'public';
+        else if (newVis !== 'private' && newVis !== 'public') throw new Error('Invalid Argument(s)');
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/list/${this.id}`, 'PUT', { visibility: newVis, version: this.version });
+        this.visibility = newVis;
+        return this;
+    }
+
+    /**
+     * Changes the manga in a custom list. Must be logged in
+     * @param {import('../index').Manga[]|String[]} newList
+     * @returns {Promise<List>}
+     */
+    async updateMangaList(newList) {
+        if (!(newList instanceof Array)) throw new Error('Invalid Argument(s)');
+        let idList = newList.map(elem => typeof elem === 'string' ? elem : elem.id);
+        await AuthUtil.validateTokens();
+        let res = await Util.apiRequest(`/list/${this.id}`, 'PUT', { manga: idList, version: this.version });
+        this.manga = Relationship.convertType('manga', res.data.relationships, this);
+        return this;
+    }
+
+    /**
+     * Adds a manga to this list
+     * @param {import('../index').Manga|String} manga
+     * @returns {Promise<List>}
+     */
+    async addManga(manga) {
+        if (typeof manga !== 'string') manga = manga.id;
+        let idList = this.manga.map(elem => elem.id);
+        // Uses updateMangaList to maintain server-side order
+        if (!idList.includes(manga)) await this.updateMangaList(idList.concat(manga));
+        return this;
+    }
+
+    /**
+     * Removes a manga from this list
+     * @param {import('../index').Manga|String} manga
+     * @returns {Promise<List>}
+     */
+    async removeManga(manga) {
+        if (typeof manga !== 'string') manga = manga.id;
+        await List.removeManga(this.id, manga);
+        this.manga = this.manga.filter(elem => elem.id !== manga);
+        return this;
+    }
+}
+
+exports = module.exports = List;
+},{"../auth.js":12,"../internal/relationship.js":16,"../util.js":27,"./chapter.js":21}],25:[function(require,module,exports){
+'use strict';
+
+const Util = require('../util.js');
+const AuthUtil = require('../auth.js');
+const Links = require('../internal/links.js');
+const LocalizedString = require('../internal/localizedstring.js');
+const Relationship = require('../internal/relationship.js');
+const Tag = require('../internal/tag.js');
+const Chapter = require('./chapter.js');
+const Cover = require('./cover.js');
+const List = require('./list.js');
+const APIRequestError = require('../internal/requesterror.js');
+const UploadSession = require('../internal/uploadsession.js');
+
+/**
+ * Represents a manga object
+ * https://api.mangadex.org/docs.html#tag/Manga
+ */
+class Manga {
+    /**
+     * There is no reason to directly create a manga object. Use static methods, ie 'get()'.
+     * @param {Object|String} context Either an API response or Mangadex id
+     */
+    constructor(context) {
+        if (typeof context === 'string') {
+            this.id = context;
+            return;
+        } else if (!context) return;
+
+        if (!context.data) context.data = {};
+
+        /**
+         * Mangadex id for this object
+         * @type {String}
+         */
+        this.id = context.data.id;
+
+
+        if (context.data.attributes === undefined) context.data.attributes = {};
+        /**
+         * Main title with different localization options
+         * @type {LocalizedString}
+         */
+        this.localizedTitle = new LocalizedString(context.data.attributes.title);
+
+        /**
+         * Alt titles with different localization options
+         * @type {LocalizedString[]}
+         */
+        this.localizedAltTitles = (context.data.attributes.altTitles || []).map(i => new LocalizedString(i));
+
+        /**
+         * Description with different localization options
+         * @type {LocalizedString}
+         */
+        this.localizedDescription = new LocalizedString(context.data.attributes.description);
+
+        /**
+         * Is this Manga locked?
+         * @type {Boolean}
+         */
+        this.isLocked = context.data.attributes.isLocked === true;
+
+        /**
+         * Link object representing links to other websites about this manga
+         * https://api.mangadex.org/docs.html#section/Static-data/Manga-links-data
+         * @type {Links}
+         */
+        this.links = new Links(context.data.attributes.links);
+
+        /**
+         * 2-letter code for the original language of this manga
+         * @type {String}
+         */
+        this.originalLanguage = context.data.attributes.originalLanguage;
+
+        /**
+         * This manga's last volume based on the default feed order
+         * @type {String}
+         */
+        this.lastVolume = context.data.attributes.lastVolume;
+
+        /**
+         * This manga's last chapter based on the default feed order
+         * @type {String}
+         */
+        this.lastChapter = context.data.attributes.lastChapter;
+
+        /**
+         * Publication demographic of this manga
+         * https://api.mangadex.org/docs.html#section/Static-data/Manga-publication-demographic
+         * @type {'shounen'|'shoujo'|'josei'|'seinen'}
+         */
+        this.publicationDemographic = context.data.attributes.publicationDemographic;
+
+        /**
+         * Publication/Scanlation status of this manga
+         * @type {'ongoing'|'completed'|'hiatus'|'cancelled'}
+         */
+        this.status = context.data.attributes.status;
+
+        /**
+         * Year of this manga's publication
+         * @type {Number}
+         */
+        this.year = context.data.attributes.year !== null && !isNaN(context.data.attributes.year) ? parseFloat(context.data.attributes.year) : null;
+
+        /**
+         * The content rating of this manga
+         * @type {'safe'|'suggestive'|'erotica'|'pornographic'}
+         */
+        this.contentRating = context.data.attributes.contentRating;
+
+        /**
+         * The date of this manga's page creation
+         * @type {Date}
+         */
+        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
+
+        /**
+         * The date the manga was last updated
+         * @type {Date}
+         */
+        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
+
+        /**
+         * Authors attributed to this manga
+         * @type {Array<Relationship<import('../index').Author>>}
+         */
+        this.authors = Relationship.convertType('author', context.data.relationships, this);
+
+        /**
+         * Artists attributed to this manga
+         * @type {Array<Relationship<import('../index').Author>>}
+         */
+        this.artists = Relationship.convertType('artist', context.data.relationships, this);
+
+        /**
+         * This manga's main cover. Use 'getCovers' to retrive other covers
+         * @type {Relationship<Cover>}
+         */
+        this.mainCover = Relationship.convertType('cover_art', context.data.relationships, this).pop();
+        if (!this.mainCover) this.mainCover = null;
+
+        /**
+         * Array of tags for this manga
+         * @type {Tag[]}
+         */
+        this.tags = (context.data.attributes.tags || []).map(elem => new Tag(elem));
+
+        /**
+         * @ignore
+         * @typedef {Object} RelatedMangaObject
+         * @property {Manga[]} RelatedMangaObject.monochrome
+         * @property {Manga[]} RelatedMangaObject.main_story
+         * @property {Manga[]} RelatedMangaObject.adapted_from
+         * @property {Manga[]} RelatedMangaObject.based_on
+         * @property {Manga[]} RelatedMangaObject.prequel
+         * @property {Manga[]} RelatedMangaObject.side_story
+         * @property {Manga[]} RelatedMangaObject.doujinshi
+         * @property {Manga[]} RelatedMangaObject.same_franchise
+         * @property {Manga[]} RelatedMangaObject.shared_universe
+         * @property {Manga[]} RelatedMangaObject.sequel
+         * @property {Manga[]} RelatedMangaObject.spin_off
+         * @property {Manga[]} RelatedMangaObject.alternate_story
+         * @property {Manga[]} RelatedMangaObject.preserialization
+         * @property {Manga[]} RelatedMangaObject.colored
+         * @property {Manga[]} RelatedMangaObject.serialization
+         */
+
+        /**
+         * @type {RelatedMangaObject}
+         */
+        this.relatedManga = Object.fromEntries([
+            'monochrome', 'main_story', 'adapted_from', 'based_on', 'prequel',
+            'side_story', 'doujinshi', 'same_franchise', 'shared_universe', 'sequel',
+            'spin_off', 'alternate_story', 'preserialization', 'colored', 'serialization'
+        ].map(k => [k, Relationship.convertType('manga', context.data.relationships.filter(r => r.related === k))]));
+
+        /**
+         * The version of this manga (incremented by updating manga data)
+         * @type {Number}
+         */
+        this.version = isNaN(parseInt(context.data.attributes.version)) ? 1 : context.data.attributes.version;
+
+        /**
+         * Does this manga's chapter numbers reset on a new volume?
+         * @type {Boolean}
+         */
+        this.chapterNumbersResetOnNewVolume = context.data.attributes.chapterNumbersResetOnNewVolume;
+
+        /**
+         * An array of locale strings that represent the languages this manga is available in
+         * @type {String[]}
+         */
+        this.availableTranslatedLanguages = context.data.attributes.availableTranslatedLanguages;
+
+        /**
+         * The state of this manga's publication
+         * @type {string}
+         */
+        this.state = context.data.attributes.state;
+    }
+
+    /**
+     * Main title string based on global locale
+     * @type {String}
+     */
+    get title() {
+        if (this.localizedTitle !== undefined) return this.localizedTitle.localString;
+        return undefined;
+    }
+
+    /**
+     * Alt titles array based on global locale
+     * @type {String[]}
+     */
+    get altTitles() {
+        if (this.localizedAltTitles !== undefined) return this.localizedAltTitles.map(e => e.localString);
+        return undefined;
+    }
+
+    /**
+     * Description string based on global locale
+     * @type {String}
+     */
+    get description() {
+        if (this.localizedDescription !== undefined) return this.localizedDescription.localString;
+        return undefined;
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} MangaParameterObject
+     * @property {String} [MangaParameterObject.title]
+     * @property {Number} [MangaParameterObject.year]
+     * @property {'AND'|'OR'} [MangaParameterObject.includedTagsMode]
+     * @property {'AND'|'OR'} [MangaParameterObject.excludedTagsMode]
+     * @property {String} [MangaParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {String} [MangaParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {Object} [MangaParameterObject.order]
+     * @property {'asc'|'desc'} [MangaParameterObject.order.createdAt]
+     * @property {'asc'|'desc'} [MangaParameterObject.order.updatedAt]
+     * @property {'asc'|'desc'} [MangaParameterObject.order.title]
+     * @property {'asc'|'desc'} [MangaParameterObject.order.latestUploadedChapter]
+     * @property {'asc'|'desc'} [MangaParameterObject.order.followedCount]
+     * @property {'asc'|'desc'} [MangaParameterObject.order.relevance]
+     * @property {'asc'|'desc'} [MangaParameterObject.order.year]
+     * @property {String[]|import('../index').Author[]} [MangaParameterObject.authors] Array of author ids
+     * @property {String[]|import('../index').Author[]} [MangaParameterObject.artists] Array of artist ids
+     * @property {String[]|Tag[]} [MangaParameterObject.includedTags]
+     * @property {String[]|Tag[]} [MangaParameterObject.excludedTags]
+     * @property {Array<'ongoing'|'completed'|'hiatus'|'cancelled'>} [MangaParameterObject.status]
+     * @property {String[]} [MangaParameterObject.originalLanguage]
+     * @property {String[]} [MangaParameterObject.excludedOriginalLanguage]
+     * @property {String[]} [MangaParameterObject.availableTranslatedLanguage]
+     * @property {Array<'shounen'|'shoujo'|'josei'|'seinen'|'none'>} [MangaParameterObject.publicationDemographic]
+     * @property {String[]} [MangaParameterObject.ids] Max of 100 per request
+     * @property {Array<'safe'|'suggestive'|'erotica'|'pornographic'>} [MangaParameterObject.contentRating]
+     * @property {Boolean} [MangaParameterObject.hasAvailableChapters]
+     * @property {String} [MangaParameterObject.group] Group id
+     * @property {Number} [MangaParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [MangaParameterObject.offset]
+     */
+
+    /**
+     * Peforms a search and returns an array of manga.
+     * https://api.mangadex.org/docs.html#operation/get-search-manga
+     * @param {MangaParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Manga[]>}
+     */
+    static search(searchParameters = {}, includeSubObjects = false) {
+        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters };
+        if (includeSubObjects) searchParameters.includes = ['artist', 'author', 'cover_art'];
+        return Util.apiCastedRequest('/manga', Manga, searchParameters);
+    }
+
+    /**
+     * Returns the total amount of search results for a specific query
+     * @param {MangaParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
+     * @returns {Promise<Number>}
+     */
+    static async getTotalSearchResults(searchParameters = {}) {
+        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters };
+        let res = await Util.apiParameterRequest('/manga', searchParameters);
+        if ('total' in res) return res.total;
+        else throw new APIRequestError('The API did not respond with a total result count', APIRequestError.INVALID_RESPONSE);
+    }
+
+    /**
+     * Creates a manga.
+     * @param {LocalizedString | Object} [title] The title of the manga.
+     * @param {string} [originalLanguage] The original language of the manga.
+     * @param {'ongoing'|'completed'|'hiatus'|'cancelled'} [status] The status of the manga.
+     * @param {'safe'|'suggestive'|'erotica'|'pornographic'} [contentRating] The content rating of the manga.
+     * @param {Object | undefined} [options] Additional options for creating the manga.
+     * @returns {Promise<Manga>}
+     */
+    static async create(title, originalLanguage, status, contentRating, options){
+        return new Manga(await Util.apiRequest('/manga', 'POST', {
+            title: title.data || title,
+            originalLanguage,
+            status,
+            contentRating,
+            ...options
+        }));
+    }
+
+    /**
+     * Gets multiple manga
+     * @param {...String|Relationship<Manga>} ids
+     * @returns {Promise<Manga[]>}
+     */
+    static getMultiple(...ids) {
+        return Util.getMultipleIds(Manga.search, ids, { contentRating: ['safe', 'suggestive', 'erotica', 'pornographic'] });
+    }
+
+    /**
+     * Retrieves and returns a manga by its id
+     * @param {String} id Mangadex id
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Manga>}
+     */
+    static async get(id, includeSubObjects = false) {
+        return new Manga(await Util.apiRequest(`/manga/${id}${includeSubObjects ? '?includes[]=artist&includes[]=author&includes[]=cover_art' : ''}`));
+    }
+
+    /**
+     * Performs a search for one manga and returns that manga
+     * @param {MangaParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Manga>}
+     */
+    static async getByQuery(searchParameters = {}, includeSubObjects = false) {
+        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters, limit: 1 };
+        else searchParameters.limit = 1;
+        let res = await Manga.search(searchParameters, includeSubObjects);
+        if (res.length === 0) throw new Error('Search returned no results.');
+        return res[0];
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} FeedParameterObject
+     * @property {Number} [FeedParameterObject.limit] Not limited by API limits (more than 500). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [FeedParameterObject.offset]
+     * @property {String[]} [FeedParameterObject.translatedLanguage]
+     * @property {String} [FeedParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {String} [FeedParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {String} [FeedParameterObject.publishAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
+     * @property {Object} [FeedParameterObject.order]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.volume]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.chapter]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.createdAt]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.updatedAt]
+     * @property {'asc'|'desc'} [FeedParameterObject.order.publishAt]
+     */
+
+    /**
+     * Returns a feed of chapters for a manga
+     * @param {String} id
+     * @param {FeedParameterObject|Number} [parameterObject] Either a parameter object or a number representing the limit
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Chapter[]>}
+     */
+    static getFeed(id, parameterObject = {}, includeSubObjects = false) {
+        if (typeof parameterObject === 'number') parameterObject = { limit: parameterObject };
+        if (includeSubObjects) parameterObject.includes = ['scanlation_group', 'manga', 'user'];
+        return Util.apiCastedRequest(`/manga/${id}/feed`, Chapter, parameterObject, 500, 100);
+    }
+
+    /**
+     * Returns one random manga
+     * @param {Array<'safe' | 'suggestive' | 'erotica' | 'pornographic'>} [contentRatings] Allowed content ratings for the random manga
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Manga>}
+     */
+    static async getRandom(contentRatings, includeSubObjects = false) {
+        const params = {};
+        if (Array.isArray(contentRatings)) params.contentRating = contentRatings;
+        if (includeSubObjects) params.includes = ['artist', 'author', 'cover_art'];
+        return new Manga(await Util.apiParameterRequest('/manga/random', params));
+    }
+
+    /**
+     * Returns all manga followed by the logged in user
+     * @param {Number} [limit=100] Amount of manga to return (0 to Infinity)
+     * @param {Number} [offset=0] How many manga to skip before returning
+     * @returns {Promise<Manga[]>}
+     */
+    static async getFollowedManga(limit = 100, offset = 0) {
+        await AuthUtil.validateTokens();
+        let params = { limit: limit, offset: offset };
+        return await Util.apiCastedRequest('/user/follows/manga', Manga, params);
+        // Currently (8/30/21) MD does not support includes[]=artist&includes[]=author&includes[]=cover_art for this endpoint
+    }
+
+    /**
+     * Retrieves a tag object based on its id or name ('Oneshot', 'Thriller,' etc).
+     * The result of every available tag is cached, so subsequent tag requests will have no delay
+     * https://api.mangadex.org/docs.html#operation/get-manga-tag
+     * @param {String} indentity
+     * @returns {Promise<Tag>}
+     */
+    static getTag(indentity) {
+        return Tag.getTag(indentity);
+    }
+
+    /**
+     * Returns an array of every tag available on Mangadex right now.
+     * The result is cached, so subsequent tag requests will have no delay
+     * https://api.mangadex.org/docs.html#operation/get-manga-tag
+     * @returns {Promise<Tag[]>}
+     */
+    static getAllTags() {
+        return Tag.getAllTags();
+    }
+
+    /**
+     * Retrieves the logged in user's reading status for a manga.
+     * If there is no status, null is returned
+     * @param {String} id
+     * @returns {Promise<'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'>}
+     */
+    static async getReadingStatus(id) {
+        await AuthUtil.validateTokens();
+        let res = await Util.apiRequest(`/manga/${id}/status`);
+        return (typeof res.status === 'string' ? res.status : null);
+    }
+
+    /**
+     * Sets the logged in user's reading status for this manga.
+     * Call without arguments to clear the reading status
+     * @param {String} id
+     * @param {'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'} [status]
+     * @returns {Promise<void>}
+     */
+    static async setReadingStatus(id, status = null) {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/manga/${id}/status`, 'POST', { status: status });
+    }
+
+    /**
+     * Returns the reading status for every manga for this logged in user as an object with Manga ids as keys
+     * @returns {Object.<string, 'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'>}
+     */
+    static async getAllReadingStatuses() {
+        await AuthUtil.validateTokens();
+        let res = await Util.apiRequest(`/manga/status`);
+        if (!('statuses' in res)) throw new APIRequestError('The API did not respond with a statuses object when it was expected to', APIRequestError.INVALID_RESPONSE);
+        return res.statuses;
+    }
+
+    /**
+     * Gets the combined feed of every manga followed by the logged in user
+     * @param {FeedParameterObject|Number} [parameterObject] Either a parameter object or a number representing the limit
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Chapter[]>}
+     */
+    static async getFollowedFeed(parameterObject, includeSubObjects = false) {
+        if (typeof parameterObject === 'number') parameterObject = { limit: parameterObject };
+        if (includeSubObjects) parameterObject.includes = ['scanlation_group', 'manga', 'user'];
+        await AuthUtil.validateTokens();
+        return await Util.apiCastedRequest(`/user/follows/manga/feed`, Chapter, parameterObject, 500, 100);
+    }
+
+    /**
+     * Makes the logged in user either follow or unfollow a manga
+     * @param {String} id
+     * @param {Boolean} [follow=true] True to follow, false to unfollow
+     * @returns {Promise<void>}
+     */
+    static async changeFollowship(id, follow = true) {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/manga/${id}/follow`, follow ? 'POST' : 'DELETE');
+    }
+
+    /**
+     * Retrieves the read chapters for multiple manga
+     * @param  {...String|Manga|Relationship<Manga>} ids
+     * @returns {Promise<Chapter[]>}
+     */
+    static async getReadChapters(...ids) {
+        if (ids.length === 0) throw new Error('Invalid Argument(s)');
+        if (ids[0] instanceof Array) ids = ids[0];
+        await AuthUtil.validateTokens();
+        let chapterIds = await Util.apiParameterRequest(`/manga/read`, { ids: ids });
+        if (!(chapterIds.data instanceof Array)) throw new APIRequestError('The API did not respond with an array when it was expected to', APIRequestError.INVALID_RESPONSE);
+        return Chapter.getMultiple(...chapterIds.data);
+    }
+
+    /**
+     * Returns all covers for a manga
+     * @param {...String|Manga|Relationship<Manga>} id Manga id(s)
+     * @returns {Promise<Cover[]>}
+     */
+    static getCovers(...id) {
+        return Cover.getMangaCovers(...id);
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} AggregateChapter
+     * @property {String} AggregateChapter.chapter
+     * @property {Number} AggregateChapter.count
+     * @property {String} AggregateChapter.id
+     * @property {String[]} AggregateChapter.others
+     */
+
+    /**
+     * @ignore
+     * @typedef {Object} AggregateVolume
+     * @property {String} AggregateVolume.volume
+     * @property {Number} AggregateVolume.count
+     * @property {Object.<string, AggregateChapter>} AggregateVolume.chapters
+     */
+
+    /**
+     * Returns a summary of every chapter for a manga including each of their numbers and volumes they belong to
+     * https://api.mangadex.org/docs.html#operation/post-manga
+     * @param {String} id
+     * @param {...String|String[]} languages
+     * @returns {Promise<Object.<string, AggregateVolume>>}
+     */
+    static async getAggregate(id, ...languages) {
+        languages = languages.flat();
+        let res = await Util.apiParameterRequest(`/manga/${id}/aggregate`, { translatedLanguage: languages });
+        if (!('volumes' in res)) throw new APIRequestError('The API did not respond with the appropriate aggregate structure', APIRequestError.INVALID_RESPONSE);
+        return res.volumes;
+    }
+
+    /**
+     * Creates a new upload session with a manga as the target
+     * @param {String} id
+     * @param {...String|import('../index').Group} groups
+     * @returns {Promise<UploadSession>}
+     */
+    static createUploadSession(id, ...groups) {
+        return UploadSession.open(id, ...groups);
+    }
+
+    /**
+     * Returns the currently open upload session for the logged in user.
+     * Returns null if there is no current session
+     * @returns {Promise<UploadSession>}
+     */
+    static getCurrentUploadSession() {
+        return UploadSession.getCurrentSession();
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} Statistics
+     * @property {Number} Statistics.follows
+     * @property {Object} Statistics.rating
+     * @property {Number} Statistics.rating.average
+     * @property {Object.<string, number>} Statistics.rating.distribution
+     */
+
+    /**
+     * Returns the rating and follow count of a manga
+     * @param {String} id
+     * @returns {Statistics}
+     */
+    static async getStatistics(id) {
+        if (id === undefined) throw new Error('Invalid Argument(s)');
+        let res = await Util.apiRequest(`statistics/manga/${id}`);
+        if (!res.statistics || Object.values(res.statistics).length === 0) {
+            throw new APIRequestError('The API did not respond with any statistics', APIRequestError.INVALID_RESPONSE);
+        }
+        return Object.values(res.statistics)[0];
+    }
+
+    getStatistics() {
+        return Manga.getStatistics(this.id);
+    }
+
+    /**
+     * Creates a new upload session with this manga as the target
+     * @param {...String|import('../index').Group} groups
+     * @returns {Promise<UploadSession>}
+     */
+    createUploadSession(...groups) {
+        return Manga.createUploadSession(this.id, ...groups);
+    }
+
+    /**
+     * Returns all covers for this manga
+     * @returns {Promise<Cover[]>}
+     */
+    getCovers() {
+        return Manga.getCovers(this.id);
+    }
+
+    /**
+     * Returns a feed of this manga's chapters.
+     * @param {FeedParameterObject|Number} [parameterObject] Either a parameter object or a number representing the limit
+     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
+     * @returns {Promise<Chapter[]>}
+     */
+    getFeed(parameterObject = {}, includeSubObjects = false) {
+        return Manga.getFeed(this.id, parameterObject, includeSubObjects);
+    }
+
+    /**
+     * Adds this manga to a list
+     * @param {List|String} list
+     * @returns {Promise<void>}
+     */
+    addToList(list) {
+        if (typeof list !== 'string') list = list.id;
+        return List.addManga(list, this.id);
+    }
+
+    /**
+     * Retrieves the logged in user's reading status for this manga.
+     * If there is no status, null is returned
+     * @returns {Promise<'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'>}
+     */
+    getReadingStatus() {
+        return Manga.getReadingStatus(this.id);
+    }
+
+    /**
+     * Sets the logged in user's reading status for this manga.
+     * Call without arguments to clear the reading status
+     * @param {'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'} [status]
+     * @returns {Promise<Manga>}
+     */
+    async setReadingStatus(status = null) {
+        await Manga.setReadingStatus(this.id, status);
+        return this;
+    }
+
+    /**
+     * Makes the logged in user either follow or unfollow this manga
+     * @param {Boolean} [follow=true] True to follow, false to unfollow
+     * @returns {Promise<Manga>}
+     */
+    async changeFollowship(follow = true) {
+        await Manga.changeFollowship(this.id, follow);
+        return this;
+    }
+
+    /**
+     * Returns an array of every chapter that has been marked as read for this manga
+     * @returns {Promise<Chapter[]>}
+     */
+    getReadChapters() {
+        return Manga.getReadChapters(this.id);
+    }
+
+    /**
+     * Returns a summary of every chapter for this manga including each of their numbers and volumes they belong to
+     * https://api.mangadex.org/docs.html#operation/post-manga
+     * @param {...String} languages
+     * @returns {Promise<Object.<string, AggregateVolume>>}
+     */
+    getAggregate(...languages) {
+        return Manga.getAggregate(this.id, ...languages);
+    }
+
+    /**
+     * Updates a manga's information using the information stored in the model and returns a new Manga.
+     * @returns {Promise<Manga>}
+     */
+    async update() {
+        const data = await Util.apiRequest(`manga/${this.id}`, 'PUT', {
+            title: this.localizedTitle.data,
+            altTitles: this.localizedAltTitles.map(altTitle => altTitle.data),
+            description: this.localizedDescription.data,
+            authors: this.authors.map(author => author.id),
+            artists: this.artists.map(artist => artist.id),
+            tags: this.tags.map(tag => tag.id),
+            links: this.links.availableLinks.reduce((prev, key) => {
+                prev[key] = this.links[key];
+                return prev;
+            }, {}),
+            originalLanguage: this.originalLanguage,
+            lastVolume: this.lastVolume,
+            lastChapter: this.lastChapter,
+            status: this.status,
+            publicationDemographic: this.publicationDemographic,
+            year: this.year,
+            contentRating: this.contentRating,
+            primaryCover: this.mainCover.id,
+            version: this.version
+        });
+        return new Manga(data)
+    }
+}
+
+exports = module.exports = Manga;
+
+},{"../auth.js":12,"../internal/links.js":14,"../internal/localizedstring.js":15,"../internal/relationship.js":16,"../internal/requesterror.js":17,"../internal/tag.js":18,"../internal/uploadsession.js":19,"../util.js":27,"./chapter.js":21,"./cover.js":22,"./list.js":24}],26:[function(require,module,exports){
+'use strict';
+
+const Util = require('../util.js');
+const AuthUtil = require('../auth.js');
+const Relationship = require('../internal/relationship.js');
+
+/**
+ * Represents an user
+ * https://api.mangadex.org/docs.html#tag/User
+ */
+class User {
+    /**
+     * There is no reason to directly create a user object. Use static methods, ie 'get()'.
+     * @param {Object|String} context Either an API response or Mangadex id 
+     */
+    constructor(context) {
+        if (typeof context === 'string') {
+            this.id = context;
+            return;
+        } else if (!context) return;
+
+        if (!context.data) context.data = {};
+
+        /**
+         * Mangadex id for this object
+         * @type {String}
+         */
+        this.id = context.data.id;
+
+        if (context.data.attributes === undefined) context.data.attributes = {};
+
+        /**
+         * Username of this user
+         * @type {String}
+         */
+        this.username = context.data.attributes.username;
+
+        /**
+         * The roles of this user such as "ROLE_MD_AT_HOME" and "ROLE_ADMIN"
+         * @type {String[]}
+         */
+        this.roles = context.data.attributes.roles;
+
+        /**
+         * Groups this user is a part of
+         * @type {Array<Relationship<import('../index').Group>>}
+         */
+        this.groups = Relationship.convertType('scanlation_group', context.data.relationships, this);
+    }
+
+    /**
+     * @ignore
+     * @typedef {Object} UserParameterObject
+     * @property {String} [UserParameterObject.username]
+     * @property {String[]} [UserParameterObject.ids] Max of 100 per request
+     * @property {Number} [UserParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
+     * @property {Number} [UserParameterObject.offset]
+     * @property {Object} [UserParameterObject.order] 
+     * @property {'asc'|'desc'} [UserParameterObject.order.username]
+     */
+
+    /**
+     * Peforms a search and returns an array of users. Requires authorization
+     * https://api.mangadex.org/docs.html#operation/get-user
+     * @param {UserParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the username
+     * @returns {Promise<User[]>}
+     */
+    static search(searchParameters = {}) {
+        if (typeof searchParameters === 'string') searchParameters = { username: searchParameters };
+        return Util.apiCastedRequest('/user', User, searchParameters);
+        // Currently (9/14/21) MD does not support includes[]=scanlation_group for any user endpoint
+    }
+
+    /**
+     * Gets multiple users
+     * @param {...String|Relationship<User>} ids
+     * @returns {Promise<User[]>}
+     */
+    static getMultiple(...ids) {
+        return Util.getMultipleIds(User.search, ids);
+    }
+
+    /**
+     * Retrieves and returns a user by its id
+     * @param {String} id Mangadex id
+     * @returns {Promise<User>}
+     */
+    static async get(id) {
+        return new User(await Util.apiRequest(`/user/${id}`));
+    }
+
+    /**
+     * Returns all users followed by the logged in user
+     * @param {Number} [limit=100] Amount of users to return (0 to Infinity)
+     * @param {Number} [offset=0] How many users to skip before returning
+     * @returns {Promise<User[]>}
+     */
+    static async getFollowedUsers(limit = 100, offset = 10) {
+        await AuthUtil.validateTokens();
+        return await Util.apiCastedRequest('/user/follows/user', User, { limit: limit, offset: offset });
+    }
+
+    /**
+     * Returns the logged in user as a user object
+     * @returns {Promise<User>}
+     */
+    static async getLoggedInUser() {
+        await AuthUtil.validateTokens();
+        return new User(await Util.apiRequest('/user/me'));
+    }
+
+    /**
+     * Makes the logged in user either follow or unfollow a user
+     * @param {String} id 
+     * @param {Boolean} [follow=true] True to follow, false to unfollow
+     * @returns {Promise<void>}
+     */
+    static async changeFollowship(id, follow = true) {
+        await AuthUtil.validateTokens();
+        await Util.apiRequest(`/user/${id}/follow`, follow ? 'POST' : 'DELETE');
+    }
+
+    /**
+     * Makes the logged in user either follow or unfollow this user
+     * @param {Boolean} [follow=true] True to follow, false to unfollow
+     * @returns {Promise<User>}
+     */
+    async changeFollowship(follow = true) {
+        await User.changeFollowship(this.id, follow);
+        return this;
+    }
+}
+
+exports = module.exports = User;
+},{"../auth.js":12,"../internal/relationship.js":16,"../util.js":27}],27:[function(require,module,exports){
+(function (Buffer){(function (){
+'use strict';
+
+const HTTPS = require('https');
+const APIRequestError = require('./internal/requesterror.js');
+
+const MAX_REQUESTS_PER_SECOND = 5; // The global minimum limit for normal endpoints is 5 requests per second
+const MAX_POSSIBLE_LIMIT = 10000; // MD has a hard max of 10000 items for every endpoint
+const MULTIPART_BOUNDARY = `mfa-boundary-${Date.now().toString(16)}`;
+var requestHeaders = {};
+var activeRequestCount = 0;
+
+/**
+ * Being a browser only affects how tokens are stored, so localStorage's existance is the only thing checked
+ * @returns {Boolean}
+ */
+function isBrowser() {
+    try {
+        return window !== undefined && window !== null && window.localStorage !== undefined && window.localStorage !== null;
+    } catch (error) {
+        return false;
+    }
+}
+exports.isBrowser = isBrowser;
+
+/**
+ * Sets a specific header value to be used by every api request
+ * @param {String} name Header key
+ * @param {String} value Header value
+ */
+function registerHeader(name, value) {
+    requestHeaders[name] = value;
+}
+exports.registerHeader = registerHeader;
+
+if (!isBrowser()) {
+    const packageJSON = require('../package.json');
+    registerHeader('User-Agent', `mangadex-full-api/${packageJSON.version} Server-side Node`);
+}
+
+/**
+ * Sends a HTTPS request to a specified endpoint
+ * @param {String} endpoint API endpoint (ex: /ping)
+ * @param {'GET'|'POST'|'PUT'|'DELETE'} [method='GET'] GET, POST, PUT, or DELETE. (Default: GET)
+ * @param {Object|String|Buffer} [requestPayload] Payload used for POST and DELETE requests
+ * @returns {Promise<Object>}
+ */
+function apiRequest(endpoint, method = 'GET', requestPayload = {}) {
+    return new Promise(async (resolve, reject) => {
+        if (endpoint === undefined || typeof endpoint !== 'string') reject(new Error('Invalid Argument(s)'));
+        if (endpoint[0] !== '/') endpoint = `/${endpoint}`;
+
+        activeRequestCount++;
+        if (activeRequestCount >= MAX_REQUESTS_PER_SECOND) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * Math.floor(activeRequestCount / MAX_REQUESTS_PER_SECOND)));
+        }
+
+        // console.log(endpoint, 'authorization' in requestHeaders, activeRequestCount);
+
+        let localHeaders = { ...requestHeaders };
+        if (method !== 'GET') {
+            if (typeof requestPayload !== 'object') localHeaders['Content-Type'] = `text/plain`;
+            else if (requestPayload instanceof Buffer) localHeaders['Content-Type'] = `multipart/form-data; boundary=${MULTIPART_BOUNDARY}`;
+            else localHeaders['Content-Type'] = 'application/json';
+        }
+
+        const req = HTTPS.request({
+            hostname: 'api.mangadex.org',
+            path: endpoint,
+            method: method,
+            headers: localHeaders
+        }, (res) => {
+            let responsePayload = '';
+
+            res.on('data', (data) => {
+                responsePayload += data;
+            });
+
+            res.on('end', () => {
+                activeRequestCount--;
+                if ('set-cookie' in res.headers && !isBrowser()) registerHeader('cookie', res.headers['set-cookie'].concat(requestHeaders['cookie']).join('; '));
+                if (res.headers['content-type'] !== undefined && res.headers['content-type'].includes('json')) {
+                    try {
+                        let parsedObj = JSON.parse(responsePayload);
+                        if (parsedObj === null) reject(new APIRequestError(`HTTPS ${method} Response (${endpoint}) returned null`, APIRequestError.INVALID_RESPONSE, res.headers["x-request-id"]));
+                        if (res.statusCode < 400 || res.result === 'ok') resolve(parsedObj);
+                        else reject(new APIRequestError(parsedObj, APIRequestError.OTHER, res.headers["x-request-id"]));
+                    } catch (error) {
+                        reject(new APIRequestError(
+                            `Failed to parse HTTPS ${method} ` +
+                            `Response (${endpoint}) as JSON despite Content-Type ` +
+                            `Header: ${res.headers['content-type']}\n${error}`
+                        ), APIRequestError.INVALID_RESPONSE);
+                    }
+                } else {
+                    if (res.statusCode === 429) reject(new APIRequestError('You have been rate limited', APIRequestError.INVALID_RESPONSE, res.headers["x-request-id"]));
+                    else if (res.statusCode >= 400) reject(new APIRequestError(`Returned HTML error page ${responsePayload}`, APIRequestError.INVALID_RESPONSE, res.headers["x-request-id"]));
+                    else if (res.statusCode >= 300) reject(new APIRequestError(`Bad/moved endpoint: ${endpoint}`, APIRequestError.INVALID_REQUEST, res.headers["x-request-id"]));
+                    else resolve(responsePayload);
+                }
+            });
+
+            res.on('error', (error) => {
+                reject(new APIRequestError(`HTTPS ${method} Response (${endpoint}) returned an error:\n${error}`));
+            });
+        }).on('error', (error) => {
+            reject(new APIRequestError(`HTTPS ${method} Request (${endpoint}) returned an error:\n${error}`));
+        });
+
+        if (method !== 'GET') {
+            if (localHeaders['Content-Type'] === 'application/json') {
+                try {
+                    req.write(JSON.stringify(requestPayload));
+                } catch (err) {
+                    reject(new Error('Invalid payload object.'));
+                }
+            } else req.write(requestPayload);
+        }
+        req.end();
+    });
+}
+exports.apiRequest = apiRequest;
+
+/**
+ * Performs a custom request that converts an object of parameters to an endpoint URL with parameters.
+ * If the response contains a results array, that is returned instead
+ * @param {String} baseEndpoint Endpoint with no parameters
+ * @param {Object} parameterObject Object of search parameters based on API specifications
+ * @returns {Promise<Object|Object[]>}
+ */
+async function apiParameterRequest(baseEndpoint, parameterObject) {
+    if (typeof baseEndpoint !== 'string' || typeof parameterObject !== 'object') throw new Error('Invalid Argument(s)');
+    let params = new URLSearchParams();
+    for (let [key, value] of Object.entries(parameterObject)) {
+        if (value instanceof Array) value.forEach(elem => params.append(`${key}[]`, elem));
+        else if (typeof value === 'object') Object.entries(value).forEach(([k, v]) => params.set(`${key}[${k}]`, v));
+        else params.set(key, value);
+    }
+    let paramsString = params.toString();
+    return await apiRequest(baseEndpoint + (paramsString.length > 0 ? '?' + paramsString : paramsString));
+}
+exports.apiParameterRequest = apiParameterRequest;
+
+/**
+ * Same as apiParameterRequest, but optimized for search requests.
+ * Allows for larger searches (more than the limit max, even to Infinity) through mutliple requests, and
+ * this function always returns an array instead of the normal JSON object.
+ * @param {String} baseEndpoint Endpoint with no parameters
+ * @param {Object} parameterObject Object of search parameters based on API specifications
+ * @param {Number} [maxLimit=100] What is the maximum number of results that can be returned from this endpoint at once?
+ * @param {Number} [defaultLimit=10] How many should be returned by default?
+ * @returns {Promise<Object[]>}
+ */
+async function apiSearchRequest(baseEndpoint, parameterObject, maxLimit = 100, defaultLimit = 10) {
+    if (typeof baseEndpoint !== 'string' || typeof parameterObject !== 'object') throw new Error('Invalid Argument(s)');
+    let limit = 'limit' in parameterObject ? parameterObject.limit : defaultLimit;
+    let initialOffset = 'offset' in parameterObject ? parameterObject.offset : 0;
+    if (limit > MAX_POSSIBLE_LIMIT) limit = MAX_POSSIBLE_LIMIT;
+    if (initialOffset > MAX_POSSIBLE_LIMIT - Math.min(maxLimit, limit)) limit = MAX_POSSIBLE_LIMIT - initialOffset;
+    if (limit <= 0 || initialOffset >= MAX_POSSIBLE_LIMIT) return [];
+
+    // Need at least one request to find the total items available:
+    let initialResponse = await apiParameterRequest(baseEndpoint, { ...parameterObject, limit: Math.min(limit, maxLimit) });
+    if (!(initialResponse.data instanceof Array) || typeof initialResponse.total !== 'number') {
+        throw new APIRequestError(`The API did not respond the correct structure for a search request:\n${JSON.stringify(initialResponse)}`, APIRequestError.INVALID_RESPONSE);
+    }
+    // Return if only one request is needed (either the limit is low enough for one request or one request returned all available results)
+    if (limit <= maxLimit || initialResponse.total <= initialResponse.data.length + initialOffset) return initialResponse.data.map(elem => { return { data: elem }; });
+
+    // Subsequent concurrent requests for the rest of the results:
+    limit = Math.min(initialResponse.total, limit);
+    let promises = [];
+    for (let offset = initialOffset + maxLimit; offset < limit; offset += maxLimit) {
+        promises.push(apiParameterRequest(baseEndpoint, { ...parameterObject, limit: Math.min(limit - offset, maxLimit), offset: offset }));
+    }
+    let finalArray = initialResponse.data;
+    for (let elem of await Promise.all(promises)) {
+        if (!(elem.data instanceof Array)) {
+            throw new APIRequestError(`The API did not respond the correct structure for a search request:\n${JSON.stringify(elem)}`, APIRequestError.INVALID_RESPONSE);
+        }
+        finalArray = finalArray.concat(elem.data);
+    }
+    return finalArray.map(elem => { return { data: elem }; }); // Emulate an array of standard manga objects from the /manga/<id> endpoint
+}
+exports.apiSearchRequest = apiSearchRequest;
+
+/**
+ * @param {String} endpoint
+ * @param {Object} classObject
+ * @param {Object} parameterObject
+ * @param {Number} [maxLimit=100] What is the maximum number of results that can be returned from this endpoint at once?
+ * @param {Number} [defaultLimit=10] How many should be returned by default?
+ * @returns {Promise<Object[]>}
+ */
+async function apiCastedRequest(endpoint, classObject, parameterObject = {}, maxLimit = 100, defaultLimit = 10) {
+    let res = await apiSearchRequest(endpoint, parameterObject, maxLimit, defaultLimit);
+    return res.map(elem => new classObject(elem));
+}
+exports.apiCastedRequest = apiCastedRequest;
+
+/**
+ * Retrieves an unlimted amount of an object via a search function and id array
+ * @param {Function} searchFunction
+ * @param {String[]|String[][]} ids
+ * @param {Object} parameterObject
+ * @param {Number} [limit=100]
+ * @param {String} [searchProperty='ids']
+ * @returns {Promise<Array>}
+ */
+async function getMultipleIds(searchFunction, ids, parameterObject = {}, limit = 100, searchProperty = 'ids') {
+    let newIds = ids.flat().map(elem => {
+        if (typeof elem === 'string') return elem;
+        else if (elem === undefined || elem === null) throw new Error(`Invalid id: ${elem}`);
+        else if (typeof elem === 'object' && 'id' in elem) return elem.id;
+        else return elem.toString();
+    });
+    let promises = [];
+    // Create new search requests with a 100 ids (max allowed) at a time
+    while (newIds.length > 0) promises.push(searchFunction({...parameterObject, limit: limit, [searchProperty]: newIds.splice(0, 100) }));
+    return (await Promise.all(promises)).flat();
+}
+exports.getMultipleIds = getMultipleIds;
+
+/**
+ * Returns a buffer to be sent with a multipart POST request
+ * @param {Object[]} files
+ * @param {{[key: string]: string}} [extra] Additional key-value pairs
+ * @returns {Buffer}
+ */
+function createMultipartPayload(files, extra) {
+    let dataArray = [];
+    if (extra) {
+        Object.entries(extra).forEach(([key, value]) => {
+            dataArray.push(
+                `--${MULTIPART_BOUNDARY}\r\nContent-Disposition: form-data; name="${key}"\r\n\r\n${value}\r\n`
+            );
+        });
+    }
+    files.forEach((file, i) => {
+        dataArray.push(
+            `--${MULTIPART_BOUNDARY}\r\nContent-Disposition: form-data; name="file${i}"; filename="${file.name}"\r\nContent-Type: ${file.type}\r\n\r\n`
+        );
+        dataArray.push(file.data);
+        dataArray.push(`\r\n`);
+    });
+    dataArray.push(`--${MULTIPART_BOUNDARY}--\r\n`);
+    return Buffer.concat(dataArray.map(elem => {
+        if (typeof elem === 'string') return Buffer.from(elem, 'utf8');
+        return Buffer.from(elem);
+    }));
+}
+exports.createMultipartPayload = createMultipartPayload;
+}).call(this)}).call(this,require("buffer").Buffer)
+},{"../package.json":11,"./internal/requesterror.js":17,"buffer":5,"https":8}],28:[function(require,module,exports){
 (function (process){(function (){
 // 'path' module extracted from Node.js v8.11.1 (only the posix part)
 // transplited with Babel
@@ -3182,7 +6628,7 @@ posix.posix = posix;
 module.exports = posix;
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":11}],11:[function(require,module,exports){
+},{"_process":29}],29:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -3368,7 +6814,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],12:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 (function (global){(function (){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -3905,7 +7351,7 @@ process.umask = function() { return 0; };
 }(this));
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],13:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3991,7 +7437,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],14:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4078,13 +7524,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],15:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":13,"./encode":14}],16:[function(require,module,exports){
+},{"./decode":31,"./encode":32}],34:[function(require,module,exports){
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -4151,7 +7597,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":4}],17:[function(require,module,exports){
+},{"buffer":5}],35:[function(require,module,exports){
 (function (global){(function (){
 var ClientRequest = require('./lib/request')
 var response = require('./lib/response')
@@ -4239,7 +7685,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":19,"./lib/response":20,"builtin-status-codes":5,"url":37,"xtend":40}],18:[function(require,module,exports){
+},{"./lib/request":37,"./lib/response":38,"builtin-status-codes":6,"url":55,"xtend":58}],36:[function(require,module,exports){
 (function (global){(function (){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -4302,7 +7748,7 @@ function isFunction (value) {
 xhr = null // Help gc
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],19:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 (function (process,global,Buffer){(function (){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -4658,7 +8104,7 @@ var unsafeHeaders = [
 ]
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":18,"./response":20,"_process":11,"buffer":4,"inherits":9,"readable-stream":35}],20:[function(require,module,exports){
+},{"./capability":36,"./response":38,"_process":29,"buffer":5,"inherits":10,"readable-stream":53}],38:[function(require,module,exports){
 (function (process,global,Buffer){(function (){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -4873,7 +8319,7 @@ IncomingMessage.prototype._onXHRProgress = function (resetTimers) {
 }
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":18,"_process":11,"buffer":4,"inherits":9,"readable-stream":35}],21:[function(require,module,exports){
+},{"./capability":36,"_process":29,"buffer":5,"inherits":10,"readable-stream":53}],39:[function(require,module,exports){
 'use strict';
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
@@ -5002,7 +8448,7 @@ createErrorType('ERR_UNKNOWN_ENCODING', function (arg) {
 createErrorType('ERR_STREAM_UNSHIFT_AFTER_END_EVENT', 'stream.unshift() after end event');
 module.exports.codes = codes;
 
-},{}],22:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 (function (process){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -5144,7 +8590,7 @@ Object.defineProperty(Duplex.prototype, 'destroyed', {
   }
 });
 }).call(this)}).call(this,require('_process'))
-},{"./_stream_readable":24,"./_stream_writable":26,"_process":11,"inherits":9}],23:[function(require,module,exports){
+},{"./_stream_readable":42,"./_stream_writable":44,"_process":29,"inherits":10}],41:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -5184,7 +8630,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":25,"inherits":9}],24:[function(require,module,exports){
+},{"./_stream_transform":43,"inherits":10}],42:[function(require,module,exports){
 (function (process,global){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -6311,7 +9757,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":21,"./_stream_duplex":22,"./internal/streams/async_iterator":27,"./internal/streams/buffer_list":28,"./internal/streams/destroy":29,"./internal/streams/from":31,"./internal/streams/state":33,"./internal/streams/stream":34,"_process":11,"buffer":4,"events":6,"inherits":9,"string_decoder/":36,"util":3}],25:[function(require,module,exports){
+},{"../errors":39,"./_stream_duplex":40,"./internal/streams/async_iterator":45,"./internal/streams/buffer_list":46,"./internal/streams/destroy":47,"./internal/streams/from":49,"./internal/streams/state":51,"./internal/streams/stream":52,"_process":29,"buffer":5,"events":7,"inherits":10,"string_decoder/":54,"util":3}],43:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -6513,7 +9959,7 @@ function done(stream, er, data) {
   if (stream._transformState.transforming) throw new ERR_TRANSFORM_ALREADY_TRANSFORMING();
   return stream.push(null);
 }
-},{"../errors":21,"./_stream_duplex":22,"inherits":9}],26:[function(require,module,exports){
+},{"../errors":39,"./_stream_duplex":40,"inherits":10}],44:[function(require,module,exports){
 (function (process,global){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -7213,7 +10659,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":21,"./_stream_duplex":22,"./internal/streams/destroy":29,"./internal/streams/state":33,"./internal/streams/stream":34,"_process":11,"buffer":4,"inherits":9,"util-deprecate":39}],27:[function(require,module,exports){
+},{"../errors":39,"./_stream_duplex":40,"./internal/streams/destroy":47,"./internal/streams/state":51,"./internal/streams/stream":52,"_process":29,"buffer":5,"inherits":10,"util-deprecate":57}],45:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -7423,7 +10869,7 @@ var createReadableStreamAsyncIterator = function createReadableStreamAsyncIterat
 
 module.exports = createReadableStreamAsyncIterator;
 }).call(this)}).call(this,require('_process'))
-},{"./end-of-stream":30,"_process":11}],28:[function(require,module,exports){
+},{"./end-of-stream":48,"_process":29}],46:[function(require,module,exports){
 'use strict';
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -7634,7 +11080,7 @@ function () {
 
   return BufferList;
 }();
-},{"buffer":4,"util":3}],29:[function(require,module,exports){
+},{"buffer":5,"util":3}],47:[function(require,module,exports){
 (function (process){(function (){
 'use strict'; // undocumented cb() API, needed for core, not for public API
 
@@ -7742,7 +11188,7 @@ module.exports = {
   errorOrDestroy: errorOrDestroy
 };
 }).call(this)}).call(this,require('_process'))
-},{"_process":11}],30:[function(require,module,exports){
+},{"_process":29}],48:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/end-of-stream with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -7847,12 +11293,12 @@ function eos(stream, opts, callback) {
 }
 
 module.exports = eos;
-},{"../../../errors":21}],31:[function(require,module,exports){
+},{"../../../errors":39}],49:[function(require,module,exports){
 module.exports = function () {
   throw new Error('Readable.from is not available in the browser')
 };
 
-},{}],32:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/pump with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -7950,7 +11396,7 @@ function pipeline() {
 }
 
 module.exports = pipeline;
-},{"../../../errors":21,"./end-of-stream":30}],33:[function(require,module,exports){
+},{"../../../errors":39,"./end-of-stream":48}],51:[function(require,module,exports){
 'use strict';
 
 var ERR_INVALID_OPT_VALUE = require('../../../errors').codes.ERR_INVALID_OPT_VALUE;
@@ -7978,10 +11424,10 @@ function getHighWaterMark(state, options, duplexKey, isDuplex) {
 module.exports = {
   getHighWaterMark: getHighWaterMark
 };
-},{"../../../errors":21}],34:[function(require,module,exports){
+},{"../../../errors":39}],52:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":6}],35:[function(require,module,exports){
+},{"events":7}],53:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -7992,7 +11438,7 @@ exports.PassThrough = require('./lib/_stream_passthrough.js');
 exports.finished = require('./lib/internal/streams/end-of-stream.js');
 exports.pipeline = require('./lib/internal/streams/pipeline.js');
 
-},{"./lib/_stream_duplex.js":22,"./lib/_stream_passthrough.js":23,"./lib/_stream_readable.js":24,"./lib/_stream_transform.js":25,"./lib/_stream_writable.js":26,"./lib/internal/streams/end-of-stream.js":30,"./lib/internal/streams/pipeline.js":32}],36:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":40,"./lib/_stream_passthrough.js":41,"./lib/_stream_readable.js":42,"./lib/_stream_transform.js":43,"./lib/_stream_writable.js":44,"./lib/internal/streams/end-of-stream.js":48,"./lib/internal/streams/pipeline.js":50}],54:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -8289,7 +11735,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":16}],37:[function(require,module,exports){
+},{"safe-buffer":34}],55:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -9023,7 +12469,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":38,"punycode":12,"querystring":15}],38:[function(require,module,exports){
+},{"./util":56,"punycode":30,"querystring":33}],56:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -9041,7 +12487,7 @@ module.exports = {
   }
 };
 
-},{}],39:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 (function (global){(function (){
 
 /**
@@ -9112,7 +12558,7 @@ function config (name) {
 }
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],40:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -9133,3404 +12579,4 @@ function extend() {
     return target
 }
 
-},{}],41:[function(require,module,exports){
-const username = 'Demond_Corkery'
-const password = 'hC7wQ7DAnFvFMXa'
-
-
-const MFA = require('mangadex-full-api');
-MFA.login(username, password, './bin/.md_cache').then(async () => {
-  const pathArray = window.location.pathname.split('/');
-  const endPath = pathArray[pathArray.length - 1];
-  console.log(endPath);
-  // Get all tag 
-  let allTag = await MFA.Manga.getAllTags();
-  var tagList = document.getElementById('tag-list');
-  for (let tag of allTag) {
-    let tagItem = document.createElement('div')
-    tagItem.classList.add('tag-item', 'inline-block')
-    tagItem.innerHTML = `
-    <a href="search.php?tag=${tag.id}">${tag.name}</a>
-    `
-    tagList.appendChild(tagItem);
-  };
-  console.log('get tag');
-  switch (endPath) {
-    case 'index.php':
-      // Get Suggestive Manga
-      let mangaList = await MFA.Manga.search({
-        limit: 20,
-        order: {
-          followedCount: 'desc'
-        },
-      });
-      for (let manga of mangaList) {
-        let swiper = document.getElementById('swiper');
-        let swiperItem = document.createElement('div');
-        swiperItem.classList.add('swiper-slide');
-        let image_src = await MFA.Cover.get(manga.mainCover.id)
-        swiperItem.innerHTML = `
-        <div class="swiper-item">
-          <!-- img left -->
-          <div class="swiper-item-left flex overflow-hidden">
-            <a href="manga.php?id=${manga.id}">
-              <img class="object-cover w-full h-full"
-                  src="${image_src.image256}" alt="${manga.title}">
-            </a>
-          </div>
-          <!-- text right  -->
-          <div class="swiper-item-right">
-            <!-- manga title -->
-            <a href="manga.php?id=${manga.id}" class="swiper-item-title" title="${manga.title}">${manga.title}</a>
-            <div></div>
-            <!-- desc -->
-            <p class="swiper-item-desc">
-              ${manga.description}
-            </p>
-          </div>
-        </div>
-        `
-        swiper.appendChild(swiperItem);
-      };
-      //Get lastest update manga
-      let lastestManga = await MFA.Manga.search({
-        limit: 24,
-        order: {
-          updatedAt: 'desc',
-        }
-      });
-      let moiCapNhat = document.getElementById('moicapnhat')
-      for (let manga of lastestManga) {
-        console.log(manga);
-        let mangaItem = document.createElement('div')
-        mangaItem.classList.add('truyen')
-        let image_src = await MFA.Cover.get(manga.mainCover.id)
-        mangaItem.innerHTML = `
-            <a href="manga.php?id=${manga.id}">
-              <div class="overflow-hidden rounded">
-                <img class="manga-cover" src="${image_src.image256}" alt="">
-              </div>
-              <div class="manga-title" title="${manga.title}">
-                ${manga.title}
-              </div>
-              
-            </a>`;
-        
-        moiCapNhat.appendChild(mangaItem)
-      }
-      break;
-    case 'manga.php':
-      //Get  manga
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const id = urlParams.get('id')
-      let manga = await MFA.Manga.get(id);
-      // get title
-      Array.from(document.getElementsByClassName('title')).forEach(item => item.innerHTML = manga.title);
-      // get alt title
-      if (manga.altTitles[0]) {
-        document.getElementById('alt-title').innerText = manga.altTitles[0];
-      }
-      //get cover banner
-      let image_src = await MFA.Cover.get(manga.mainCover.id);
-      document.getElementById('manga-cover').innerHTML = `<img id="manga-cover" class="object-cover object-center w-full h-full aspect-truyen" src="${image_src.image256}">`
-      document.getElementById('banner').innerHTML = `
-        <div class="w-full h-full bg-fixed bg-center bg-no-repeat bg-cover -z-10" style="background-image:url('${image_src.image256}')">
-        </div>
-        `
-      // get authors
-      let authors = await MFA.Author.get(manga.authors[0].id);
-      document.getElementById('author').innerHTML = `<div>${authors.name}</div>`;
-      // get Tag 
-      for (let tag of manga.tags) {
-        let tagItem = document.createElement('div');
-        tagItem.innerHTML = `<a class="inline-block badge" href="search.php?tag=${tag.id}">${tag.name}</a>`
-        document.getElementById('tag').appendChild(tagItem);
-      }
-      // get description
-      document.getElementById('desc').innerText = manga.description ? manga.description : '';
-      
-      // get stactic data
-      let staticData = await MFA.Manga.getStatistics(manga.id);
-      document.getElementById('rating').innerText = staticData.rating.average ? staticData.rating.average.toFixed(1) : 'N/A';
-      document.getElementById('follows').innerText = staticData.follows;
-      // Get the manga's chapters:
-      let chapters = await manga.getFeed({
-        translatedLanguage: ['en'],
-        order: {
-          chapter: 'desc'
-        }
-      }, true);
-      if (chapters.length > 0) {
-        // read btn 
-        document.getElementById('read-btn').href = `chapter.php?id=${chapters[chapters.length-1].id}`;
-        for (let chapter of chapters) {
-          let chapterItem = document.createElement('div');
-          chapterItem.classList.add('grid','grid-cols-4','bg-base-200','p-1','m-2', 'px-2', 'hover:border-l-2' ,'border-primary');
-          chapterItem.innerHTML = `
-            <div class="col-span-3">
-              <a class="block hover:text-primary font-semibold" href="chapter.php?id=${chapter.id}">
-                Chapter ${chapter.chapter ? chapter.chapter :''} ${chapter.title ?': ' + chapter.title : ''}  <a/>
-            </div>
-            <div class="flex items-center gap-1 justify-end text-sm">
-              <i class="fa-regular fa-clock"></i>
-              <div>${chapter.publishAt.toLocaleDateString('en-GB')}</div>
-            </div>`
-          
-          let chapterList = document.getElementById('chapter-list');
-      
-          chapterList.appendChild(chapterItem);
-       
-        }
-      } else {
-        document.getElementById('chapter-list').innerText = 'No chapters yet';
-      }
-      break;
-    case 'chapter.php':
-      //Get chapter
-      const chapterqueryString = window.location.search;
-      const chapterUrlParams = new URLSearchParams(chapterqueryString);
-      const chapterId = chapterUrlParams.get('id');
-      let chapter = await MFA.Chapter.get(chapterId);
-      let mangaInfo = await MFA.Manga.get(chapter.manga.id);
-      document.getElementById('title').innerText = chapter.chapter?'Chapter '+chapter.chapter:chapter.title;
-      let chapterList = await MFA.Manga.getFeed(mangaInfo.id,{
-        translatedLanguage: ['en'],
-        order: {
-          chapter: 'asc'
-        }
-      });
-      // console.log(chapterList);
-      document.getElementById('info').innerHTML = `
-        <a href="manga.php?id=${mangaInfo.id}" class="text-xl font-semibold md:text-2xl text-secondary">
-        ${mangaInfo.title}</a>
-        <div class="flex-col">
-          <div class="font-medium md:text-lg">${chapter.chapter?'Chapter '+chapter.chapter:chapter.title}</div>
-          <div class="text-sm italic">Cập nhật: ${chapter.publishAt.toLocaleString('en-GB')}</div>
-        </div>
-      `
-      let pages = await chapter.getReadablePages('saver');
-      for (let page of pages) {
-        let pageItem = document.createElement('div');
-        pageItem.innerHTML = `<img src="${page}" alt="" loading="lazy">`
-        document.getElementById('page-list').appendChild(pageItem);
-      }
-      for(let i=0; chapterList.length-1;i++){
-          console.log(chapterList[i])
-          // let chapterItem = document.createElement('option');
-          // if(chapterId === chapterList[i].id){
-          //   chapterItem = new Option('','',false,true)
-          // }
-          // chapterItem.value = `chapter.php?id=${chapterList[i].id}`
-          // chapterItem.innerText = chapterList[i].chapter ? 'Chapter '+ chapterList[i].chapter : chapterList[i].title
-          // document.getElementById('select-chapter').appendChild(chapterItem);
-          if(chapterId === chapterList[i].id){
-            let prevChapter = i-1;
-            let nextChapter = i+1;
-            document.getElementById('prev-chapter').href= `chapter.php?id=${chapterList[prevChapter].id}`
-            document.getElementById('next-chapter').href= `chapter.php?id=${chapterList[nextChapter].id}`
-
-          }
-          
-      }
-      
-      document.getElementById('backtomanga').href = `manga.php?id=${mangaInfo.id}#chapter-list`
-      break;
-    case 'search.php':
-      const queryString1 = window.location.search;
-      const urlParams1 = new URLSearchParams(queryString1);
-      let keyword = urlParams1.get('s')
-      let tag = urlParams1.get('tag')
-      console.log(keyword)
-      if (keyword) {
-        var search_mangas = await MFA.Manga.search({
-          title: keyword,
-          limit: 24,
-          order: {
-            relevance: 'desc'
-          }
-        });
-        document.getElementById('searchbar').value = keyword;
-        document.getElementById('search-info').innerHTML = `<div class="text-lg font-semibold">Kết quả tìm kiếm cho "${keyword}"</div>`;
-
-      } else {
-        var search_mangas = await MFA.Manga.search({
-          includedTags: [tag],
-          limit: 24,
-          order: {
-            relevance: 'desc'
-          }
-        });
-        tagInfo = (await MFA.Manga.getTag(tag)).name;
-        console.log(tagInfo)
-        document.getElementById('search-info').innerHTML = `<div class="text-3xl font-semibold">${tagInfo}</div>`;
-      }
-      if (search_mangas.length > 0) {
-        let results = document.getElementById('search-results')
-        for (let search_manga of search_mangas) {
-          let mangaItem = document.createElement('div')
-          mangaItem.classList.add('truyen')
-          let image_src = await MFA.Cover.get(search_manga.mainCover.id)
-          mangaItem.innerHTML = `
-            <a href="manga.php?id=${search_manga.id}">
-              <div class="overflow-hidden rounded">
-                <img class="manga-cover" src="${image_src.image256}" alt="${search_manga.title}">
-              </div>
-              <div class="manga-title">
-                ${search_manga.title}
-              </div>
-            </a>`;
-          // <div class="flex items-center justify-between">
-          //         <span class="">Ch. ${manga.lastChapter}</span>
-          //         <time class="text-sm text-gray-500">${manga.updatedAt.toLocaleDateString()}</time>
-          //       </div>
-          results.appendChild(mangaItem)
-        }
-      }
-      else{
-        document.getElementById('search-results').innerHTML = `<div class="text-lg col-span-full">Không tìm thấy kết quả nào cho "${keyword}" </div>`
-      }
-      break;
-  }
-
-
-}).catch(console.error);
-
-
-
-//Show/hide navbar on click
-function openSidebar() {
-  document.querySelector('.sidebar').classList.toggle('-left-80');
-  document.querySelector('.overlay').classList.toggle('hidden');
-}
-// toggle searchbar
-function toggleSearchbar() {
-  document.querySelector('.searchbar').classList.toggle('hidden');
-  console.log('toggle searchbar');
-}
-},{"mangadex-full-api":44}],42:[function(require,module,exports){
-module.exports={
-  "name": "mangadex-full-api",
-  "version": "5.11.1",
-  "description": "A MangaDex api based around the official API.",
-  "main": "./src/index.js",
-  "types": "./types/index.d.ts",
-  "scripts": {
-    "test": "mocha",
-    "gen-types": "dts-bundle-generator --out-file=./types/index.d.ts --external-types=node --no-banner ./src/index.js",
-    "gen-docs": "jsdoc -c ./jsdoc/config.json -d ./docs"
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/md-y/mangadex-full-api.git"
-  },
-  "keywords": [
-    "mangadex",
-    "api",
-    "manga",
-    "anime",
-    "manwha",
-    "manhua"
-  ],
-  "author": "m;dy",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/md-y/mangadex-full-api/issues"
-  },
-  "homepage": "https://md-y.github.io/mangadex-full-api/",
-  "devDependencies": {
-    "@types/node": "^17.0.12",
-    "docdash": "^1.2.0",
-    "dotenv": "^14.3.2",
-    "dts-bundle-generator": "^6.4.0",
-    "jsdoc": "^3.6.10",
-    "mocha": "^9.1.2"
-  }
-}
-
-},{}],43:[function(require,module,exports){
-'use strict';
-
-const Util = require('./util.js');
-var fs, Path;
-if (!Util.isBrowser()) {
-    fs = require('fs');
-    Path = require('path');
-}
-const APIRequestError = require('./internal/requesterror.js');
-
-/**
- * Any function that requires authentication should call 'validateTokens().'
- * How authentication works:
- * If there is no cache or its invalid, simply request tokens through logging in ('login()').
- * If there is a cache, check if the tokens are up to date ('validateTokens()').
- * If the session token is out of date, refresh it ('validateTokens()').
- * If the refresh token is out of date, log in again ('login()').
- * At most there are three calls to the API, two of which are rate limited (/auth/refresh and /auth/login).
- */
-class AuthUtil {
-    /** @type {Boolean} */
-    static canAuth = false;
-    /** @type {Cache} */
-    static cache;
-
-    /**
-     * @param {String} username 
-     * @param {String} password 
-     * @param {String} [cacheLocation]
-     * @returns {Promise<void>}
-     */
-    static async login(username, password, cacheLocation) {
-        if (username === undefined || password === undefined) throw new Error('Invalid Argument(s)');
-
-        AuthUtil.canAuth = true;
-        if (Util.isBrowser()) AuthUtil.cache = new BrowserCache(cacheLocation, username);
-        else AuthUtil.cache = new Cache(cacheLocation, username);
-
-        // Check if the cache tokens are still valid
-        if (await AuthUtil.cache.read()) {
-            try {
-                let token = await AuthUtil.validateTokens(true);
-                if (token === AuthUtil.token) return;
-            } catch (error) { }
-        }
-
-        // Login if the cache is not valid or missing
-        let res = await Util.apiRequest('/auth/login', 'POST', { username: username, password: password });
-        if (!('token') in res) throw new APIRequestError('The API did not respond with any tokens when logging in', APIRequestError.INVALID_RESPONSE);
-        AuthUtil.cache.write({ ...res.token, date: Date.now() });
-        AuthUtil.updateHeader();
-    }
-
-    /**
-     * Checks if the current tokens are valid and refreshes them if needed
-     * @param {Boolean} [force] If false, will not skip validation based on the last verification time
-     * @returns {Promise<String>} Returns session token
-     */
-    static async validateTokens(force = false) {
-        if (!AuthUtil.canAuth) throw new APIRequestError('Not logged in.', APIRequestError.AUTHORIZATION);
-        AuthUtil.updateHeader();
-
-        // Don't refresh if the token was refreshed less than 14.9 minutes ago (15 is the maximum age)
-        if (!force && Date.now() - AuthUtil.cache.date < 894000) return AuthUtil.token;
-
-        // Check if session token is out of date:
-        let res = await Util.apiRequest('/auth/check');
-        if (res.isAuthenticated) return AuthUtil.token;
-
-        // Refresh token
-        return await AuthUtil.refreshToken();
-    }
-    
-    /**
-     * Refreshes the current token.
-     * @returns {Promise<String>} Returns session token
-     */
-    static async refreshToken() {
-        const res = await Util.apiRequest('/auth/refresh', 'POST', { token: AuthUtil.cache.refresh });
-        if (!('token') in res) throw new APIRequestError('The API did not respond with any tokens when refreshing tokens', APIRequestError.INVALID_RESPONSE);
-        AuthUtil.cache.write({ ...res.token, date: Date.now() });
-        AuthUtil.updateHeader();
-        return AuthUtil.token;
-    }
-
-    /**
-     * Updates the authorization header with the session current token
-     */
-    static updateHeader() {
-        Util.registerHeader('authorization', `bearer ${AuthUtil.token}`);
-    }
-
-    static get token() {
-        return AuthUtil.cache.session;
-    }
-}
-
-class Cache {
-    /** @type {Object} */
-    static allUsers = {};
-
-    /**
-     * @param {String} location File location or localStorage key
-     */
-    constructor(location, user) {
-        this.location = location;
-        this.user = user;
-    }
-
-    /**
-     * Retrieves the information of a user from a string of all users, or 
-     * retrieves the information of all users as a string from the object of one user.
-     * Also updates any changed information for all instances.
-     * Returns null if the user object is invalid
-     * @param {Object|String} obj 
-     * @returns {Object|String|null}
-     */
-    parse(obj) {
-        const KEYS = [['session', 'string'], ['refresh', 'string'], ['date', 'number']];
-
-        let read = typeof obj === 'string';
-        if (read) {
-            try {
-                Cache.allUsers = JSON.parse(obj);
-                if (!(this.user in Cache.allUsers)) return null;
-                obj = Cache.allUsers[this.user];
-            } catch (error) {
-                return null;
-            }
-        }
-
-        // Return null if any keys are missing or if their types are wrong
-        if (KEYS.some(key => !(key[0] in obj) || typeof obj[key[0]] !== key[1])) return null;
-
-        if (read) return obj; // Returns target user as an object
-        else {
-            Cache.allUsers[this.user] = obj;
-            return JSON.stringify(Cache.allUsers); // Returns all users as a string
-        }
-    }
-
-    /** @returns {String} */
-    get session() {
-        if (!(this.user) in Cache.allUsers) return undefined;
-        return Cache.allUsers[this.user].session;
-    }
-
-    /** @returns {String} */
-    get refresh() {
-        if (!(this.user) in Cache.allUsers) return undefined;
-        return Cache.allUsers[this.user].refresh;
-    }
-
-    /** @returns {Number} */
-    get date() {
-        if (!(this.user) in Cache.allUsers) return undefined;
-        return Cache.allUsers[this.user].date;
-    }
-
-    /**
-     * Reads from file using 'fs'
-     * @returns {Boolean} False if failed
-     */
-    read() {
-        if (this.user in Cache.allUsers && this.session !== undefined) return true; // No need to read if we already have the info
-        if (!this.location || !fs.existsSync(this.location)) return false; // Won't throw error if file doesn't exist
-        if (fs.lstatSync(this.location).isDirectory()) {
-            this.location = Path.join(this.location, '.md_tokens'); // Default name for the file is this
-            if (!fs.existsSync(this.location)) return false;
-        }
-        let res = fs.readFileSync(this.location).toString(); // Will throw error if the file cannot be read
-        return this.parse(res) !== null;
-    }
-
-    /**
-     * Write to file using 'fs'
-     * @param {Object} obj
-     * @returns {Boolean} False if failed
-     */
-    write(obj) {
-        let str = this.parse(obj);
-        if (str !== null && this.location !== undefined) fs.writeFileSync(this.location, str); // Will throw error if the file cannot be written
-    }
-}
-
-class BrowserCache extends Cache {
-    /**
-     * Reads from localStorage
-     * @returns {Boolean} False if failed
-     */
-    read() {
-        if (this.location === undefined) this.location = 'md_tokens';
-        if (!window.localStorage.getItem(this.location)) return false;
-        let res = window.localStorage.getItem(this.location);
-        return this.parse(res) !== null;
-    }
-
-    /**
-     * Writes to localStorage
-     * @param {Object} obj
-     * @returns {Boolean} False if failed
-     */
-    write(obj) {
-        let str = this.parse(obj);
-        if (str !== null && this.location !== undefined) window.localStorage.setItem(this.location, str);
-    }
-}
-
-exports = module.exports = AuthUtil;
-
-},{"./internal/requesterror.js":48,"./util.js":58,"fs":1,"path":10}],44:[function(require,module,exports){
-'use strict';
-
-// Internal
-const Util = require('./util.js');
-const LocalizedString = require('./internal/localizedstring.js');
-const APIRequestError = require('./internal/requesterror.js');
-
-// Export
-const Manga = require('./structure/manga.js');
-exports.Manga = Manga;
-const Author = require('./structure/author.js');
-exports.Author = Author;
-const Chapter = require('./structure/chapter.js');
-exports.Chapter = Chapter;
-const Group = require('./structure/group.js');
-exports.Group = Group;
-const User = require('./structure/user.js');
-exports.User = User;
-const List = require('./structure/list.js');
-exports.List = List;
-const Cover = require('./structure/cover.js');
-exports.Cover = Cover;
-
-/**
- * Converts old (pre v5, numeric ids) Mangadex ids to v5 ids.
- * Any invalid legacy ids will be skipped by Mangadex when remapping, so
- * call this function for each individual id if this is an issue.
- * @param {'group'|'manga'|'chapter'|'tag'} type Type of id 
- * @param {...Number|Number[]} ids Array of ids to convert
- * @returns {Promise<String[]>}
- */
-async function convertLegacyId(type, ...ids) {
-    if (ids.length === 0) throw new Error('Invalid Argument(s)');
-    ids = ids.flat();
-    let res = await Util.apiRequest('/legacy/mapping', 'POST', { type: type, ids: ids });
-    if (!(res.data instanceof Array)) throw new APIRequestError('The API did not respond with an array when it was expected to', APIRequestError.INVALID_RESPONSE);
-    return res.data.map(e => e.attributes.newId);
-}
-exports.convertLegacyId = convertLegacyId;
-
-/**
- * Sets the global locaization for LocalizedStrings.
- * Uses 2-letter Mangadex region codes.
- * @param {String} newLocale
- */
-function setGlobalLocale(newLocale) {
-    if (typeof newLocale !== 'string' || newLocale.length !== 2) throw new Error('Invalid Locale Code.');
-    LocalizedString.locale = newLocale;
-};
-exports.setGlobalLocale = setGlobalLocale;
-
-const AuthUtil = require('./auth.js');
-
-/**
- * Required for authorization
- * https://api.mangadex.org/docs.html#operation/post-auth-login
- * @param {String} username 
- * @param {String} password 
- * @param {String} [cacheLocation] File location (or localStorage key for browsers) to store the persistent token IN PLAIN TEXT
- * @returns {Promise<void>}
- */
-function login(username, password, cacheLocation) {
-    return AuthUtil.login(username, password, cacheLocation);
-}
-exports.login = login;
-
-// Register class types to bypass circular references
-const Relationship = require('./internal/relationship.js');
-Relationship.registerType('author', Author);
-Relationship.registerType('artist', Author);
-Relationship.registerType('manga', Manga);
-Relationship.registerType('chapter', Chapter);
-Relationship.registerType('scanlation_group', Group);
-Relationship.registerType('user', User);
-Relationship.registerType('leader', User);
-Relationship.registerType('member', User);
-Relationship.registerType('custom_list', List);
-Relationship.registerType('cover_art', Cover);
-
-/**
- * A shortcut for resolving all relationships in an array
- * @template T
- * @param {Array<Relationship<T>>} relationshipArray
- * @returns {Promise<Array<T>>}
- */
-function resolveArray(relationshipArray) {
-    return Relationship.resolveAll(relationshipArray);
-}
-exports.resolveArray = resolveArray;
-},{"./auth.js":43,"./internal/localizedstring.js":46,"./internal/relationship.js":47,"./internal/requesterror.js":48,"./structure/author.js":51,"./structure/chapter.js":52,"./structure/cover.js":53,"./structure/group.js":54,"./structure/list.js":55,"./structure/manga.js":56,"./structure/user.js":57,"./util.js":58}],45:[function(require,module,exports){
-'use strict';
-
-/**
- * Represents the links that represent manga on different websites
- * https://api.mangadex.org/docs.html#section/Static-data/Manga-links-data
- */
-class Links {
-    /**
-     * @param {Object.<string, string>} linksObject 
-     */
-    constructor(linksObject) {
-        if (!linksObject) {
-            this.availableLinks = [];
-            return;
-        }
-
-        /**
-         * Anilist (https://anilist.co) link to manga
-         * @type {String} URL
-         */
-        this.al = !linksObject.al ? undefined : `https://anilist.co/manga/${linksObject.al}`;
-
-        /**
-         * AnimePlanet (https://anime-planet.com) link to manga
-         * @type {String} URL
-         */
-        this.ap = !linksObject.ap ? undefined : `https://www.anime-planet.com/manga/${linksObject.ap}`;
-
-        /**
-         * Bookwalker (https://bookwalker.jp/) link to manga
-         * @type {String} URL
-         */
-        this.bw = !linksObject.bw ? undefined : `https://bookwalker.jp/${linksObject.bw}`;
-
-        /**
-         * Mangaupdates (https://mangaupdates.com) link to manga
-         * @type {String} URL
-         */
-        this.mu = !linksObject.mu ? undefined : `https://www.mangaupdates.com/series.html?id=${linksObject.mu}`;
-
-        /**
-         * Novelupdates (https://novelupdates.com) link to manga
-         * @type {String} URL
-         */
-        this.nu = !linksObject.nu ? undefined : `https://www.novelupdates.com/series/${linksObject.nu}`;
-
-        /**
-         * MyAnimeList (https://myanimelist.net) link to manga
-         * @type {String} URL
-         */
-        this.mal = !linksObject.mal ? undefined : `https://myanimelist.net/manga/${linksObject.mal}`;
-
-        /**
-         * Kitsu (https://kitsu.io) link to manga
-         * @type {String} URL
-         */
-        this.kt = undefined; // Set to undefined by default, but if it isn't, change it in the following lines
-        if (linksObject.kt !== undefined) {
-            // Stored as either a number or slug. See official documentaion
-            if (isNaN(linksObject.kt)) this.kit = `https://kitsu.io/api/edge/manga?filter[slug]=${linksObject.kt}`;
-            else this.kt = `https://kitsu.io/api/edge/manga/${linksObject.kt}`;
-        }
-
-        /**
-         * Amazon (https://amazon.com) link to manga
-         * @type {String} URL
-         */
-        this.amz = linksObject.amz;
-
-        /**
-         * EBookJapan (https://ebookjapan.yahoo.co.jp) link to manga
-         * @type {String} URL
-         */
-        this.ebj = linksObject.ebj;
-
-        /**
-         * Link to manga raws
-         * @type {String} URL
-         */
-        this.raw = linksObject.raw;
-
-        /**
-         * Link to offical english manga translation
-         * @type {String} URL
-         */
-        this.engtl = linksObject.engtl;
-
-        /**
-         * CDJapan (https://www.cdjapan.co.jp/) link to manga
-         * @type {String} URL
-         */
-        this.cdj = linksObject.cdj;
-
-        /**
-         * All of the links that have valid values
-         * @type {String[]}
-         */
-        this.availableLinks = Object.keys(linksObject);
-    }
-}
-
-exports = module.exports = Links;
-},{}],46:[function(require,module,exports){
-'use strict';
-
-/**
- * Represents a string, but in different languages.
- * Generates properties for each language available
- * (ie you can index with language codes through localizedString['en'] or localizedString.jp)
- */
-class LocalizedString {
-    /**
-     * Global locale setting
-     * @ignore
-     * @type {String}
-     */
-    static locale = 'en';
-
-    /**
-     * @param {Object.<string, string>} stringObject
-     */
-    constructor(stringObject) {
-        if (!stringObject) {
-            this.availableLocales = [];
-            return;
-        }
-
-        for (let i in stringObject) if (typeof stringObject[i] === 'string') this[i] = stringObject[i];
-
-        /**
-         * Array with all locales with values in this object
-         * @type {String[]}
-         */
-        this.availableLocales = Object.keys(stringObject);
-    }
-
-    /**
-     * String from global locale setting (setGlobalLocale)
-     * @returns {String}
-     */
-    get localString() {
-        if (LocalizedString.locale in this) return this[LocalizedString.locale];
-        for (let i of this.availableLocales) if (i in this) return this[i];
-        return null;
-    }
-
-    /**
-     * Gets an object
-     * @returns {{[locale: string]: string}}
-     */
-    get data(){
-        return this.availableLocales.reduce((obj, locale) => {
-            obj[locale] = this[locale];
-            return obj;
-        }, {});
-    }
-}
-
-exports = module.exports = LocalizedString;
-},{}],47:[function(require,module,exports){
-'use strict';
-
-/**
- * Represents a relationship from one Mangadex object to another such as a manga, author, etc via its id.
- * @template ResolveType
- */
-class Relationship {
-    static types = {};
-
-    constructor(data) {
-        /**
-         * Id of the object this is a relationship to
-         * @type {String}
-         */
-        this.id = data.id;
-
-        /**
-         * The type of the object this is a relationship to
-         * @type {String}
-         */
-        this.type = data.type;
-
-        /**
-         * True if this relationship will instantly return with an included object instead of sending a request
-         * when resolve() is called
-         * @type {Boolean}
-         */
-        this.cached = data.cached === true;
-    }
-
-    /**
-     * This function must be called to return the proper and complete object representation of this relationship.
-     * Essentially, it calls and returns Manga.get(), Author.get(), Cover.get(), etc.
-     * @returns {Promise<ResolveType>}
-     */
-    resolve() {
-        if (this.id === undefined || this.type === undefined) throw new Error('Invalid Relationship object');
-        if (!(this.type in Relationship.types)) throw new Error(`Relationship type ${this.type} is not registered. Please fix index.js`);
-        return Relationship.types[this.type].get(this.id);
-    }
-
-    /**
-     * Returns an array of converted objects from a Mangadex Relationships Array
-     * @ignore
-     * @template T
-     * @param {String} type 
-     * @param {Object[]} dataArray 
-     * @param {Object} caller
-     * @returns {Relationship<T>}
-     */
-    static convertType(type, dataArray, caller) {
-        if (!(dataArray instanceof Array)) return [];
-        let classObject = Relationship.types[type];
-        let relationshipArray = dataArray;
-        if (caller && typeof caller.id === 'string') Object.keys(Relationship.types).some(key => {
-            let isType = caller instanceof Relationship.types[key];
-            if (isType) relationshipArray.push({ id: caller.id, type: key });
-            return isType;
-        });
-        return dataArray.filter(elem => elem.type === type).map(elem => {
-            if ('attributes' in elem) {
-                let obj = new classObject({ data: { ...elem, relationships: relationshipArray } });
-                let rel = new Relationship({ id: elem.id, type: type, cached: true });
-                rel.resolve = () => {
-                    return Promise.resolve(obj);
-                };
-                return rel;
-            }
-            else return new Relationship(elem);
-        });
-    }
-
-    /**
-     * Provides a constructor for a relationship type at run-time.
-     * Should only be called in index.js
-     * @ignore
-     * @param {String} name 
-     * @param {Object} classObject 
-     */
-    static registerType(name, classObject) {
-        if (name in Relationship.types) return;
-        if (!('get' in classObject)) throw new Error(`Attempted to register a class object with no 'get' method`);
-        Relationship.types[name] = classObject;
-    }
-
-    /**
-     * Resolves an array of relationships
-     * @ignore
-     * @template T
-     * @param {Array<Relationship<T>>} relationshipArray
-     * @returns {Promise<Array<T>>}
-     */
-    static resolveAll(relationshipArray) {
-        if (relationshipArray.length === 0) return [];
-        let classObject = Relationship.types[relationshipArray[0].type];
-        if (relationshipArray.some(elem => !elem.cached) && 'getMultiple' in classObject) {
-            return classObject.getMultiple(...relationshipArray.map(elem => elem.id));
-        } else return Promise.all(relationshipArray.map(elem => elem.resolve()));
-    }
-}
-
-exports = module.exports = Relationship;
-},{}],48:[function(require,module,exports){
-'use strict';
-
-/**
- * This error respresents when the API responds with an error or invalid response.
- * In other words, this error represents 400 and 500 status code responses.
- */
-class APIRequestError extends Error {
-    /** @type {Number} */
-    static OTHER = 0;
-    /** @type {Number} */
-    static AUTHORIZATION = 1;
-    /** @type {Number} */
-    static INVALID_REQUEST = 2;
-    /** @type {Number} */
-    static INVALID_RESPONSE = 3;
-
-    /**
-     * @param {String|Object} reason An error message or response from the API
-     * @param {Number} code
-     * @param {String} requestId The `X-Request-ID` header value sent via the API.
-     * @param  {...any} params
-     */
-    constructor(reason = 'Unknown Request Error', code = 0, requestId = "Unknown Request ID", ...params) {
-        super(...params);
-
-        /**
-         * What type of error is this?
-         * AUTHORIZATION, INVALID_RESPONSE, etc.
-         * @type {Number}
-         */
-        this.code = code;
-
-        /** @type {String} */
-        this.name = 'APIRequestError';
-
-        /** @type {String} */
-        this.requestId = requestId;
-
-        if (typeof reason === 'string') {
-            /** @type {String} */
-            this.message = reason;
-        } else {
-            if (reason.errors instanceof Array && reason.errors.length > 0) {
-                this.message = `${reason.errors[0].detail} (${reason.errors[0].status}: ${reason.errors[0].title})`;
-                if (reason.errors[0].status === 400 || reason.errors[0].status === 404) this.code = APIRequestError.INVALID_REQUEST;
-                else if (reason.errors[0].status === 403) this.code = APIRequestError.AUTHORIZATION;
-                else if (code > 500) this.code = APIRequestError.INVALID_RESPONSE;
-            } else this.message = 'Unknown Reason.';
-        }
-        if (requestId !== "Unknown Request ID"){
-            this.message = `[X-Request-ID: ${this.requestId}] ${this.message}`;
-        }
-    }
-}
-exports = module.exports = APIRequestError;
-},{}],49:[function(require,module,exports){
-'use strict';
-
-const LocalizedString = require('../internal/localizedstring.js');
-const Util = require('../util.js');
-const APIRequestError = require('./requesterror.js');
-
-/**
- * Represents a manga tag
- */
-class Tag {
-    /** 
-     * A cached response from https://api.mangadex.org/manga/tag
-     * @type {Tag[]} 
-     */
-    static cache = [];
-
-    constructor(data) {
-        if (data === undefined || !('id' in data)) throw new Error('Attempted to create a tag with invalid data.');
-
-        /**
-         * Mangadex id of this tag
-         * @type {String}
-         */
-        this.id = data.id;
-
-        /**
-         * Name with different localization options
-         * @type {LocalizedString}
-         */
-        this.localizedName = new LocalizedString(data.attributes.name);
-
-        /**
-         * Description with different localization options
-         * @type {LocalizedString}
-         */
-        this.localizedDescription = new LocalizedString(data.attributes.description);
-
-        /**
-         * What type of tag group this tag belongs to
-         * @type {String}
-         */
-        this.group = data.attributes.group;
-    }
-
-    /**
-     * Name string based on global locale
-     * @type {String}
-     */
-    get name() {
-        if (this.localizedName !== undefined) return this.localizedName.localString;
-        return undefined;
-    }
-
-    /**
-     * Description string based on global locale
-     * @type {String}
-     */
-    get description() {
-        if (this.localizedDescription !== undefined) return this.localizedDescription.localString;
-        return undefined;
-    }
-
-    /**
-     * @ignore
-     * @returns {Promise<Tag[]>}
-     */
-    static async getAllTags() {
-        if (Tag.cache.length === 0) {
-            let res = await Util.apiRequest('/manga/tag');
-            if (!(res.data instanceof Array)) throw new APIRequestError('The API did not respond with an array when it was expected to', APIRequestError.INVALID_RESPONSE);
-            if (res.data.length === 0) throw new APIRequestError('The API returned an empty array of tags.', APIRequestError.INVALID_RESPONSE);
-            Tag.cache = res.data.map(elem => new Tag(elem));
-        }
-        return Tag.cache;
-    }
-
-    /**
-     * @ignore
-     * @param {String} indentity
-     * @returns {Promise<Tag>}
-     */
-    static async getTag(indentity) {
-        for (let i of await Tag.getAllTags()) {
-            if (i.id === indentity || i.localizedName.availableLocales.some(elem => i.localizedName[elem].toLowerCase() === indentity)) {
-                return i;
-            }
-        }
-        return null;
-    }
-}
-
-exports = module.exports = Tag;
-},{"../internal/localizedstring.js":46,"../util.js":58,"./requesterror.js":48}],50:[function(require,module,exports){
-'use strict';
-
-const Util = require('../util.js');
-const AuthUtil = require('../auth.js');
-const APIRequestError = require('./requesterror.js');
-const Relationship = require('./relationship.js');
-const Chapter = require('../structure/chapter.js');
-
-/**
- * Represents a chapter upload session
- * https://api.mangadex.org/docs.html#tag/Upload
- */
-class UploadSession {
-    /**
-     * There is no reason to directly create an upload session object. Use static methods, ie 'open()'.
-     * @param {Object} res API response 
-     */
-    constructor(res) {
-        if (!('data' in res) || !('id' in res.data))
-            throw new APIRequestError('The API did not respond with a session object when it was expected to', APIRequestError.INVALID_RESPONSE);
-
-        /**
-         * Id of this upload session
-         * @type {String}
-         */
-        this.id = res.data.id;
-
-        /**
-         * Relationship of the target manga
-         * @type {Relationship<import('../index').Manga>}
-         */
-        this.manga = Relationship.convertType('manga', res.data.relationships, this).pop();
-
-        /**
-         * Relationships to the groups attributed to this chapter
-         * @type {Relationship<import('../index').Group>}
-         */
-        this.groups = Relationship.convertType('group', res.data.relationships, this);
-
-        /**
-         * Relationship to the uploader (the current user)
-         * @type {Relationship<import('../index').User>}
-         */
-        this.uploader = Relationship.convertType('user', res.data.relationships, this).pop();
-
-        /**
-         * Is this session commited?
-         * @type {Boolean}
-         */
-        this.isCommitted = res.data.attributes.isCommitted;
-
-        /**
-         * Is this session processed?
-         * @type {Boolean}
-         */
-        this.isProcessed = res.data.attributes.isProcessed;
-
-
-        /**
-        * Is this session deleted?
-        * @type {Boolean}
-        */
-        this.isDeleted = res.data.attributes.isDeleted;
-
-        /**
-         * Is this session open for uploading pages?
-         * @type {Boolean}
-         */
-        this.open = !this.isDeleted && !this.isCommitted && !this.isProcessed;
-
-        /**
-         * The ids of every page uploaded THIS session
-         * @type {String[]}
-         */
-        this.pages = [];
-    }
-
-    /**
-     * Requests MD to start an upload session
-     * @param {String|import('../index').Manga} manga 
-     * @param  {...String|import('../index').Group|Relationship<import('../index').Group>} groups
-     * @returns {UploadSession}
-     */
-    static async open(manga, ...groups) {
-        if (typeof manga !== 'string') manga = manga.id;
-        groups = groups.flat().map(elem => typeof elem === 'string' ? elem : elem.id);
-        if (!manga || groups.some(elem => !elem)) throw new Error('Invalid Argument(s)');
-        await AuthUtil.validateTokens();
-        let res = await Util.apiRequest('/upload/begin', 'POST', {
-            manga: manga,
-            groups: groups
-        });
-        return new UploadSession(res);
-    }
-
-    /**
-     * Returns the currently open upload session for the logged in user.
-     * Returns null if there is no current session
-     * @returns {UploadSession|null}
-     */
-    static async getCurrentSession() {
-        await AuthUtil.validateTokens();
-        let res;
-        try {
-            res = await Util.apiRequest('/upload');
-        } catch (err) {
-            if (err instanceof APIRequestError && err.message.includes('404')) return null;
-            else throw err;
-        }
-        return new UploadSession(res);
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} PageFileObject
-     * @property {Buffer} PageFileObject.data 
-     * @property {'jpeg'|'png'|'gif'} [PageFileObject.type]
-     * @property {String} PageFileObject.name
-     */
-
-    /**
-     * Uploads pages through this upload session
-     * @param {PageFileObject[]} pages 
-     * @returns {Promise<String[]>} Returns the ids of every newly uploaded file
-     */
-    async uploadPages(pages) {
-        if (!this.open) throw new APIRequestError('Attempted to upload to a closed upload session', APIRequestError.INVALID_REQUEST);
-        let fileObjects = pages.map(obj => {
-            let page = { ...obj };
-            if (page.type === 'jpg') page.type = 'image/jpeg';
-            else if (page.type === undefined) {
-                if (page.name.endsWith('.jpg') || page.name.endsWith('.jpeg')) page.type = 'image/jpeg';
-                else if (page.name.endsWith('.png')) page.type = 'image/png';
-                else if (page.name.endsWith('.gif')) page.type = 'image/gif';
-            } else page.type = `image/${page.type}`;
-            if (!('data' in page) || !('type' in page) || !('name' in page)) throw new Error('Invalid Page Object(s).');
-            return page;
-        });
-        await AuthUtil.validateTokens();
-        let newPages = [];
-        while (fileObjects.length > 0) {
-            let payload = Util.createMultipartPayload(fileObjects.splice(0, 10)); // 10 images max per request
-            let res = await Util.apiRequest(`/upload/${this.id}`, 'POST', payload);
-            if ('data' in res) res.data.forEach(elem => newPages.push(elem.id));
-            else throw new APIRequestError('The API did not respond with a session file object when it was expected to', APIRequestError.INVALID_REQUEST);
-        }
-        this.pages.push(...newPages);
-        return newPages;
-    }
-
-    /**
-     * Closes this upload session
-     * @returns {Promise<void>}
-     */
-    async close() {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/upload/${this.id}`, 'DELETE');
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} ChapterDraftObject
-     * @property {String} ChapterDraftObject.volume
-     * @property {String} ChapterDraftObject.chapter
-     * @property {String} ChapterDraftObject.title
-     * @property {String} ChapterDraftObject.translatedLanguage
-     */
-
-    /**
-     * @param {ChapterDraftObject} chapterDraft
-     * @param {String[]} pageOrder Array of file ids sorted by their proper order. Default is the upload order
-     * @returns {Promise<Chapter>} Returns the new chapter
-     */
-    async commit(chapterDraft, pageOrder = this.pages) {
-        await AuthUtil.validateTokens();
-        return new Chapter(await Util.apiRequest(`/upload/${this.id}/commit`, 'POST', {
-            chapterDraft: chapterDraft,
-            pageOrder: pageOrder
-        }));
-    }
-
-    /**
-     * Deletes an uploaded page via its upload file id.
-     * @param {String} page
-     * @returns {Promise<void>}
-     */
-    async deletePage(page) {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/upload/${this.id}/${page}`, 'DELETE');
-        this.pages = this.pages.filter(elem => elem !== page);
-    }
-}
-
-exports = module.exports = UploadSession;
-},{"../auth.js":43,"../structure/chapter.js":52,"../util.js":58,"./relationship.js":47,"./requesterror.js":48}],51:[function(require,module,exports){
-'use strict';
-
-const Util = require('../util.js');
-const Relationship = require('../internal/relationship.js');
-
-/**
- * Represents an author or artist
- * https://api.mangadex.org/docs.html#tag/Author
- */
-class Author {
-    /**
-     * There is no reason to directly create an author object. Use static methods, ie 'get()'.
-     * @param {Object|String} context Either an API response or Mangadex id
-     */
-    constructor(context) {
-        if (typeof context === 'string') {
-            this.id = context;
-            return;
-        } else if (!context) return;
-
-        if (!context.data) context.data = {};
-
-        /**
-         * Mangadex id for this object
-         * @type {String}
-         */
-        this.id = context.data.id;
-
-        if (context.data.attributes === undefined) context.data.attributes = {};
-
-        /**
-         * Name of this author/artist
-         * @type {String}
-         */
-        this.name = context.data.attributes.name;
-
-        /**
-         * Image URL for this author/artist
-         * @type {String}
-         */
-        this.imageUrl = context.data.attributes.imageUrl;
-
-        /**
-         * Author/Artist biography
-         * @type {String[]}
-         */
-        this.biography = context.data.attributes.biography;
-
-        /**
-         * The date of this author/artist page creation
-         * @type {Date}
-         */
-        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : context.data.attributes.createdAt;
-
-        /**
-         * The date the author/artist was last updated
-         * @type {Date}
-         */
-        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : context.data.attributes.updatedAt;
-
-        /**
-         * Manga this author/artist has been attributed to
-         * @type {Array<Relationship<import('../index').Manga>>}
-         */
-        this.manga = Relationship.convertType('manga', context.data.relationships, this);
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} AuthorParameterObject
-     * @property {String} [AuthorParameterObject.name]
-     * @property {String[]} [AuthorParameterObject.ids] Max of 100 per request
-     * @property {Number} [AuthorParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [AuthorParameterObject.offset]
-     * @property {Object} [AuthorParameterObject.order]
-     * @property {'asc'|'desc'} [AuthorParameterObject.order.name]
-     */
-
-    /**
-     * Peforms a search and returns an array of a authors/artists.
-     * https://api.mangadex.org/docs.html#operation/get-author
-     * @param {AuthorParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Author[]>}
-     */
-    static search(searchParameters = {}, includeSubObjects = false) {
-        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters };
-        if (includeSubObjects) searchParameters.includes = ['manga'];
-        return Util.apiCastedRequest('/author', Author, searchParameters);
-    }
-
-    /**
-     * Create a new Author.
-     * @param {string} [name] The name of the author.
-     * @param {Object | undefined} [options] Additional arguments to pass to the API.
-     * @returns {Promise<Author>}
-     */
-    static async create(name, options) {
-        return new Author(await Util.apiRequest('/author', 'POST', { name, ...options }));
-    }
-
-    /**
-     * Gets multiple authors
-     * @param {...String|Author|Relationship<Author>} ids
-     * @returns {Promise<Author[]>}
-     */
-    static getMultiple(...ids) {
-        return Util.getMultipleIds(Author.search, ids);
-    }
-
-    /**
-     * Retrieves and returns a author by its id
-     * @param {String} id Mangadex id
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Author>}
-     */
-    static async get(id, includeSubObjects = false) {
-        return new Author(await Util.apiRequest(`/author/${id}${includeSubObjects ? '?includes[]=manga' : ''}`));
-    }
-
-    /**
-     * Performs a search for one author and returns that author
-     * @param {AuthorParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
-     * @returns {Promise<Author>}
-     */
-    static async getByQuery(searchParameters = {}) {
-        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters, limit: 1 };
-        else searchParameters.limit = 1;
-        let res = await Author.search(searchParameters);
-        if (res.length === 0) throw new Error('Search returned no results.');
-        return res[0];
-    }
-}
-
-exports = module.exports = Author;
-},{"../internal/relationship.js":47,"../util.js":58}],52:[function(require,module,exports){
-'use strict';
-
-const Util = require('../util.js');
-const AuthUtil = require('../auth.js');
-const Relationship = require('../internal/relationship.js');
-const APIRequestError = require('../internal/requesterror.js');
-
-/**
- * Represents a chapter with readable pages
- * https://api.mangadex.org/docs.html#tag/Chapter
- */
-class Chapter {
-    /**
-     * There is no reason to directly create a chapter object. Use static methods, ie 'get()'.
-     * @param {Object|String} context Either an API response or Mangadex id 
-     */
-    constructor(context) {
-        if (typeof context === 'string') {
-            this.id = context;
-            return;
-        } else if (!context) return;
-
-        if (!context.data) context.data = {};
-
-        /**
-         * Mangadex id for this object
-         * @type {String}
-         */
-        this.id = context.data.id;
-
-
-        if (context.data.attributes === undefined) context.data.attributes = {};
-
-        /**
-         * This chapter's volume number/string
-         * @type {String}
-         */
-        this.volume = context.data.attributes.volume;
-
-        /**
-         * This chapter's number/string identifier
-         * @type {String}
-         */
-        this.chapter = context.data.attributes.chapter;
-
-        /**
-         * Title of this chapter
-         * @type {String}
-         */
-        this.title = context.data.attributes.title;
-
-        /**
-         * Translated language code (2 Letters)
-         * @type {String}
-         */
-        this.translatedLanguage = context.data.attributes.translatedLanguage;
-
-        /**
-         * The date of this chapter's creation
-         * @type {Date}
-         */
-        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
-
-        /**
-         * The date this chapter was last updated
-         * @type {Date}
-         */
-        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
-
-        /**
-         * The date this chapter was published
-         * @type {Date}
-         */
-        this.publishAt = context.data.attributes.publishAt ? new Date(context.data.attributes.publishAt) : null;
-
-        /**
-         * The date this chapter was/will be readable
-         * @type {Date}
-         */
-        this.readableAt = context.data.attributes.readableAt ? new Date(context.data.attributes.readableAt) : null;
-
-        /**
-         * Page count
-         * @type {Number}
-         */
-        this.pages = context.data.attributes.pages;
-
-        /**
-         * Is this chapter only a link to another website (eg Mangaplus) instead of being hosted on MD?
-         * @type {Boolean}
-         */
-        this.isExternal = 'externalUrl' in context.data.attributes && context.data.attributes.externalUrl !== null;
-
-        /**
-         * The external URL to this chapter if it is not hosted on MD. Null if it is hosted on MD
-         * @type {String}
-         */
-        this.externalUrl = this.isExternal ? context.data.attributes.externalUrl : null;
-
-        /**
-         * The scanlation groups that are attributed to this chapter
-         * @type {Array<Relationship<import('../index').Group>>}
-         */
-        this.groups = Relationship.convertType('scanlation_group', context.data.relationships, this);
-
-        /**
-         * The manga this chapter belongs to
-         * @type {Relationship<import('../index').Manga>}
-         */
-        this.manga = Relationship.convertType('manga', context.data.relationships, this).pop();
-
-        /**
-         * The user who uploaded this chapter
-         * @type {Relationship<import('../index').User>}
-         */
-        this.uploader = Relationship.convertType('user', context.data.relationships, this).pop();
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} ChapterParameterObject
-     * @property {String} [ChapterParameterObject.title]
-     * @property {String} [ChapterParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {String} [ChapterParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {String} [ChapterParameterObject.publishAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {Object} [ChapterParameterObject.order]
-     * @property {'asc'|'desc'} [ChapterParameterObject.order.createdAt]
-     * @property {'asc'|'desc'} [ChapterParameterObject.order.updatedAt]
-     * @property {'asc'|'desc'} [ChapterParameterObject.order.publishAt]
-     * @property {'asc'|'desc'} [ChapterParameterObject.order.volume]
-     * @property {'asc'|'desc'} [ChapterParameterObject.order.chapter]
-     * @property {String[]} [ChapterParameterObject.translatedLanguage]
-     * @property {String[]} [ChapterParameterObject.originalLanguage]
-     * @property {String[]} [ChapterParameterObject.excludedOriginalLanguage]
-     * @property {Array<'safe'|'suggestive'|'erotica'|'pornographic'>} [ChapterParameterObject.contentRating]
-     * @property {String[]} [ChapterParameterObject.ids] Max of 100 per request
-     * @property {Number} [ChapterParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [ChapterParameterObject.offset]
-     * @property {String[]|import('../index').Group[]} [ChapterParameterObject.groups]
-     * @property {String|import('../index').User|Relationship<import('../index').User>} [ChapterParameterObject.uploader]
-     * @property {String|import('../index').Manga|Relationship<import('../index').Manga>} [ChapterParameterObject.manga]
-     * @property {String[]} [ChapterParameterObject.volume]
-     * @property {String} [ChapterParameterObject.chapter]
-     */
-
-    /**
-     * Peforms a search and returns an array of chapters.
-     * https://api.mangadex.org/docs.html#operation/get-chapter
-     * @param {ChapterParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Chapter[]>}
-     */
-    static search(searchParameters = {}, includeSubObjects = false) {
-        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters, groups };
-        if (includeSubObjects) searchParameters.includes = ['scanlation_group', 'manga', 'user'];
-        return Util.apiCastedRequest('/chapter', Chapter, searchParameters);
-    }
-
-    /**
-     * Gets multiple chapters
-     * @param {...String|Chapter|Relationship<Chapter>} ids
-     * @returns {Promise<Chapter[]>}
-     */
-    static getMultiple(...ids) {
-        return Util.getMultipleIds(Chapter.search, ids);
-    }
-
-
-    /**
-     * Retrieves and returns a chapter by its id
-     * @param {String} id Mangadex id
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Chapter>}
-     */
-    static async get(id, includeSubObjects = false) {
-        return new Chapter(await Util.apiRequest(`/chapter/${id}${includeSubObjects ? '?includes[]=scanlation_group&includes[]=manga&includes[]=user' : ''}`));
-    }
-
-    /**
-     * Performs a search for one chapter and returns that chapter
-     * @param {ChapterParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
-     * @returns {Promise<Chapter>}
-     */
-    static async getByQuery(searchParameters = {}) {
-        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters, limit: 1 };
-        else searchParameters.limit = 1;
-        let res = await Chapter.search(searchParameters);
-        if (res.length === 0) throw new Error('Search returned no results.');
-        return res[0];
-    }
-
-    /**
-     * Marks a chapter as either read or unread
-     * @param {String} id
-     * @param {Boolean} [read=true] True to mark as read, false to mark unread
-     * @returns {Promise<void>}
-     */
-    static async changeReadMarker(id, read = true) {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/chapter/${id}/read`, read ? 'POST' : 'DELETE');
-    }
-
-    /**
-     * Retrieves URLs for actual images from Mangadex @ Home.
-     * This only gives URLs, so it does not report the status of the server to Mangadex @ Home.
-     * Therefore applications that download image data pleaese report failures as stated here:
-     * https://api.mangadex.org/docs.html#section/Reading-a-chapter-using-the-API/Report
-     * @param {Boolean} [saver=false] Use data saver images?
-     * @param {Boolean} [forcePort=false] Force the final URLs to use port 443
-     * @returns {Promise<String[]>}
-     */
-    async getReadablePages(saver = false, forcePort = false) {
-        if (this.isExternal) throw new Error('Cannot get readable pages for an external chapter.');
-        let res = await Util.apiParameterRequest(`/at-home/server/${this.id}`, { forcePort443: forcePort });
-        if (!res.baseUrl || !res.chapter.hash || !res.chapter.hash) {
-            throw new APIRequestError(`The API did not respond the correct structure for a MD@H chapter request:\n${JSON.stringify(res)}`, APIRequestError.INVALID_RESPONSE);
-        }
-        return res.chapter[saver ? 'dataSaver' : 'data'].map(file => `${res.baseUrl}/${saver ? 'data-saver' : 'data'}/${res.chapter.hash}/${file}`);
-    }
-
-    /**
-     * Marks this chapter as either read or unread
-     * @param {Boolean} [read=true] True to mark as read, false to mark unread
-     * @returns {Promise<Chapter>}
-     */
-    async changeReadMarker(read = true) {
-        await Chapter.changeReadMarker(this.id, read);
-        return this;
-    }
-}
-
-exports = module.exports = Chapter;
-},{"../auth.js":43,"../internal/relationship.js":47,"../internal/requesterror.js":48,"../util.js":58}],53:[function(require,module,exports){
-'use strict';
-
-const Relationship = require('../internal/relationship.js');
-const Util = require('../util.js');
-
-/**
- * Represents the cover art of a manga volume
- * https://api.mangadex.org/docs.html#tag/Cover
- */
-class Cover {
-    /**
-     * There is no reason to directly create a cover art object. Use static methods, ie 'get()'.
-     * @param {Object|String} context Either an API response or Mangadex id
-     */
-    constructor(context) {
-        if (typeof context === 'string') {
-            this.id = context;
-            return;
-        } else if (!context) return;
-
-        if (!context.data) context.data = {};
-
-        /**
-         * Mangadex id for this object
-         * @type {String}
-         */
-        this.id = context.data.id;
-
-
-        if (context.data.attributes === undefined) context.data.attributes = {};
-
-        /**
-         * Manga volume this is a cover for
-         * @type {String}
-         */
-        this.volume = context.data.attributes.volume;
-
-        /**
-         * Description of this cover
-         * @type {String}
-         */
-        this.description = context.data.attributes.description;
-
-        /**
-         * The date of the cover's creation
-         * @type {Date}
-         */
-        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
-
-        /**
-         * The date the cover was last updated
-         * @type {Date}
-         */
-        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
-
-        /**
-         * Manga this is a cover for
-         * @type {Relationship<import('../index').Manga>}
-         */
-        this.manga = Relationship.convertType('manga', context.data.relationships, this).pop();
-        if (!this.manga) this.manga = null;
-
-        /**
-         * The user who uploaded this cover
-         * @type {Relationship<import('../index').User>}
-         */
-        this.uploader = Relationship.convertType('user', context.data.relationships, this).pop();
-        if (!this.uploader) this.uploader = null;
-
-        /**
-         * The locale of this cover
-         * @type {String}
-         */
-        this.locale = context.data.attributes.locale;
-
-        /**
-         * URL to the source image of the cover
-         * @type {String}
-         */
-        this.imageSource = context.data.attributes.fileName && this.manga ? `https://uploads.mangadex.org/covers/${this.manga.id}/${context.data.attributes.fileName}` : null;
-
-        /**
-         * URL to the 512px image of the cover
-         * @type {String}
-         */
-        this.image512 = context.data.attributes.fileName && this.manga ? `https://uploads.mangadex.org/covers/${this.manga.id}/${context.data.attributes.fileName}.512.jpg` : null;
-
-        /**
-         * URL to the 256px image of the cover
-         * @type {String}
-         */
-        this.image256 = context.data.attributes.fileName && this.manga ? `https://uploads.mangadex.org/covers/${this.manga.id}/${context.data.attributes.fileName}.256.jpg` : null;
-    }
-
-    /**
-     * Retrieves and returns a cover by its id
-     * @param {String} id Mangadex id
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Cover>}
-     */
-    static async get(id, includeSubObjects = false) {
-        return new Cover(await Util.apiRequest(`/cover/${id}${includeSubObjects ? '?includes[]=user&includes[]=manga' : ''}`));
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} CoverParameterObject
-     * @property {Number} [CoverParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [CoverParameterObject.offset]
-     * @property {String[]|import('../index').Manga[]} [CoverParameterObject.manga] Manga ids (limited to 100 per request)
-     * @property {String[]|Cover[]} [CoverParameterObject.ids] Covers ids (limited to 100 per request)
-     * @property {String[]|import('../index').User[]} [CoverParameterObject.uploaders] User ids (limited to 100 per request)
-     * @property {Object} [CoverParameterObject.order]
-     * @property {'asc'|'desc'} [CoverParameterObject.order.createdAt]
-     * @property {'asc'|'desc'} [CoverParameterObject.order.updatedAt]
-     * @property {'asc'|'desc'} [CoverParameterObject.order.volume]
-     */
-
-    /**
-     * Peforms a search and returns an array of covers.
-     * https://api.mangadex.org/docs.html#operation/get-cover
-     * @param {CoverParameterObject} [searchParameters]
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Cover[]>}
-     */
-    static search(searchParameters = {}, includeSubObjects = false) {
-        if (includeSubObjects) searchParameters.includes = ['user', 'manga'];
-        return Util.apiCastedRequest('/cover', Cover, searchParameters);
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} CoverUploadParameterObject
-     * @property {string|null} [CoverUploadParameterObject.volume] Volume of the cover
-     * @property {string} [CoverUploadParameterObject.description] Description of the cover
-     */
-
-    /**
-     * @ignore
-     * @typedef {Object} CoverFileObject
-     * @property {Buffer} CoverFileObject.data
-     * @property {'jpeg'|'png'|'gif'} [CoverFileObject.type]
-     * @property {String} CoverFileObject.name
-     */
-
-    /**
-     * Creates a new cover.
-     * @param {string} [mangaId] The id of the manga that the cover is for.
-     * @param {CoverFileObject} [file] The buffer containing the image data.
-     * @param {CoverUploadParameterObject | undefined} [options] Additional options for the cover upload.
-     * @returns {Promise<Cover>}
-     */
-    static async create(mangaId, file, options){
-        options = options || {};
-        return new Cover(await Util.apiRequest(`/cover/${mangaId}`, 'POST', Util.createMultipartPayload([file], {
-            volume: options.volume,
-            description: options.description
-        })))
-    }
-
-    /**
-     * Gets multiple covers
-     * @param {...String|Cover|Relationship<Cover>} ids
-     * @returns {Promise<Cover[]>}
-     */
-    static getMultiple(...ids) {
-        return Util.getMultipleIds(Cover.search, ids);
-    }
-
-    /**
-     * Performs a search for one manga and returns that manga
-     * @param {CoverParameterObject} [searchParameters]
-     * @returns {Promise<Cover>}
-     */
-    static async getByQuery(searchParameters = {}) {
-        searchParameters.limit = 1;
-        let res = await Cover.search(searchParameters);
-        if (res.length === 0) throw new Error('Search returned no results.');
-        return res[0];
-    }
-
-    /**
-     * Get an array of manga's covers
-     * @param {...String|import('../index').Manga|Relationship<import('../index').Manga>} manga
-     * @returns {Promise<Cover[]>}
-     */
-    static getMangaCovers(...manga) {
-        return Util.getMultipleIds(Cover.search, manga, {}, Infinity, 'manga');
-    }
-}
-
-exports = module.exports = Cover;
-},{"../internal/relationship.js":47,"../util.js":58}],54:[function(require,module,exports){
-'use strict';
-
-const Util = require('../util.js');
-const AuthUtil = require('../auth.js');
-const Relationship = require('../internal/relationship.js');
-
-/**
- * Represents a scanlation group
- * https://api.mangadex.org/docs.html#tag/Group
- */
-class Group {
-    /**
-     * There is no reason to directly create a group object. Use static methods, ie 'get()'.
-     * @param {Object|String} context Either an API response or Mangadex id 
-     */
-    constructor(context) {
-        if (typeof context === 'string') {
-            this.id = context;
-            return;
-        } else if (!context) return;
-
-        if (!context.data) context.data = {};
-
-        /**
-         * Mangadex id for this object
-         * @type {String}
-         */
-        this.id = context.data.id;
-
-        if (context.data.attributes === undefined) context.data.attributes = {};
-
-        /**
-         * Name of this group
-         * @type {String}
-         */
-        this.name = context.data.attributes.name;
-
-        /**
-         * The date of this group's creation
-         * @type {Date}
-         */
-        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
-
-        /**
-         * The date the group was last updated
-         * @type {Date}
-         */
-        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
-
-        /**
-         * Is this group locked?
-         * @type {Boolean}
-         */
-        this.locked = context.data.attributes.locked === true;
-
-        /**
-         * Website URL for this group
-         * @type {String}
-         */
-        this.website = context.data.attributes.website;
-
-        /**
-        * IRC Server for this group
-        * @type {String}
-        */
-        this.ircServer = context.data.attributes.ircServer;
-
-        /**
-        * IRC Channel for this group
-        * @type {String}
-        */
-        this.ircChannel = context.data.attributes.ircChannel;
-
-        /**
-        * Discord Invite Code for this group
-        * @type {String}
-        */
-        this.discord = context.data.attributes.discord;
-
-        /**
-         * Email for this group
-         * @type {String}
-         */
-        this.contactEmail = context.data.attributes.contactEmail;
-
-        /**
-         * This group's twitter
-         * @type {String}
-         */
-        this.twitter = context.data.attributes.twitter;
-
-        /**
-         * This group's manga updates page
-         * @type {String}
-         */
-        this.mangaUpdates = context.data.attributes.mangaUpdates;
-
-        /**
-         * This group's focused languages
-         * @type {String[]}
-         */
-        this.focusedLanguages = context.data.attributes.focusedLanguages;
-
-        /**
-         * This group's publish delay
-         * @type {Number}
-         */
-        this.publishDelay = context.data.attributes.publishDelay;
-
-        /**
-         * Is this group inactive?
-         * @type {Boolean}
-         */
-        this.inactive = context.data.attributes.inactive;
-
-        /**
-         * The group's custom description
-         * @type {String}
-         */
-        this.description = context.data.attributes.description;
-
-        /**
-         * Is this group an official publisher?
-         * @type {Boolean}
-         */
-        this.official = context.data.attributes.official;
-
-        /**
-         * Is this group managed by an official publisher?
-         * @type {Boolean}
-         */
-        this.verified = context.data.attributes.verified;
-
-        /**
-         * This group's leader
-         * @type {Relationship<import('../index').User>}
-         */
-        this.leader = Relationship.convertType('leader', context.data.relationships, this).pop();
-
-        /**
-         * Array of this group's members
-         * @type {Array<Relationship<import('../index').User>>}
-         */
-        this.members = Relationship.convertType('member', context.data.relationships, this);
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} GroupParameterObject
-     * @property {String} [GroupParameterObject.name]
-     * @property {String} [GroupParameterObject.name]
-     * @property {String} [GroupParameterObject.focusedLanguage]
-     * @property {Object} [GroupParameterObject.order]
-     * @property {'asc'|'desc'} [GroupParameterObject.order.createdAt]
-     * @property {'asc'|'desc'} [GroupParameterObject.order.updatedAt]
-     * @property {'asc'|'desc'} [GroupParameterObject.order.name]
-     * @property {'asc'|'desc'} [GroupParameterObject.order.followedCount]
-     * @property {'asc'|'desc'} [GroupParameterObject.order.relevance]
-     * @property {String[]} [GroupParameterObject.ids] Max of 100 per request
-     * @property {Number} [GroupParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [GroupParameterObject.offset]
-     */
-
-    /**
-     * Peforms a search and returns an array of groups.
-     * https://api.mangadex.org/docs.html#operation/get-search-group
-     * @param {GroupParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Group[]>}
-     */
-    static search(searchParameters = {}, includeSubObjects = false) {
-        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters };
-        if (includeSubObjects) searchParameters.includes = ['user'];
-        return Util.apiCastedRequest('/group', Group, searchParameters);
-    }
-
-    /**
-     * Gets multiple groups
-     * @param {...String|Group|Relationship<Group>} ids
-     * @returns {Promise<Group[]>}
-     */
-    static getMultiple(...ids) {
-        return Util.getMultipleIds(Group.search, ids);
-    }
-
-    /**
-     * Retrieves and returns a group by its id
-     * @param {String} id Mangadex id
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Group>}
-     */
-    static async get(id, includeSubObjects = false) {
-        return new Group(await Util.apiRequest(`/group/${id}${includeSubObjects ? '?includes[]=leader&includes[]=member' : ''}`));
-    }
-
-    /**
-     * Performs a search for one group and returns that group
-     * @param {GroupParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the name
-     * @returns {Promise<Group>}
-     */
-    static async getByQuery(searchParameters = {}) {
-        if (typeof searchParameters === 'string') searchParameters = { name: searchParameters, limit: 1 };
-        else searchParameters.limit = 1;
-        let res = await Group.search(searchParameters);
-        if (res.length === 0) throw new Error('Search returned no results.');
-        return res[0];
-    }
-
-    /**
-     * Returns all groups followed by the logged in user
-     * @param {Number} [limit=100] Amount of groups to return (0 to Infinity)
-     * @param {Number} [offset=0] How many groups to skip before returning
-     * @returns {Promise<Group[]>}
-     */
-    static async getFollowedGroups(limit = 100, offset = 0) {
-        await AuthUtil.validateTokens();
-        return await Util.apiCastedRequest('/user/follows/group', Group, { limit: limit, offset: offset });
-        // Currently (8/30/21) MD does not support includes[]=leader&includes[]=member for this endpoint
-    }
-
-    /**
-     * Makes the logged in user either follow or unfollow a group
-     * @param {String} id 
-     * @param {Boolean} [follow=true] True to follow, false to unfollow
-     * @returns {Promise<void>}
-     */
-    static async changeFollowship(id, follow = true) {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/group/${id}/follow`, follow ? 'POST' : 'DELETE');
-    }
-
-    /**
-     * Makes the logged in user either follow or unfollow this group
-     * @param {Boolean} [follow=true] True to follow, false to unfollow
-     * @returns {Promise<Group>}
-     */
-    async changeFollowship(follow = true) {
-        await Group.changeFollowship(this.id, follow);
-        return this;
-    }
-}
-
-exports = module.exports = Group;
-},{"../auth.js":43,"../internal/relationship.js":47,"../util.js":58}],55:[function(require,module,exports){
-'use strict';
-
-const Relationship = require('../internal/relationship.js');
-const Util = require('../util.js');
-const AuthUtil = require('../auth.js');
-const Chapter = require('./chapter.js');
-
-/**
- * Represents a custom, user-created list of manga
- * https://api.mangadex.org/docs.html#tag/CustomList
- */
-class List {
-    /**
-     * There is no reason to directly create a custom list object. Use static methods, ie 'get()'.
-     * @param {Object|String} context Either an API response or Mangadex id 
-     */
-    constructor(context) {
-        if (typeof context === 'string') {
-            this.id = context;
-            return;
-        } else if (!context) return;
-
-        if (!context.data) context.data = {};
-
-        /**
-         * Mangadex id for this object
-         * @type {String}
-         */
-        this.id = context.data.id;
-
-
-        if (context.data.attributes === undefined) context.data.attributes = {};
-
-        /**
-         * Name of this custom list
-         * @type {String}
-         */
-        this.name = context.data.attributes.name;
-
-        /**
-         * Version of this custom list
-         * @type {String}
-         */
-        this.version = context.data.attributes.version;
-
-        /**
-         * String form of this list's visibility
-         * @type {'public'|'private'}
-         */
-        this.visibility = context.data.attributes.visibility;
-        if (this.visibility !== 'public' && this.visibility !== 'private') this.visibility = null;
-
-        /**
-         * Relationships to all of the manga in this custom list
-         * @type {Array<Relationship<import('../index').Manga>>}
-         */
-        this.manga = Relationship.convertType('manga', context.data.relationships, this);
-
-        /**
-         * This list's owner
-         * @type {Relationship<import('../index').User>}
-         */
-        this.owner = Relationship.convertType('user', context.data.relationships, this).pop();
-    }
-
-    /**
-     * Is this list public?
-     * @type {Boolean}
-     */
-    get public() {
-        if (this.visibility !== 'private' && this.visibility !== 'public') return null;
-        return this.visibility === 'public';
-    }
-
-    /**
-     * Retrieves and returns a list by its id
-     * @param {String} id Mangadex id
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<List>}
-     */
-    static async get(id, includeSubObjects = false) {
-        if (AuthUtil.canAuth) await AuthUtil.validateTokens();
-        return new List(await Util.apiRequest(`/list/${id}${includeSubObjects ? '?includes[]=manga&includes[]=user' : ''}`));
-    }
-
-    /**
-     * Create a new custom list. Must be logged in
-     * @param {String} name
-     * @param {import('../index').Manga[]|String[]} manga
-     * @param {'public'|'private'} [visibility='private'] 
-     * @returns {Promise<List>}
-     */
-    static async create(name, manga, visibility = 'private') {
-        if (!name || !manga || !manga.every(e => typeof e === 'string' || 'id' in e)) throw new Error('Invalid Argument(s)');
-        await AuthUtil.validateTokens();
-        let res = await Util.apiRequest('/list', 'POST', {
-            name: name,
-            manga: manga.map(elem => typeof elem === 'string' ? elem : elem.id),
-            visibility: visibility === 'public' ? visibility : 'private'
-        });
-        return new List(res);
-    }
-
-    /**
-     * Deletes a custom list. Must be logged in
-     * @param {String} id 
-     * @returns {Promise<void>}
-     */
-    static async delete(id) {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/list/${id}`, 'DELETE');
-    }
-
-    /**
-     * Adds a manga to a custom list. Must be logged in
-     * @param {String} listId
-     * @param {import('../index').Manga|String} manga
-     * @returns {Promise<void>}
-     */
-    static async addManga(listId, manga) {
-        if (!listId || !manga) throw new Error('Invalid Argument(s)');
-        if (typeof manga !== 'string') manga = manga.id;
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/manga/${manga}/list/${listId}`, 'POST');
-    }
-
-    /**
-     * Removes a manga from a custom list. Must be logged in
-     * @param {String} listId
-     * @param {import('../index').Manga|String} manga
-     * @returns {Promise<void>}
-     */
-    static async removeManga(listId, manga) {
-        if (!listId || !manga) throw new Error('Invalid Argument(s)');
-        if (typeof manga !== 'string') manga = manga.id;
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/manga/${manga}/list/${listId}`, 'DELETE');
-    }
-
-    /**
-     * Returns all lists created by the logged in user.
-     * @param {Number} [limit=100] Amount of lists to return (0 to Infinity)
-     * @param {Number} [offset=0] How many lists to skip before returning
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<List[]>}
-     */
-    static async getLoggedInUserLists(limit = 100, offset = 0, includeSubObjects = false) {
-        await AuthUtil.validateTokens();
-        let res = await Util.apiSearchRequest('/user/list', { limit: limit, offset: offset });
-        return res.map(elem => new List({ data: elem }));
-    }
-
-    /**
-     * Returns all public lists created by a user.
-     * @param {String|import('../index').User|Relationship<import('../index').User>} user
-     * @param {Number} [limit=100] Amount of lists to return (0 to Infinity)
-     * @param {Number} [offset=0] How many lists to skip before returning
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<List[]>}
-     */
-    static async getUserLists(user, limit = 100, offset = 0, includeSubObjects = false) {
-        if (typeof user !== 'string') user = user.id;
-        let res = await Util.apiSearchRequest(`/user/${user}/list`, { limit: limit, offset: offset });
-        return res.map(elem => new List({ data: elem }));
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} FeedParameterObject
-     * @property {Number} [FeedParameterObject.limit] Not limited by API limits (more than 500). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [FeedParameterObject.offset]
-     * @property {String[]} [FeedParameterObject.translatedLanguage]
-     * @property {String} [FeedParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {String} [FeedParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {String} [FeedParameterObject.publishAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {Object} [FeedParameterObject.order]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.volume]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.chapter]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.createdAt]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.updatedAt]
-     */
-
-    /**
-     * Returns a list of the most recent chapters from the manga in a list
-     * @param {String} id Mangadex id of the list
-     * @param {FeedParameterObject} parameterObject Information on which chapters to be returned
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Chapter[]>}
-     */
-    static async getFeed(id, parameterObject = {}, includeSubObjects = false) {
-        if (AuthUtil.canAuth) await AuthUtil.validateTokens();
-        if (includeSubObjects) parameterObject.includes = ['scanlation_group', 'manga', 'user'];
-        return await Util.apiCastedRequest(`/list/${id}/feed`, Chapter, parameterObject, 500, 100);
-    }
-
-    /**
-     * Returns a list of the most recent chapters from the manga in a list
-     * https://api.mangadex.org/docs.html#operation/get-list-id-feed
-     * @param {FeedParameterObject} [parameterObject] Information on which chapters to be returned
-     * @returns {Promise<Chapter[]>}
-     */
-    getFeed(parameterObject = {}) {
-        return List.getFeed(this.id, parameterObject);
-    }
-
-    /**
-     * Delete a custom list. Must be logged in
-     * @returns {Promise<void>}
-     */
-    delete() {
-        return List.delete(this.id);
-    }
-
-    /**
-     * Renames a custom list. Must be logged in
-     * @param {String} newName
-     * @returns {Promise<List>}
-     */
-    async rename(newName) {
-        if (!newName || typeof newName !== 'string') throw new Error('Invalid Argument(s)');
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/list/${this.id}`, 'PUT', { name: newName, version: this.version });
-        this.name = newName;
-        return this;
-    }
-
-    /**
-     * Changes the visibility a custom list. Must be logged in
-     * @param {'public'|'private'} [newVis] Leave blank to toggle
-     * @returns {Promise<List>}
-     */
-    async changeVisibility(newVis) {
-        if (!newVis && this.public) newVis = 'private';
-        else if (!newVis && this.public !== null) newVis = 'public';
-        else if (newVis !== 'private' && newVis !== 'public') throw new Error('Invalid Argument(s)');
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/list/${this.id}`, 'PUT', { visibility: newVis, version: this.version });
-        this.visibility = newVis;
-        return this;
-    }
-
-    /**
-     * Changes the manga in a custom list. Must be logged in
-     * @param {import('../index').Manga[]|String[]} newList
-     * @returns {Promise<List>}
-     */
-    async updateMangaList(newList) {
-        if (!(newList instanceof Array)) throw new Error('Invalid Argument(s)');
-        let idList = newList.map(elem => typeof elem === 'string' ? elem : elem.id);
-        await AuthUtil.validateTokens();
-        let res = await Util.apiRequest(`/list/${this.id}`, 'PUT', { manga: idList, version: this.version });
-        this.manga = Relationship.convertType('manga', res.data.relationships, this);
-        return this;
-    }
-
-    /**
-     * Adds a manga to this list
-     * @param {import('../index').Manga|String} manga
-     * @returns {Promise<List>}
-     */
-    async addManga(manga) {
-        if (typeof manga !== 'string') manga = manga.id;
-        let idList = this.manga.map(elem => elem.id);
-        // Uses updateMangaList to maintain server-side order
-        if (!idList.includes(manga)) await this.updateMangaList(idList.concat(manga));
-        return this;
-    }
-
-    /**
-     * Removes a manga from this list
-     * @param {import('../index').Manga|String} manga
-     * @returns {Promise<List>}
-     */
-    async removeManga(manga) {
-        if (typeof manga !== 'string') manga = manga.id;
-        await List.removeManga(this.id, manga);
-        this.manga = this.manga.filter(elem => elem.id !== manga);
-        return this;
-    }
-}
-
-exports = module.exports = List;
-},{"../auth.js":43,"../internal/relationship.js":47,"../util.js":58,"./chapter.js":52}],56:[function(require,module,exports){
-'use strict';
-
-const Util = require('../util.js');
-const AuthUtil = require('../auth.js');
-const Links = require('../internal/links.js');
-const LocalizedString = require('../internal/localizedstring.js');
-const Relationship = require('../internal/relationship.js');
-const Tag = require('../internal/tag.js');
-const Chapter = require('./chapter.js');
-const Cover = require('./cover.js');
-const List = require('./list.js');
-const APIRequestError = require('../internal/requesterror.js');
-const UploadSession = require('../internal/uploadsession.js');
-
-/**
- * Represents a manga object
- * https://api.mangadex.org/docs.html#tag/Manga
- */
-class Manga {
-    /**
-     * There is no reason to directly create a manga object. Use static methods, ie 'get()'.
-     * @param {Object|String} context Either an API response or Mangadex id
-     */
-    constructor(context) {
-        if (typeof context === 'string') {
-            this.id = context;
-            return;
-        } else if (!context) return;
-
-        if (!context.data) context.data = {};
-
-        /**
-         * Mangadex id for this object
-         * @type {String}
-         */
-        this.id = context.data.id;
-
-
-        if (context.data.attributes === undefined) context.data.attributes = {};
-        /**
-         * Main title with different localization options
-         * @type {LocalizedString}
-         */
-        this.localizedTitle = new LocalizedString(context.data.attributes.title);
-
-        /**
-         * Alt titles with different localization options
-         * @type {LocalizedString[]}
-         */
-        this.localizedAltTitles = (context.data.attributes.altTitles || []).map(i => new LocalizedString(i));
-
-        /**
-         * Description with different localization options
-         * @type {LocalizedString}
-         */
-        this.localizedDescription = new LocalizedString(context.data.attributes.description);
-
-        /**
-         * Is this Manga locked?
-         * @type {Boolean}
-         */
-        this.isLocked = context.data.attributes.isLocked === true;
-
-        /**
-         * Link object representing links to other websites about this manga
-         * https://api.mangadex.org/docs.html#section/Static-data/Manga-links-data
-         * @type {Links}
-         */
-        this.links = new Links(context.data.attributes.links);
-
-        /**
-         * 2-letter code for the original language of this manga
-         * @type {String}
-         */
-        this.originalLanguage = context.data.attributes.originalLanguage;
-
-        /**
-         * This manga's last volume based on the default feed order
-         * @type {String}
-         */
-        this.lastVolume = context.data.attributes.lastVolume;
-
-        /**
-         * This manga's last chapter based on the default feed order
-         * @type {String}
-         */
-        this.lastChapter = context.data.attributes.lastChapter;
-
-        /**
-         * Publication demographic of this manga
-         * https://api.mangadex.org/docs.html#section/Static-data/Manga-publication-demographic
-         * @type {'shounen'|'shoujo'|'josei'|'seinen'}
-         */
-        this.publicationDemographic = context.data.attributes.publicationDemographic;
-
-        /**
-         * Publication/Scanlation status of this manga
-         * @type {'ongoing'|'completed'|'hiatus'|'cancelled'}
-         */
-        this.status = context.data.attributes.status;
-
-        /**
-         * Year of this manga's publication
-         * @type {Number}
-         */
-        this.year = context.data.attributes.year !== null && !isNaN(context.data.attributes.year) ? parseFloat(context.data.attributes.year) : null;
-
-        /**
-         * The content rating of this manga
-         * @type {'safe'|'suggestive'|'erotica'|'pornographic'}
-         */
-        this.contentRating = context.data.attributes.contentRating;
-
-        /**
-         * The date of this manga's page creation
-         * @type {Date}
-         */
-        this.createdAt = context.data.attributes.createdAt ? new Date(context.data.attributes.createdAt) : null;
-
-        /**
-         * The date the manga was last updated
-         * @type {Date}
-         */
-        this.updatedAt = context.data.attributes.updatedAt ? new Date(context.data.attributes.updatedAt) : null;
-
-        /**
-         * Authors attributed to this manga
-         * @type {Array<Relationship<import('../index').Author>>}
-         */
-        this.authors = Relationship.convertType('author', context.data.relationships, this);
-
-        /**
-         * Artists attributed to this manga
-         * @type {Array<Relationship<import('../index').Author>>}
-         */
-        this.artists = Relationship.convertType('artist', context.data.relationships, this);
-
-        /**
-         * This manga's main cover. Use 'getCovers' to retrive other covers
-         * @type {Relationship<Cover>}
-         */
-        this.mainCover = Relationship.convertType('cover_art', context.data.relationships, this).pop();
-        if (!this.mainCover) this.mainCover = null;
-
-        /**
-         * Array of tags for this manga
-         * @type {Tag[]}
-         */
-        this.tags = (context.data.attributes.tags || []).map(elem => new Tag(elem));
-
-        /**
-         * @ignore
-         * @typedef {Object} RelatedMangaObject
-         * @property {Manga[]} RelatedMangaObject.monochrome
-         * @property {Manga[]} RelatedMangaObject.main_story
-         * @property {Manga[]} RelatedMangaObject.adapted_from
-         * @property {Manga[]} RelatedMangaObject.based_on
-         * @property {Manga[]} RelatedMangaObject.prequel
-         * @property {Manga[]} RelatedMangaObject.side_story
-         * @property {Manga[]} RelatedMangaObject.doujinshi
-         * @property {Manga[]} RelatedMangaObject.same_franchise
-         * @property {Manga[]} RelatedMangaObject.shared_universe
-         * @property {Manga[]} RelatedMangaObject.sequel
-         * @property {Manga[]} RelatedMangaObject.spin_off
-         * @property {Manga[]} RelatedMangaObject.alternate_story
-         * @property {Manga[]} RelatedMangaObject.preserialization
-         * @property {Manga[]} RelatedMangaObject.colored
-         * @property {Manga[]} RelatedMangaObject.serialization
-         */
-
-        /**
-         * @type {RelatedMangaObject}
-         */
-        this.relatedManga = Object.fromEntries([
-            'monochrome', 'main_story', 'adapted_from', 'based_on', 'prequel',
-            'side_story', 'doujinshi', 'same_franchise', 'shared_universe', 'sequel',
-            'spin_off', 'alternate_story', 'preserialization', 'colored', 'serialization'
-        ].map(k => [k, Relationship.convertType('manga', context.data.relationships.filter(r => r.related === k))]));
-
-        /**
-         * The version of this manga (incremented by updating manga data)
-         * @type {Number}
-         */
-        this.version = isNaN(parseInt(context.data.attributes.version)) ? 1 : context.data.attributes.version;
-
-        /**
-         * Does this manga's chapter numbers reset on a new volume?
-         * @type {Boolean}
-         */
-        this.chapterNumbersResetOnNewVolume = context.data.attributes.chapterNumbersResetOnNewVolume;
-
-        /**
-         * An array of locale strings that represent the languages this manga is available in
-         * @type {String[]}
-         */
-        this.availableTranslatedLanguages = context.data.attributes.availableTranslatedLanguages;
-
-        /**
-         * The state of this manga's publication
-         * @type {string}
-         */
-        this.state = context.data.attributes.state;
-    }
-
-    /**
-     * Main title string based on global locale
-     * @type {String}
-     */
-    get title() {
-        if (this.localizedTitle !== undefined) return this.localizedTitle.localString;
-        return undefined;
-    }
-
-    /**
-     * Alt titles array based on global locale
-     * @type {String[]}
-     */
-    get altTitles() {
-        if (this.localizedAltTitles !== undefined) return this.localizedAltTitles.map(e => e.localString);
-        return undefined;
-    }
-
-    /**
-     * Description string based on global locale
-     * @type {String}
-     */
-    get description() {
-        if (this.localizedDescription !== undefined) return this.localizedDescription.localString;
-        return undefined;
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} MangaParameterObject
-     * @property {String} [MangaParameterObject.title]
-     * @property {Number} [MangaParameterObject.year]
-     * @property {'AND'|'OR'} [MangaParameterObject.includedTagsMode]
-     * @property {'AND'|'OR'} [MangaParameterObject.excludedTagsMode]
-     * @property {String} [MangaParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {String} [MangaParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {Object} [MangaParameterObject.order]
-     * @property {'asc'|'desc'} [MangaParameterObject.order.createdAt]
-     * @property {'asc'|'desc'} [MangaParameterObject.order.updatedAt]
-     * @property {'asc'|'desc'} [MangaParameterObject.order.title]
-     * @property {'asc'|'desc'} [MangaParameterObject.order.latestUploadedChapter]
-     * @property {'asc'|'desc'} [MangaParameterObject.order.followedCount]
-     * @property {'asc'|'desc'} [MangaParameterObject.order.relevance]
-     * @property {'asc'|'desc'} [MangaParameterObject.order.year]
-     * @property {String[]|import('../index').Author[]} [MangaParameterObject.authors] Array of author ids
-     * @property {String[]|import('../index').Author[]} [MangaParameterObject.artists] Array of artist ids
-     * @property {String[]|Tag[]} [MangaParameterObject.includedTags]
-     * @property {String[]|Tag[]} [MangaParameterObject.excludedTags]
-     * @property {Array<'ongoing'|'completed'|'hiatus'|'cancelled'>} [MangaParameterObject.status]
-     * @property {String[]} [MangaParameterObject.originalLanguage]
-     * @property {String[]} [MangaParameterObject.excludedOriginalLanguage]
-     * @property {String[]} [MangaParameterObject.availableTranslatedLanguage]
-     * @property {Array<'shounen'|'shoujo'|'josei'|'seinen'|'none'>} [MangaParameterObject.publicationDemographic]
-     * @property {String[]} [MangaParameterObject.ids] Max of 100 per request
-     * @property {Array<'safe'|'suggestive'|'erotica'|'pornographic'>} [MangaParameterObject.contentRating]
-     * @property {Boolean} [MangaParameterObject.hasAvailableChapters]
-     * @property {String} [MangaParameterObject.group] Group id
-     * @property {Number} [MangaParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [MangaParameterObject.offset]
-     */
-
-    /**
-     * Peforms a search and returns an array of manga.
-     * https://api.mangadex.org/docs.html#operation/get-search-manga
-     * @param {MangaParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Manga[]>}
-     */
-    static search(searchParameters = {}, includeSubObjects = false) {
-        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters };
-        if (includeSubObjects) searchParameters.includes = ['artist', 'author', 'cover_art'];
-        return Util.apiCastedRequest('/manga', Manga, searchParameters);
-    }
-
-    /**
-     * Returns the total amount of search results for a specific query
-     * @param {MangaParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
-     * @returns {Promise<Number>}
-     */
-    static async getTotalSearchResults(searchParameters = {}) {
-        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters };
-        let res = await Util.apiParameterRequest('/manga', searchParameters);
-        if ('total' in res) return res.total;
-        else throw new APIRequestError('The API did not respond with a total result count', APIRequestError.INVALID_RESPONSE);
-    }
-
-    /**
-     * Creates a manga.
-     * @param {LocalizedString | Object} [title] The title of the manga.
-     * @param {string} [originalLanguage] The original language of the manga.
-     * @param {'ongoing'|'completed'|'hiatus'|'cancelled'} [status] The status of the manga.
-     * @param {'safe'|'suggestive'|'erotica'|'pornographic'} [contentRating] The content rating of the manga.
-     * @param {Object | undefined} [options] Additional options for creating the manga.
-     * @returns {Promise<Manga>}
-     */
-    static async create(title, originalLanguage, status, contentRating, options){
-        return new Manga(await Util.apiRequest('/manga', 'POST', {
-            title: title.data || title,
-            originalLanguage,
-            status,
-            contentRating,
-            ...options
-        }));
-    }
-
-    /**
-     * Gets multiple manga
-     * @param {...String|Relationship<Manga>} ids
-     * @returns {Promise<Manga[]>}
-     */
-    static getMultiple(...ids) {
-        return Util.getMultipleIds(Manga.search, ids, { contentRating: ['safe', 'suggestive', 'erotica', 'pornographic'] });
-    }
-
-    /**
-     * Retrieves and returns a manga by its id
-     * @param {String} id Mangadex id
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Manga>}
-     */
-    static async get(id, includeSubObjects = false) {
-        return new Manga(await Util.apiRequest(`/manga/${id}${includeSubObjects ? '?includes[]=artist&includes[]=author&includes[]=cover_art' : ''}`));
-    }
-
-    /**
-     * Performs a search for one manga and returns that manga
-     * @param {MangaParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the title
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Manga>}
-     */
-    static async getByQuery(searchParameters = {}, includeSubObjects = false) {
-        if (typeof searchParameters === 'string') searchParameters = { title: searchParameters, limit: 1 };
-        else searchParameters.limit = 1;
-        let res = await Manga.search(searchParameters, includeSubObjects);
-        if (res.length === 0) throw new Error('Search returned no results.');
-        return res[0];
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} FeedParameterObject
-     * @property {Number} [FeedParameterObject.limit] Not limited by API limits (more than 500). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [FeedParameterObject.offset]
-     * @property {String[]} [FeedParameterObject.translatedLanguage]
-     * @property {String} [FeedParameterObject.createdAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {String} [FeedParameterObject.updatedAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {String} [FeedParameterObject.publishAtSince] DateTime string with following format: YYYY-MM-DDTHH:MM:SS
-     * @property {Object} [FeedParameterObject.order]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.volume]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.chapter]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.createdAt]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.updatedAt]
-     * @property {'asc'|'desc'} [FeedParameterObject.order.publishAt]
-     */
-
-    /**
-     * Returns a feed of chapters for a manga
-     * @param {String} id
-     * @param {FeedParameterObject|Number} [parameterObject] Either a parameter object or a number representing the limit
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Chapter[]>}
-     */
-    static getFeed(id, parameterObject = {}, includeSubObjects = false) {
-        if (typeof parameterObject === 'number') parameterObject = { limit: parameterObject };
-        if (includeSubObjects) parameterObject.includes = ['scanlation_group', 'manga', 'user'];
-        return Util.apiCastedRequest(`/manga/${id}/feed`, Chapter, parameterObject, 500, 100);
-    }
-
-    /**
-     * Returns one random manga
-     * @param {Array<'safe' | 'suggestive' | 'erotica' | 'pornographic'>} [contentRatings] Allowed content ratings for the random manga
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Manga>}
-     */
-    static async getRandom(contentRatings, includeSubObjects = false) {
-        const params = {};
-        if (Array.isArray(contentRatings)) params.contentRating = contentRatings;
-        if (includeSubObjects) params.includes = ['artist', 'author', 'cover_art'];
-        return new Manga(await Util.apiParameterRequest('/manga/random', params));
-    }
-
-    /**
-     * Returns all manga followed by the logged in user
-     * @param {Number} [limit=100] Amount of manga to return (0 to Infinity)
-     * @param {Number} [offset=0] How many manga to skip before returning
-     * @returns {Promise<Manga[]>}
-     */
-    static async getFollowedManga(limit = 100, offset = 0) {
-        await AuthUtil.validateTokens();
-        let params = { limit: limit, offset: offset };
-        return await Util.apiCastedRequest('/user/follows/manga', Manga, params);
-        // Currently (8/30/21) MD does not support includes[]=artist&includes[]=author&includes[]=cover_art for this endpoint
-    }
-
-    /**
-     * Retrieves a tag object based on its id or name ('Oneshot', 'Thriller,' etc).
-     * The result of every available tag is cached, so subsequent tag requests will have no delay
-     * https://api.mangadex.org/docs.html#operation/get-manga-tag
-     * @param {String} indentity
-     * @returns {Promise<Tag>}
-     */
-    static getTag(indentity) {
-        return Tag.getTag(indentity);
-    }
-
-    /**
-     * Returns an array of every tag available on Mangadex right now.
-     * The result is cached, so subsequent tag requests will have no delay
-     * https://api.mangadex.org/docs.html#operation/get-manga-tag
-     * @returns {Promise<Tag[]>}
-     */
-    static getAllTags() {
-        return Tag.getAllTags();
-    }
-
-    /**
-     * Retrieves the logged in user's reading status for a manga.
-     * If there is no status, null is returned
-     * @param {String} id
-     * @returns {Promise<'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'>}
-     */
-    static async getReadingStatus(id) {
-        await AuthUtil.validateTokens();
-        let res = await Util.apiRequest(`/manga/${id}/status`);
-        return (typeof res.status === 'string' ? res.status : null);
-    }
-
-    /**
-     * Sets the logged in user's reading status for this manga.
-     * Call without arguments to clear the reading status
-     * @param {String} id
-     * @param {'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'} [status]
-     * @returns {Promise<void>}
-     */
-    static async setReadingStatus(id, status = null) {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/manga/${id}/status`, 'POST', { status: status });
-    }
-
-    /**
-     * Returns the reading status for every manga for this logged in user as an object with Manga ids as keys
-     * @returns {Object.<string, 'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'>}
-     */
-    static async getAllReadingStatuses() {
-        await AuthUtil.validateTokens();
-        let res = await Util.apiRequest(`/manga/status`);
-        if (!('statuses' in res)) throw new APIRequestError('The API did not respond with a statuses object when it was expected to', APIRequestError.INVALID_RESPONSE);
-        return res.statuses;
-    }
-
-    /**
-     * Gets the combined feed of every manga followed by the logged in user
-     * @param {FeedParameterObject|Number} [parameterObject] Either a parameter object or a number representing the limit
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Chapter[]>}
-     */
-    static async getFollowedFeed(parameterObject, includeSubObjects = false) {
-        if (typeof parameterObject === 'number') parameterObject = { limit: parameterObject };
-        if (includeSubObjects) parameterObject.includes = ['scanlation_group', 'manga', 'user'];
-        await AuthUtil.validateTokens();
-        return await Util.apiCastedRequest(`/user/follows/manga/feed`, Chapter, parameterObject, 500, 100);
-    }
-
-    /**
-     * Makes the logged in user either follow or unfollow a manga
-     * @param {String} id
-     * @param {Boolean} [follow=true] True to follow, false to unfollow
-     * @returns {Promise<void>}
-     */
-    static async changeFollowship(id, follow = true) {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/manga/${id}/follow`, follow ? 'POST' : 'DELETE');
-    }
-
-    /**
-     * Retrieves the read chapters for multiple manga
-     * @param  {...String|Manga|Relationship<Manga>} ids
-     * @returns {Promise<Chapter[]>}
-     */
-    static async getReadChapters(...ids) {
-        if (ids.length === 0) throw new Error('Invalid Argument(s)');
-        if (ids[0] instanceof Array) ids = ids[0];
-        await AuthUtil.validateTokens();
-        let chapterIds = await Util.apiParameterRequest(`/manga/read`, { ids: ids });
-        if (!(chapterIds.data instanceof Array)) throw new APIRequestError('The API did not respond with an array when it was expected to', APIRequestError.INVALID_RESPONSE);
-        return Chapter.getMultiple(...chapterIds.data);
-    }
-
-    /**
-     * Returns all covers for a manga
-     * @param {...String|Manga|Relationship<Manga>} id Manga id(s)
-     * @returns {Promise<Cover[]>}
-     */
-    static getCovers(...id) {
-        return Cover.getMangaCovers(...id);
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} AggregateChapter
-     * @property {String} AggregateChapter.chapter
-     * @property {Number} AggregateChapter.count
-     * @property {String} AggregateChapter.id
-     * @property {String[]} AggregateChapter.others
-     */
-
-    /**
-     * @ignore
-     * @typedef {Object} AggregateVolume
-     * @property {String} AggregateVolume.volume
-     * @property {Number} AggregateVolume.count
-     * @property {Object.<string, AggregateChapter>} AggregateVolume.chapters
-     */
-
-    /**
-     * Returns a summary of every chapter for a manga including each of their numbers and volumes they belong to
-     * https://api.mangadex.org/docs.html#operation/post-manga
-     * @param {String} id
-     * @param {...String|String[]} languages
-     * @returns {Promise<Object.<string, AggregateVolume>>}
-     */
-    static async getAggregate(id, ...languages) {
-        languages = languages.flat();
-        let res = await Util.apiParameterRequest(`/manga/${id}/aggregate`, { translatedLanguage: languages });
-        if (!('volumes' in res)) throw new APIRequestError('The API did not respond with the appropriate aggregate structure', APIRequestError.INVALID_RESPONSE);
-        return res.volumes;
-    }
-
-    /**
-     * Creates a new upload session with a manga as the target
-     * @param {String} id
-     * @param {...String|import('../index').Group} groups
-     * @returns {Promise<UploadSession>}
-     */
-    static createUploadSession(id, ...groups) {
-        return UploadSession.open(id, ...groups);
-    }
-
-    /**
-     * Returns the currently open upload session for the logged in user.
-     * Returns null if there is no current session
-     * @returns {Promise<UploadSession>}
-     */
-    static getCurrentUploadSession() {
-        return UploadSession.getCurrentSession();
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} Statistics
-     * @property {Number} Statistics.follows
-     * @property {Object} Statistics.rating
-     * @property {Number} Statistics.rating.average
-     * @property {Object.<string, number>} Statistics.rating.distribution
-     */
-
-    /**
-     * Returns the rating and follow count of a manga
-     * @param {String} id
-     * @returns {Statistics}
-     */
-    static async getStatistics(id) {
-        if (id === undefined) throw new Error('Invalid Argument(s)');
-        let res = await Util.apiRequest(`statistics/manga/${id}`);
-        if (!res.statistics || Object.values(res.statistics).length === 0) {
-            throw new APIRequestError('The API did not respond with any statistics', APIRequestError.INVALID_RESPONSE);
-        }
-        return Object.values(res.statistics)[0];
-    }
-
-    getStatistics() {
-        return Manga.getStatistics(this.id);
-    }
-
-    /**
-     * Creates a new upload session with this manga as the target
-     * @param {...String|import('../index').Group} groups
-     * @returns {Promise<UploadSession>}
-     */
-    createUploadSession(...groups) {
-        return Manga.createUploadSession(this.id, ...groups);
-    }
-
-    /**
-     * Returns all covers for this manga
-     * @returns {Promise<Cover[]>}
-     */
-    getCovers() {
-        return Manga.getCovers(this.id);
-    }
-
-    /**
-     * Returns a feed of this manga's chapters.
-     * @param {FeedParameterObject|Number} [parameterObject] Either a parameter object or a number representing the limit
-     * @param {Boolean} [includeSubObjects=false] Attempt to resolve sub objects (eg author, artists, etc) when available through the base request
-     * @returns {Promise<Chapter[]>}
-     */
-    getFeed(parameterObject = {}, includeSubObjects = false) {
-        return Manga.getFeed(this.id, parameterObject, includeSubObjects);
-    }
-
-    /**
-     * Adds this manga to a list
-     * @param {List|String} list
-     * @returns {Promise<void>}
-     */
-    addToList(list) {
-        if (typeof list !== 'string') list = list.id;
-        return List.addManga(list, this.id);
-    }
-
-    /**
-     * Retrieves the logged in user's reading status for this manga.
-     * If there is no status, null is returned
-     * @returns {Promise<'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'>}
-     */
-    getReadingStatus() {
-        return Manga.getReadingStatus(this.id);
-    }
-
-    /**
-     * Sets the logged in user's reading status for this manga.
-     * Call without arguments to clear the reading status
-     * @param {'reading'|'on_hold'|'plan_to_read'|'dropped'|'re_reading'|'completed'} [status]
-     * @returns {Promise<Manga>}
-     */
-    async setReadingStatus(status = null) {
-        await Manga.setReadingStatus(this.id, status);
-        return this;
-    }
-
-    /**
-     * Makes the logged in user either follow or unfollow this manga
-     * @param {Boolean} [follow=true] True to follow, false to unfollow
-     * @returns {Promise<Manga>}
-     */
-    async changeFollowship(follow = true) {
-        await Manga.changeFollowship(this.id, follow);
-        return this;
-    }
-
-    /**
-     * Returns an array of every chapter that has been marked as read for this manga
-     * @returns {Promise<Chapter[]>}
-     */
-    getReadChapters() {
-        return Manga.getReadChapters(this.id);
-    }
-
-    /**
-     * Returns a summary of every chapter for this manga including each of their numbers and volumes they belong to
-     * https://api.mangadex.org/docs.html#operation/post-manga
-     * @param {...String} languages
-     * @returns {Promise<Object.<string, AggregateVolume>>}
-     */
-    getAggregate(...languages) {
-        return Manga.getAggregate(this.id, ...languages);
-    }
-
-    /**
-     * Updates a manga's information using the information stored in the model and returns a new Manga.
-     * @returns {Promise<Manga>}
-     */
-    async update() {
-        const data = await Util.apiRequest(`manga/${this.id}`, 'PUT', {
-            title: this.localizedTitle.data,
-            altTitles: this.localizedAltTitles.map(altTitle => altTitle.data),
-            description: this.localizedDescription.data,
-            authors: this.authors.map(author => author.id),
-            artists: this.artists.map(artist => artist.id),
-            tags: this.tags.map(tag => tag.id),
-            links: this.links.availableLinks.reduce((prev, key) => {
-                prev[key] = this.links[key];
-                return prev;
-            }, {}),
-            originalLanguage: this.originalLanguage,
-            lastVolume: this.lastVolume,
-            lastChapter: this.lastChapter,
-            status: this.status,
-            publicationDemographic: this.publicationDemographic,
-            year: this.year,
-            contentRating: this.contentRating,
-            primaryCover: this.mainCover.id,
-            version: this.version
-        });
-        return new Manga(data)
-    }
-}
-
-exports = module.exports = Manga;
-
-},{"../auth.js":43,"../internal/links.js":45,"../internal/localizedstring.js":46,"../internal/relationship.js":47,"../internal/requesterror.js":48,"../internal/tag.js":49,"../internal/uploadsession.js":50,"../util.js":58,"./chapter.js":52,"./cover.js":53,"./list.js":55}],57:[function(require,module,exports){
-'use strict';
-
-const Util = require('../util.js');
-const AuthUtil = require('../auth.js');
-const Relationship = require('../internal/relationship.js');
-
-/**
- * Represents an user
- * https://api.mangadex.org/docs.html#tag/User
- */
-class User {
-    /**
-     * There is no reason to directly create a user object. Use static methods, ie 'get()'.
-     * @param {Object|String} context Either an API response or Mangadex id 
-     */
-    constructor(context) {
-        if (typeof context === 'string') {
-            this.id = context;
-            return;
-        } else if (!context) return;
-
-        if (!context.data) context.data = {};
-
-        /**
-         * Mangadex id for this object
-         * @type {String}
-         */
-        this.id = context.data.id;
-
-        if (context.data.attributes === undefined) context.data.attributes = {};
-
-        /**
-         * Username of this user
-         * @type {String}
-         */
-        this.username = context.data.attributes.username;
-
-        /**
-         * The roles of this user such as "ROLE_MD_AT_HOME" and "ROLE_ADMIN"
-         * @type {String[]}
-         */
-        this.roles = context.data.attributes.roles;
-
-        /**
-         * Groups this user is a part of
-         * @type {Array<Relationship<import('../index').Group>>}
-         */
-        this.groups = Relationship.convertType('scanlation_group', context.data.relationships, this);
-    }
-
-    /**
-     * @ignore
-     * @typedef {Object} UserParameterObject
-     * @property {String} [UserParameterObject.username]
-     * @property {String[]} [UserParameterObject.ids] Max of 100 per request
-     * @property {Number} [UserParameterObject.limit] Not limited by API limits (more than 100). Use Infinity for maximum results (use at your own risk)
-     * @property {Number} [UserParameterObject.offset]
-     * @property {Object} [UserParameterObject.order] 
-     * @property {'asc'|'desc'} [UserParameterObject.order.username]
-     */
-
-    /**
-     * Peforms a search and returns an array of users. Requires authorization
-     * https://api.mangadex.org/docs.html#operation/get-user
-     * @param {UserParameterObject|String} [searchParameters] An object of offical search parameters, or a string representing the username
-     * @returns {Promise<User[]>}
-     */
-    static search(searchParameters = {}) {
-        if (typeof searchParameters === 'string') searchParameters = { username: searchParameters };
-        return Util.apiCastedRequest('/user', User, searchParameters);
-        // Currently (9/14/21) MD does not support includes[]=scanlation_group for any user endpoint
-    }
-
-    /**
-     * Gets multiple users
-     * @param {...String|Relationship<User>} ids
-     * @returns {Promise<User[]>}
-     */
-    static getMultiple(...ids) {
-        return Util.getMultipleIds(User.search, ids);
-    }
-
-    /**
-     * Retrieves and returns a user by its id
-     * @param {String} id Mangadex id
-     * @returns {Promise<User>}
-     */
-    static async get(id) {
-        return new User(await Util.apiRequest(`/user/${id}`));
-    }
-
-    /**
-     * Returns all users followed by the logged in user
-     * @param {Number} [limit=100] Amount of users to return (0 to Infinity)
-     * @param {Number} [offset=0] How many users to skip before returning
-     * @returns {Promise<User[]>}
-     */
-    static async getFollowedUsers(limit = 100, offset = 10) {
-        await AuthUtil.validateTokens();
-        return await Util.apiCastedRequest('/user/follows/user', User, { limit: limit, offset: offset });
-    }
-
-    /**
-     * Returns the logged in user as a user object
-     * @returns {Promise<User>}
-     */
-    static async getLoggedInUser() {
-        await AuthUtil.validateTokens();
-        return new User(await Util.apiRequest('/user/me'));
-    }
-
-    /**
-     * Makes the logged in user either follow or unfollow a user
-     * @param {String} id 
-     * @param {Boolean} [follow=true] True to follow, false to unfollow
-     * @returns {Promise<void>}
-     */
-    static async changeFollowship(id, follow = true) {
-        await AuthUtil.validateTokens();
-        await Util.apiRequest(`/user/${id}/follow`, follow ? 'POST' : 'DELETE');
-    }
-
-    /**
-     * Makes the logged in user either follow or unfollow this user
-     * @param {Boolean} [follow=true] True to follow, false to unfollow
-     * @returns {Promise<User>}
-     */
-    async changeFollowship(follow = true) {
-        await User.changeFollowship(this.id, follow);
-        return this;
-    }
-}
-
-exports = module.exports = User;
-},{"../auth.js":43,"../internal/relationship.js":47,"../util.js":58}],58:[function(require,module,exports){
-(function (Buffer){(function (){
-'use strict';
-
-const HTTPS = require('https');
-const APIRequestError = require('./internal/requesterror.js');
-
-const MAX_REQUESTS_PER_SECOND = 5; // The global minimum limit for normal endpoints is 5 requests per second
-const MAX_POSSIBLE_LIMIT = 10000; // MD has a hard max of 10000 items for every endpoint
-const MULTIPART_BOUNDARY = `mfa-boundary-${Date.now().toString(16)}`;
-var requestHeaders = {};
-var activeRequestCount = 0;
-
-/**
- * Being a browser only affects how tokens are stored, so localStorage's existance is the only thing checked
- * @returns {Boolean}
- */
-function isBrowser() {
-    try {
-        return window !== undefined && window !== null && window.localStorage !== undefined && window.localStorage !== null;
-    } catch (error) {
-        return false;
-    }
-}
-exports.isBrowser = isBrowser;
-
-/**
- * Sets a specific header value to be used by every api request
- * @param {String} name Header key
- * @param {String} value Header value
- */
-function registerHeader(name, value) {
-    requestHeaders[name] = value;
-}
-exports.registerHeader = registerHeader;
-
-if (!isBrowser()) {
-    const packageJSON = require('../package.json');
-    registerHeader('User-Agent', `mangadex-full-api/${packageJSON.version} Server-side Node`);
-}
-
-/**
- * Sends a HTTPS request to a specified endpoint
- * @param {String} endpoint API endpoint (ex: /ping)
- * @param {'GET'|'POST'|'PUT'|'DELETE'} [method='GET'] GET, POST, PUT, or DELETE. (Default: GET)
- * @param {Object|String|Buffer} [requestPayload] Payload used for POST and DELETE requests
- * @returns {Promise<Object>}
- */
-function apiRequest(endpoint, method = 'GET', requestPayload = {}) {
-    return new Promise(async (resolve, reject) => {
-        if (endpoint === undefined || typeof endpoint !== 'string') reject(new Error('Invalid Argument(s)'));
-        if (endpoint[0] !== '/') endpoint = `/${endpoint}`;
-
-        activeRequestCount++;
-        if (activeRequestCount >= MAX_REQUESTS_PER_SECOND) {
-            await new Promise(resolve => setTimeout(resolve, 1000 * Math.floor(activeRequestCount / MAX_REQUESTS_PER_SECOND)));
-        }
-
-        // console.log(endpoint, 'authorization' in requestHeaders, activeRequestCount);
-
-        let localHeaders = { ...requestHeaders };
-        if (method !== 'GET') {
-            if (typeof requestPayload !== 'object') localHeaders['Content-Type'] = `text/plain`;
-            else if (requestPayload instanceof Buffer) localHeaders['Content-Type'] = `multipart/form-data; boundary=${MULTIPART_BOUNDARY}`;
-            else localHeaders['Content-Type'] = 'application/json';
-        }
-
-        const req = HTTPS.request({
-            hostname: 'api.mangadex.org',
-            path: endpoint,
-            method: method,
-            headers: localHeaders
-        }, (res) => {
-            let responsePayload = '';
-
-            res.on('data', (data) => {
-                responsePayload += data;
-            });
-
-            res.on('end', () => {
-                activeRequestCount--;
-                if ('set-cookie' in res.headers && !isBrowser()) registerHeader('cookie', res.headers['set-cookie'].concat(requestHeaders['cookie']).join('; '));
-                if (res.headers['content-type'] !== undefined && res.headers['content-type'].includes('json')) {
-                    try {
-                        let parsedObj = JSON.parse(responsePayload);
-                        if (parsedObj === null) reject(new APIRequestError(`HTTPS ${method} Response (${endpoint}) returned null`, APIRequestError.INVALID_RESPONSE, res.headers["x-request-id"]));
-                        if (res.statusCode < 400 || res.result === 'ok') resolve(parsedObj);
-                        else reject(new APIRequestError(parsedObj, APIRequestError.OTHER, res.headers["x-request-id"]));
-                    } catch (error) {
-                        reject(new APIRequestError(
-                            `Failed to parse HTTPS ${method} ` +
-                            `Response (${endpoint}) as JSON despite Content-Type ` +
-                            `Header: ${res.headers['content-type']}\n${error}`
-                        ), APIRequestError.INVALID_RESPONSE);
-                    }
-                } else {
-                    if (res.statusCode === 429) reject(new APIRequestError('You have been rate limited', APIRequestError.INVALID_RESPONSE, res.headers["x-request-id"]));
-                    else if (res.statusCode >= 400) reject(new APIRequestError(`Returned HTML error page ${responsePayload}`, APIRequestError.INVALID_RESPONSE, res.headers["x-request-id"]));
-                    else if (res.statusCode >= 300) reject(new APIRequestError(`Bad/moved endpoint: ${endpoint}`, APIRequestError.INVALID_REQUEST, res.headers["x-request-id"]));
-                    else resolve(responsePayload);
-                }
-            });
-
-            res.on('error', (error) => {
-                reject(new APIRequestError(`HTTPS ${method} Response (${endpoint}) returned an error:\n${error}`));
-            });
-        }).on('error', (error) => {
-            reject(new APIRequestError(`HTTPS ${method} Request (${endpoint}) returned an error:\n${error}`));
-        });
-
-        if (method !== 'GET') {
-            if (localHeaders['Content-Type'] === 'application/json') {
-                try {
-                    req.write(JSON.stringify(requestPayload));
-                } catch (err) {
-                    reject(new Error('Invalid payload object.'));
-                }
-            } else req.write(requestPayload);
-        }
-        req.end();
-    });
-}
-exports.apiRequest = apiRequest;
-
-/**
- * Performs a custom request that converts an object of parameters to an endpoint URL with parameters.
- * If the response contains a results array, that is returned instead
- * @param {String} baseEndpoint Endpoint with no parameters
- * @param {Object} parameterObject Object of search parameters based on API specifications
- * @returns {Promise<Object|Object[]>}
- */
-async function apiParameterRequest(baseEndpoint, parameterObject) {
-    if (typeof baseEndpoint !== 'string' || typeof parameterObject !== 'object') throw new Error('Invalid Argument(s)');
-    let params = new URLSearchParams();
-    for (let [key, value] of Object.entries(parameterObject)) {
-        if (value instanceof Array) value.forEach(elem => params.append(`${key}[]`, elem));
-        else if (typeof value === 'object') Object.entries(value).forEach(([k, v]) => params.set(`${key}[${k}]`, v));
-        else params.set(key, value);
-    }
-    let paramsString = params.toString();
-    return await apiRequest(baseEndpoint + (paramsString.length > 0 ? '?' + paramsString : paramsString));
-}
-exports.apiParameterRequest = apiParameterRequest;
-
-/**
- * Same as apiParameterRequest, but optimized for search requests.
- * Allows for larger searches (more than the limit max, even to Infinity) through mutliple requests, and
- * this function always returns an array instead of the normal JSON object.
- * @param {String} baseEndpoint Endpoint with no parameters
- * @param {Object} parameterObject Object of search parameters based on API specifications
- * @param {Number} [maxLimit=100] What is the maximum number of results that can be returned from this endpoint at once?
- * @param {Number} [defaultLimit=10] How many should be returned by default?
- * @returns {Promise<Object[]>}
- */
-async function apiSearchRequest(baseEndpoint, parameterObject, maxLimit = 100, defaultLimit = 10) {
-    if (typeof baseEndpoint !== 'string' || typeof parameterObject !== 'object') throw new Error('Invalid Argument(s)');
-    let limit = 'limit' in parameterObject ? parameterObject.limit : defaultLimit;
-    let initialOffset = 'offset' in parameterObject ? parameterObject.offset : 0;
-    if (limit > MAX_POSSIBLE_LIMIT) limit = MAX_POSSIBLE_LIMIT;
-    if (initialOffset > MAX_POSSIBLE_LIMIT - Math.min(maxLimit, limit)) limit = MAX_POSSIBLE_LIMIT - initialOffset;
-    if (limit <= 0 || initialOffset >= MAX_POSSIBLE_LIMIT) return [];
-
-    // Need at least one request to find the total items available:
-    let initialResponse = await apiParameterRequest(baseEndpoint, { ...parameterObject, limit: Math.min(limit, maxLimit) });
-    if (!(initialResponse.data instanceof Array) || typeof initialResponse.total !== 'number') {
-        throw new APIRequestError(`The API did not respond the correct structure for a search request:\n${JSON.stringify(initialResponse)}`, APIRequestError.INVALID_RESPONSE);
-    }
-    // Return if only one request is needed (either the limit is low enough for one request or one request returned all available results)
-    if (limit <= maxLimit || initialResponse.total <= initialResponse.data.length + initialOffset) return initialResponse.data.map(elem => { return { data: elem }; });
-
-    // Subsequent concurrent requests for the rest of the results:
-    limit = Math.min(initialResponse.total, limit);
-    let promises = [];
-    for (let offset = initialOffset + maxLimit; offset < limit; offset += maxLimit) {
-        promises.push(apiParameterRequest(baseEndpoint, { ...parameterObject, limit: Math.min(limit - offset, maxLimit), offset: offset }));
-    }
-    let finalArray = initialResponse.data;
-    for (let elem of await Promise.all(promises)) {
-        if (!(elem.data instanceof Array)) {
-            throw new APIRequestError(`The API did not respond the correct structure for a search request:\n${JSON.stringify(elem)}`, APIRequestError.INVALID_RESPONSE);
-        }
-        finalArray = finalArray.concat(elem.data);
-    }
-    return finalArray.map(elem => { return { data: elem }; }); // Emulate an array of standard manga objects from the /manga/<id> endpoint
-}
-exports.apiSearchRequest = apiSearchRequest;
-
-/**
- * @param {String} endpoint
- * @param {Object} classObject
- * @param {Object} parameterObject
- * @param {Number} [maxLimit=100] What is the maximum number of results that can be returned from this endpoint at once?
- * @param {Number} [defaultLimit=10] How many should be returned by default?
- * @returns {Promise<Object[]>}
- */
-async function apiCastedRequest(endpoint, classObject, parameterObject = {}, maxLimit = 100, defaultLimit = 10) {
-    let res = await apiSearchRequest(endpoint, parameterObject, maxLimit, defaultLimit);
-    return res.map(elem => new classObject(elem));
-}
-exports.apiCastedRequest = apiCastedRequest;
-
-/**
- * Retrieves an unlimted amount of an object via a search function and id array
- * @param {Function} searchFunction
- * @param {String[]|String[][]} ids
- * @param {Object} parameterObject
- * @param {Number} [limit=100]
- * @param {String} [searchProperty='ids']
- * @returns {Promise<Array>}
- */
-async function getMultipleIds(searchFunction, ids, parameterObject = {}, limit = 100, searchProperty = 'ids') {
-    let newIds = ids.flat().map(elem => {
-        if (typeof elem === 'string') return elem;
-        else if (elem === undefined || elem === null) throw new Error(`Invalid id: ${elem}`);
-        else if (typeof elem === 'object' && 'id' in elem) return elem.id;
-        else return elem.toString();
-    });
-    let promises = [];
-    // Create new search requests with a 100 ids (max allowed) at a time
-    while (newIds.length > 0) promises.push(searchFunction({...parameterObject, limit: limit, [searchProperty]: newIds.splice(0, 100) }));
-    return (await Promise.all(promises)).flat();
-}
-exports.getMultipleIds = getMultipleIds;
-
-/**
- * Returns a buffer to be sent with a multipart POST request
- * @param {Object[]} files
- * @param {{[key: string]: string}} [extra] Additional key-value pairs
- * @returns {Buffer}
- */
-function createMultipartPayload(files, extra) {
-    let dataArray = [];
-    if (extra) {
-        Object.entries(extra).forEach(([key, value]) => {
-            dataArray.push(
-                `--${MULTIPART_BOUNDARY}\r\nContent-Disposition: form-data; name="${key}"\r\n\r\n${value}\r\n`
-            );
-        });
-    }
-    files.forEach((file, i) => {
-        dataArray.push(
-            `--${MULTIPART_BOUNDARY}\r\nContent-Disposition: form-data; name="file${i}"; filename="${file.name}"\r\nContent-Type: ${file.type}\r\n\r\n`
-        );
-        dataArray.push(file.data);
-        dataArray.push(`\r\n`);
-    });
-    dataArray.push(`--${MULTIPART_BOUNDARY}--\r\n`);
-    return Buffer.concat(dataArray.map(elem => {
-        if (typeof elem === 'string') return Buffer.from(elem, 'utf8');
-        return Buffer.from(elem);
-    }));
-}
-exports.createMultipartPayload = createMultipartPayload;
-}).call(this)}).call(this,require("buffer").Buffer)
-},{"../package.json":42,"./internal/requesterror.js":48,"buffer":4,"https":7}]},{},[41]);
+},{}]},{},[1]);

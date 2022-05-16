@@ -9,11 +9,11 @@
   <?php include 'includes/style.php'; ?>
 </head>
 
-<body class="relative z-0 bg-base-200">
+<body class="relative z-0">
   <!-- ===HEADER=== -->
   <?php include 'includes/header.php'; ?>
   <!-- ===MAIN=== -->
-  <main class="w-full py-16 ">
+  <main class="w-full py-16 min-h-fit">
         <!-- banner -->
         <div  id="banner" class="block banner-container h-72 sm:h-80">
             <!-- banner img  -->
@@ -98,22 +98,20 @@
                 <i class="fa-solid fa-circle-info fa-sm"></i>Giới thiệu
                 </h1>
                 <hr class="my-2">
-                <div id="desc"  class="whitespace-pre-line element" data-config='{ "type": "text", "limit": 120, "more": "→ show more", "less": "← less"}'>
-                    
+                <div id="desc">
+
                 </div>
+                
             </div>
             <!-- Chapter List -->
-            <div class="w-full p-4 rounded-lg shadow-lg sm:row-span-2 sm:col-span-full lg:col-start-3 lg:row-start-4 bg-base-100 justify-self-center lg:justify-self-start">
+            <div class="w-full p-4 rounded-lg shadow-lg sm:row-span-2 sm:col-span-full lg:col-start-3 lg:row-start-4 justify-self-center lg:justify-self-start">
                 <div class="flex items-center gap-1 text-xl font-semibold">
                 <i class="fa-solid fa-list"></i> Danh sách Chapter</div>
                 <hr class="w-full my-2">
-                <div id="chapter-list"></div>
+                <div id="chapter-list" class="my-2"></div>
                 </div>
             </div>
-            <!-- comment -->
-            <div class="w-full col-span-3 lg:col-start-3">
-                <?php include 'includes/comment.php'; ?>
-            </div>
+            
         </section>
 
     </main>

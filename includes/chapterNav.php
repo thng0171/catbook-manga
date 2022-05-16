@@ -1,12 +1,15 @@
-<div class="w-full p-1 bg-base-200/90 backdrop-blur-lg">
+<div class="w-full p-1 bg-base-100/80 backdrop-blur-lg">
   <div class="flex items-center justify-center gap-1 scale-95 md:scale-100 md:gap-2">
     <!-- Chapter list button -->
     <div class="tooltip" data-tip="Chapter list">
-      <a id="backtomanga" href="" class="btn btn-square btn-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="3">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
+      <a id="backtomanga">
+        <button class="btn btn-square btn-ghost">
+
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+        </button>
       </a>
     </div>
     <!-- Add to favorite -->
@@ -27,9 +30,9 @@
     </div>
     <!-- Prev chapter button   -->
     <div class="tooltip" data-tip="Previous chapter">
-      <a id="prev-chapter" href="">
+      <a id="prev-chapter">
 
-        <button  class="btn btn-square btn-ghost">
+        <button id="prev-chapter-btn" class="btn btn-square btn-ghost">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="3">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -38,14 +41,14 @@
       </a>
     </div>
     <!-- select chapter -->
-    <!-- <select  onchange="window.location.href=this.value;" id="select-chapter" class="text-base select select-ghost select-bordered select-sm focus:outline-none">
+    <select  onchange="window.location.href=this.value;" id="select-chapter" class="text-base select select-ghost select-bordered select-sm focus:outline-none">
       
-    </select> -->
+    </select>
     <!-- Next chapter button -->
     <div class="tooltip" data-tip="Next chapter">
-      <a  id="next-chapter"  href="">
+      <a id="next-chapter">
 
-        <button class="btn btn-square btn-ghost">
+        <button id="next-chapter-btn" class="btn btn-square btn-ghost">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="3">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
