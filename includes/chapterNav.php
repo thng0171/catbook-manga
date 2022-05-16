@@ -27,25 +27,31 @@
     </div>
     <!-- Prev chapter button   -->
     <div class="tooltip" data-tip="Previous chapter">
-      <button class="btn btn-square btn-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="3">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+      <a id="prev-chapter" href="">
+
+        <button  class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      </a>
     </div>
     <!-- select chapter -->
-    <select  onchange="window.location.href=this.value;" id="select-chapter" class="text-base select select-ghost select-bordered select-sm focus:outline-none">
+    <!-- <select  onchange="window.location.href=this.value;" id="select-chapter" class="text-base select select-ghost select-bordered select-sm focus:outline-none">
       
-    </select>
+    </select> -->
     <!-- Next chapter button -->
     <div class="tooltip" data-tip="Next chapter">
-      <button class="btn btn-square btn-ghost">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="3">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+      <a  id="next-chapter"  href="">
+
+        <button class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </a>
     </div>
 
     <!-- scroll to top button -->

@@ -157,13 +157,14 @@ MFA.login(username, password, './bin/.md_cache').then(async () => {
       const chapterId = chapterUrlParams.get('id');
       let chapter = await MFA.Chapter.get(chapterId);
       let mangaInfo = await MFA.Manga.get(chapter.manga.id);
+      document.getElementById('title').innerText = chapter.chapter?'Chapter '+chapter.chapter:chapter.title;
       let chapterList = await MFA.Manga.getFeed(mangaInfo.id,{
         translatedLanguage: ['en'],
         order: {
-          chapter: 'desc'
+          chapter: 'asc'
         }
       });
-      console.log(chapterList);
+      // console.log(chapterList);
       document.getElementById('info').innerHTML = `
         <a href="manga.php?id=${mangaInfo.id}" class="text-xl font-semibold md:text-2xl text-secondary">
         ${mangaInfo.title}</a>
@@ -178,11 +179,23 @@ MFA.login(username, password, './bin/.md_cache').then(async () => {
         pageItem.innerHTML = `<img src="${page}" alt="" loading="lazy">`
         document.getElementById('page-list').appendChild(pageItem);
       }
-      for(let chapter of chapterList){
-          let chapterItem = document.createElement('option');
-          chapterItem.value = `chapter.php?id=${chapter.id}`
-          chapterItem.innerText = chapter.chapter ? 'Chapter '+ chapter.chapter : chapter.title
-          document.getElementById('select-chapter').appendChild(chapterItem);
+      for(let i=0; chapterList.length-1;i++){
+          console.log(chapterList[i])
+          // let chapterItem = document.createElement('option');
+          // if(chapterId === chapterList[i].id){
+          //   chapterItem = new Option('','',false,true)
+          // }
+          // chapterItem.value = `chapter.php?id=${chapterList[i].id}`
+          // chapterItem.innerText = chapterList[i].chapter ? 'Chapter '+ chapterList[i].chapter : chapterList[i].title
+          // document.getElementById('select-chapter').appendChild(chapterItem);
+          if(chapterId === chapterList[i].id){
+            let prevChapter = i-1;
+            let nextChapter = i+1;
+            document.getElementById('prev-chapter').href= `chapter.php?id=${chapterList[prevChapter].id}`
+            document.getElementById('next-chapter').href= `chapter.php?id=${chapterList[nextChapter].id}`
+
+          }
+          
       }
       
       document.getElementById('backtomanga').href = `manga.php?id=${mangaInfo.id}#chapter-list`
@@ -197,6 +210,9 @@ MFA.login(username, password, './bin/.md_cache').then(async () => {
         var search_mangas = await MFA.Manga.search({
           title: keyword,
           limit: 24,
+          order: {
+            relevance: 'desc'
+          }
         });
         document.getElementById('searchbar').value = keyword;
         document.getElementById('search-info').innerHTML = `<div class="text-lg font-semibold">Kết quả tìm kiếm cho "${keyword}"</div>`;
