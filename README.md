@@ -1,3 +1,3 @@
 ﻿# catbook-manga
 
-Demo: https://catbook-manga.herokuapp.com/
+Demo: https://cat-book.herokuapp.com/
