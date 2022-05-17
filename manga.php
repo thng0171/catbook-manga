@@ -106,7 +106,8 @@
             <!-- Chapter List -->
             <div class="w-full p-4 rounded-lg shadow-lg sm:row-span-2 sm:col-span-full lg:col-start-3 lg:row-start-4 justify-self-center lg:justify-self-start">
                 <div class="flex items-center gap-1 text-xl font-semibold">
-                <i class="fa-solid fa-list"></i> Danh sách Chapter</div>
+                    <i class="fa-solid fa-list"></i> Danh sách Chapter
+                </div>
                 <hr class="w-full my-2">
                 <div id="chapter-list" class="my-2"></div>
                 </div>

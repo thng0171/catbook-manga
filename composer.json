@@ -1,0 +1,15 @@
+{
+    "name": "dqngt/catbook-manga",
+    "autoload": {
+        "psr-4": {
+            "Dqngt\\CatbookManga\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "error171",
+            "email": "dqngthng@gmail.com"
+        }
+    ],
+    "require": {}
+}

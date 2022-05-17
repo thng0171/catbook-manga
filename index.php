@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catbook</title>
+  <title>Catbook Manga</title>
   <?php include 'includes/style.php'; ?>
 </head>
 
@@ -23,7 +23,7 @@
       </div>
       <!-- Swiper -->
       <div class="relative swiper mySwiper">
-        <div id="swiper" class="w-full h-full swiper-wrapper">
+        <div id="swiper" class="w-full h-full swiper-wrapper ">
 
         </div>
         <!-- navigation -->

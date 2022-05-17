@@ -16,9 +16,9 @@
                 <a href="index.php" class="menu-item">Trang chủ</a>
             </li>
             <li tabindex="0" class="relative group hover:text-primary">
-                <div class="menu-item">Thể loại</div>
+                <div class="transition-all duration-150 ease-in menu-item">Thể loại</div>
                 <div id="tag-list"
-                    class="absolute z-20 items-start hidden w-[64rem] -left-64 grid-flow-row grid-cols-6 p-4 rounded-md shadow-lg top-full md:group-hover:grid bg-base-100 ">
+                    class="absolute inset-x-0 z-20 items-start hidden w-[64rem] -left-64 grid-flow-row grid-cols-6 p-4 rounded-md shadow-lg top-full md:group-hover:grid bg-base-100 ">
                 </div>
             </li>
             <li><a href="manga.php?id=random" class="menu-item">Ngẫu nhiên</a></li>
