@@ -20,7 +20,7 @@
   "homepage": "https://github.com/error171/catbook-manga#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "daisyui": "^2.14.0",
+    "daisyui": "^2.14.3",
     "mangadex-full-api": "^5.11.1",
     "theme-change": "^2.0.2"
   },
